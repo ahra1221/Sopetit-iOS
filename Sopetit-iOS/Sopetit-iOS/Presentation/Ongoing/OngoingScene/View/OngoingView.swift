@@ -201,6 +201,7 @@ extension OngoingView {
             }
             
         } else {
+            self.routineEmptyView.removeFromSuperview()
             self.addSubviews(floatingButton)
             
             floatingButton.snp.makeConstraints {

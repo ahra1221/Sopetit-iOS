@@ -41,7 +41,6 @@ class RoutineEmptyView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        setUI()
         setHierarchy()
         setLayout()
     }
@@ -53,9 +52,6 @@ class RoutineEmptyView: UIView {
 }
 
 extension RoutineEmptyView {
-    
-    func setUI() {
-    }
     
     func setHierarchy() {
         self.addSubviews(bearImageView, titleLabel, addRoutineButton)

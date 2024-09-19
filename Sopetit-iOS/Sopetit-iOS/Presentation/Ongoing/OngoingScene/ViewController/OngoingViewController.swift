@@ -32,7 +32,6 @@ class OngoingViewController: UIViewController {
         
         setUI()
         setDelegate()
-//        setRegister()
         setAddTarget()
     }
 }
@@ -54,6 +53,7 @@ private extension OngoingViewController {
         ongoingView.dailyRoutineView.dailyCollectionView.delegate = self
         ongoingView.dailyRoutineView.dailyCollectionView.dataSource = self
         ongoingView.challengeRoutineEmptyView.delegate = self
+        ongoingView.dailyRoutineEmptyView.delegate = self
         ongoingView.challengeRoutineView.challengeRoutineCardView.delegate = self
     }
     
@@ -253,6 +253,7 @@ extension OngoingViewController {
     
     func getChallengeRoutine() {
         DailyRoutineService.shared.getChallengeRoutine { networkResult in
+            self.ongoingView.isChallenge = false
             switch networkResult {
             case .success(let data):
                 if let data = data as? GenericResponse<ChallengeRoutine> {
@@ -261,8 +262,6 @@ extension OngoingViewController {
                         if self.challengeRoutine.routineId != 0 {
                             self.ongoingView.isChallenge = true
                             self.ongoingView.challengeRoutineView.challengeRoutineCardView.setDataBind(data: self.challengeRoutine)
-                        } else {
-                            self.ongoingView.isChallenge = false
                         }
                     }
                 }
@@ -424,7 +423,6 @@ extension OngoingViewController: ChallengeCardProtocol {
 
 extension OngoingViewController: DeleteChallengeProtocol {
     func deleteChallengeRoutine() {
-        print("setChallengeRoutineEmpty")
         self.ongoingView.isChallenge = false
         self.setDeleteChallengeToastView()
     }

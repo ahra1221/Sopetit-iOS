@@ -11,6 +11,8 @@ import SnapKit
 
 class DailyRoutineEmptyView: UIView {
     
+    weak var delegate: AddRoutineProtocol?
+    
     let bearImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = ImageLiterals.ActiveRoutine.emptyroutine
@@ -43,7 +45,6 @@ class DailyRoutineEmptyView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        setUI()
         setHierarchy()
         setLayout()
     }
@@ -55,9 +56,6 @@ class DailyRoutineEmptyView: UIView {
 }
 
 extension DailyRoutineEmptyView {
-    
-    func setUI() {
-    }
     
     func setHierarchy() {
         self.addSubviews(bearImageView, titleLabel, addRoutineButton)
@@ -83,5 +81,26 @@ extension DailyRoutineEmptyView {
             $0.width.equalTo(98)
             $0.height.equalTo(42)
         }
+    }
+    
+    func setAddTarget() {
+        addRoutineButton.addTarget(self, action: #selector(tapButton), for: .touchUpInside)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
+        self.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc
+    func tapButton(_ sender: UIButton) {
+        switch sender {
+        case addRoutineButton:
+            delegate?.tapAddChallengeRoutine()
+        default:
+            break
+        }
+    }
+    
+    @objc
+    func viewTapped() {
+        delegate?.tapAddChallengeRoutine()
     }
 }

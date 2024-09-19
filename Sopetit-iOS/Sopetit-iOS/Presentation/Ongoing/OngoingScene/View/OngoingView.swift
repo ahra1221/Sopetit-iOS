@@ -194,6 +194,12 @@ extension OngoingView {
         if challenge == false && daily == false {
             self.dailyContentView.subviews.forEach { $0.removeFromSuperview() }
             self.floatingButton.removeFromSuperview()
+            
+            self.addSubviews(routineEmptyView)
+            routineEmptyView.snp.makeConstraints {
+                $0.edges.equalToSuperview()
+            }
+            
         } else {
             self.addSubviews(floatingButton)
             

@@ -19,7 +19,8 @@ final class MakersCollectionViewCell: UICollectionViewCell,
     
     // MARK: - UI Components
     
-    private let makerProfileImage = UIImageView(image: .checkmark)
+    private let makerProfileImageBackground = UIImageView(image: UIImage(resource: .profileBackground))
+    private let makerProfileImage = UIImageView()
     
     private let makerGoButton: UIButton = {
         let button = UIButton()
@@ -83,21 +84,28 @@ private extension MakersCollectionViewCell {
         layer.cornerRadius = 10
         layer.borderWidth = 1
         layer.borderColor = UIColor.Gray200.cgColor
+        makerProfileImage.clipsToBounds = true
+        makerProfileImage.layer.cornerRadius = 25
     }
     
     func setHierarchy() {
-        addSubviews(makerProfileImage,
+        addSubviews(makerProfileImageBackground,
                     makerGoButton,
                     makerDescriptionLabel,
                     makerContentLabel,
                     makerChipCollectionView)
+        makerProfileImageBackground.addSubview(makerProfileImage)
     }
     
     func setLayout() {
-        makerProfileImage.snp.makeConstraints {
+        makerProfileImageBackground.snp.makeConstraints {
             $0.top.equalToSuperview().inset(16)
             $0.leading.equalToSuperview().inset(20)
             $0.size.equalTo(54)
+        }
+        makerProfileImage.snp.makeConstraints {
+            $0.center.equalToSuperview()
+            $0.size.equalTo(50)
         }
         
         makerGoButton.snp.makeConstraints {

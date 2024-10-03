@@ -405,7 +405,7 @@ extension AddRoutineDetailViewController: UICollectionViewDelegate {
         case challengeCV:
             let item = challengeThemeEntity.routines[indexPath.section].challenges[indexPath.item]
             if item.hasRoutine { // 추가한 루틴인 경우 toastmessage
-                self.setToastMessage(type: .ChallengeCountAlert)
+                self.setToastMessage(type: .ExistRoutineAlert)
                 return false
             } else {
                 if selectedChallengeId > -1 {

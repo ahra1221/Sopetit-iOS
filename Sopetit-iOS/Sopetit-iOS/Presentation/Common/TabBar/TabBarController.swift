@@ -11,8 +11,8 @@ final class TabBarController: UITabBarController {
     
     // MARK: - Properties
     
-    private let tabBarHeight: CGFloat = 84
-    private var tabs: [UIViewController] = []
+    private let tabBarHeight: CGFloat = 80
+    private var tabItems: [UIViewController] = []
     
     // MARK: - View Life Cycle
     
@@ -37,7 +37,7 @@ private extension TabBarController {
         let homeVC = UINavigationController(rootViewController: HomeViewController())
         let achieveVC = UINavigationController(rootViewController: AchieveViewController())
         
-        tabs = [
+        tabItems = [
             ongoingVC,
             homeVC,
             achieveVC
@@ -45,21 +45,21 @@ private extension TabBarController {
         
         TabBarItemType.allCases.forEach {
             let tabBarItem = $0.setTabBarItem()
-            tabs[$0.rawValue].tabBarItem = tabBarItem
-            tabs[$0.rawValue].tabBarItem.tag = $0.rawValue
+            tabItems[$0.rawValue].tabBarItem = tabBarItem
+            tabItems[$0.rawValue].tabBarItem.tag = $0.rawValue
         }
         
         let tabBarItemTitles: [String] = [I18N.TabBar.ongoing, I18N.TabBar.home, I18N.TabBar.achieve]
         
         for (index, tabTitle) in tabBarItemTitles.enumerated() {
             let tabBarItem = TabBarItemType(rawValue: index)?.setTabBarItem()
-            tabs[index].tabBarItem = tabBarItem
-            tabs[index].tabBarItem.tag = index
-            tabs[index].title = tabTitle
+            tabItems[index].tabBarItem = tabBarItem
+            tabItems[index].tabBarItem.tag = index
+            tabItems[index].title = tabTitle
         }
         
-        setViewControllers(tabs, animated: false)
-        selectedViewController = tabs[1]
+        setViewControllers(tabItems, animated: false)
+        selectedViewController = tabItems[1]
     }
     
     func setTabBarUI() {

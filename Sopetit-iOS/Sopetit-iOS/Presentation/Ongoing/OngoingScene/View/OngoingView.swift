@@ -173,9 +173,9 @@ private extension OngoingView {
         
         dailyContentView.snp.makeConstraints {
             $0.top.equalTo(scrollView)
-            $0.horizontalEdges.equalToSuperview()
+            $0.horizontalEdges.bottom.equalToSuperview()
             $0.width.equalTo(scrollView.snp.width)
-            $0.bottom.equalToSuperview()
+            $0.height.equalTo(scrollView.snp.height).priority(.low)
         }
     }
     

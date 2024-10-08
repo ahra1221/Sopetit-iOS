@@ -80,6 +80,7 @@ private extension SplashViewController {
         
         if UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            UserManager.shared.logout()
             return .success(())
         } else {
             return .failure(.cantOpenAppStoreURL)

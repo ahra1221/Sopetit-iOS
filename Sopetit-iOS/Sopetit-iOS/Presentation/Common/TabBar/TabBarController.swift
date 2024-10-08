@@ -6,6 +6,7 @@
 import Foundation
 
 import UIKit
+import SnapKit
 
 final class TabBarController: UITabBarController {
     
@@ -13,6 +14,13 @@ final class TabBarController: UITabBarController {
     
     private let tabBarHeight: CGFloat = 80
     private var tabItems: [UIViewController] = []
+    
+    private let backgroundView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .Gray950
+        view.isHidden = true
+        return view
+    }()
     
     // MARK: - View Life Cycle
     
@@ -23,9 +31,15 @@ final class TabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setTabBarItems()
         setTabBarUI()
         setTabBarHeight()
+        addObserver()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
 }
@@ -60,6 +74,10 @@ private extension TabBarController {
         
         setViewControllers(tabItems, animated: false)
         selectedViewController = tabItems[1]
+        self.tabBar.addSubview(backgroundView)
+        backgroundView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
     }
     
     func setTabBarUI() {
@@ -84,5 +102,18 @@ private extension TabBarController {
             let newTabBarFrame = CGRect(x: tabBar.frame.origin.x, y: tabBar.frame.origin.y, width: tabBar.frame.width, height: tabBarHeight + safeAreaBottomInset)
             tabBar.frame = newTabBarFrame
         }
+    }
+    
+    func addObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(showPopup), name: Notification.Name("showPopup"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(hidePopup), name: Notification.Name("hidePopup"), object: nil)
+    }
+    
+    @objc func showPopup() {
+        self.backgroundView.isHidden = false
+    }
+    
+    @objc func hidePopup() {
+        self.backgroundView.isHidden = true
     }
 }

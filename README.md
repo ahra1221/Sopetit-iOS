@@ -1,14 +1,16 @@
 ## 🙌 Team Sopetit-iOS
-### 🧸 About Softie  
-> **사소한 루틴으로 만드는 마음습관**
+### 🧸 Softie  
+> **사소한 루틴으로 만드는 마음습관** </br>
+> 하루의 습관을 바꾸는 가장 '쉽고 가벼운' 루틴 추천 앱, 귀여운 캐릭터와 함께 더 나은 나를 만들어 보세요.
 
 
 ### 👩‍💻 About Developers
 
-| 👑 [고아라](https://github.com/ahra1221) | [김태경](https://github.com/timotheekim10) | [김민주](https://github.com/frohsch) | [이우제](https://github.com/leewoojye) |
-| --- | --- | --- | --- |
-| <img src = "https://github.com/Team-Sopetit/Sopetit-iOS/assets/79412889/2caf0869-d6e1-4a22-ab35-f2ddf2cac04c" width = "300">| <img src = "https://github.com/Team-Sopetit/Sopetit-iOS/assets/79412889/bfbe8a68-54d2-46d3-b463-e1df08371f09" width = "300"> | <img src = "https://github.com/Team-Sopetit/Sopetit-iOS/assets/79412889/33e9bfad-abec-4960-8545-6faf41bd5bd2" width = "300"> | <img src = "https://github.com/Team-Sopetit/Sopetit-iOS/assets/79412889/c0235ba4-c5d4-4b95-b990-087b95ed67a0" width = "300"> |
-|<p align = "center">`온보딩` `바텀시트뷰`|<p align = "center">`소셜로그인` `메인뷰` | <p align = "center">`행복루틴뷰` `데일리루틴추가`| <p align = "center">`데일리루틴뷰` `설정뷰`|
+|   | 👑 [고아라](https://github.com/ahra1221) | [김태경](https://github.com/timotheekim10) | [김민주](https://github.com/frohsch) | [이우제](https://github.com/leewoojye) |
+| --- | --- | --- | --- | --- |
+|  | <img src = "https://github.com/Team-Sopetit/Sopetit-iOS/assets/79412889/2caf0869-d6e1-4a22-ab35-f2ddf2cac04c" width = "250">| <img src = "https://github.com/Team-Sopetit/Sopetit-iOS/assets/79412889/bfbe8a68-54d2-46d3-b463-e1df08371f09" width = "250"> | <img src = "https://github.com/Team-Sopetit/Sopetit-iOS/assets/79412889/33e9bfad-abec-4960-8545-6faf41bd5bd2" width = "250"> | <img src = "https://github.com/Team-Sopetit/Sopetit-iOS/assets/79412889/c0235ba4-c5d4-4b95-b990-087b95ed67a0" width = "250"> |
+| v1.0.0 |<p align = "center">`온보딩` `바텀시트뷰`|<p align = "center">`소셜로그인` `메인뷰` | <p align = "center">`행복루틴뷰` `데일리루틴추가`| <p align = "center">`데일리루틴뷰` `설정뷰`|
+| v2.0.0 |<p align = "center">`튜토리얼` `루틴추가뷰`| | <p align = "center">`진행중루틴뷰`||
 
 ### 📒 Library
 | Library | Tag | Tool |

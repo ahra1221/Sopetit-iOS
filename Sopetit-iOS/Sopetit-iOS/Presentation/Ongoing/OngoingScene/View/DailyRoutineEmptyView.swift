@@ -47,6 +47,7 @@ class DailyRoutineEmptyView: UIView {
         
         setHierarchy()
         setLayout()
+        setAddTarget()
     }
     
     @available(*, unavailable)

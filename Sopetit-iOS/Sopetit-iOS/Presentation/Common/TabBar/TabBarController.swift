@@ -6,13 +6,21 @@
 import Foundation
 
 import UIKit
+import SnapKit
 
 final class TabBarController: UITabBarController {
     
     // MARK: - Properties
     
-    private let tabBarHeight: CGFloat = 84
-    private var tabs: [UIViewController] = []
+    private let tabBarHeight: CGFloat = 80
+    private var tabItems: [UIViewController] = []
+    
+    private let backgroundView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .Gray950
+        view.isHidden = true
+        return view
+    }()
     
     // MARK: - View Life Cycle
     
@@ -23,9 +31,15 @@ final class TabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setTabBarItems()
         setTabBarUI()
         setTabBarHeight()
+        addObserver()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
 }
@@ -37,7 +51,7 @@ private extension TabBarController {
         let homeVC = UINavigationController(rootViewController: HomeViewController())
         let achieveVC = UINavigationController(rootViewController: AchieveViewController())
         
-        tabs = [
+        tabItems = [
             ongoingVC,
             homeVC,
             achieveVC
@@ -45,21 +59,25 @@ private extension TabBarController {
         
         TabBarItemType.allCases.forEach {
             let tabBarItem = $0.setTabBarItem()
-            tabs[$0.rawValue].tabBarItem = tabBarItem
-            tabs[$0.rawValue].tabBarItem.tag = $0.rawValue
+            tabItems[$0.rawValue].tabBarItem = tabBarItem
+            tabItems[$0.rawValue].tabBarItem.tag = $0.rawValue
         }
         
         let tabBarItemTitles: [String] = [I18N.TabBar.ongoing, I18N.TabBar.home, I18N.TabBar.achieve]
         
         for (index, tabTitle) in tabBarItemTitles.enumerated() {
             let tabBarItem = TabBarItemType(rawValue: index)?.setTabBarItem()
-            tabs[index].tabBarItem = tabBarItem
-            tabs[index].tabBarItem.tag = index
-            tabs[index].title = tabTitle
+            tabItems[index].tabBarItem = tabBarItem
+            tabItems[index].tabBarItem.tag = index
+            tabItems[index].title = tabTitle
         }
         
-        setViewControllers(tabs, animated: false)
-        selectedViewController = tabs[1]
+        setViewControllers(tabItems, animated: false)
+        selectedViewController = tabItems[1]
+        self.tabBar.addSubview(backgroundView)
+        backgroundView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
     }
     
     func setTabBarUI() {
@@ -84,5 +102,18 @@ private extension TabBarController {
             let newTabBarFrame = CGRect(x: tabBar.frame.origin.x, y: tabBar.frame.origin.y, width: tabBar.frame.width, height: tabBarHeight + safeAreaBottomInset)
             tabBar.frame = newTabBarFrame
         }
+    }
+    
+    func addObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(showPopup), name: Notification.Name("showPopup"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(hidePopup), name: Notification.Name("hidePopup"), object: nil)
+    }
+    
+    @objc func showPopup() {
+        self.backgroundView.isHidden = false
+    }
+    
+    @objc func hidePopup() {
+        self.backgroundView.isHidden = true
     }
 }

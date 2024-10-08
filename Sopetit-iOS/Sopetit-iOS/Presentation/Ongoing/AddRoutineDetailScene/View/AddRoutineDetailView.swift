@@ -182,6 +182,8 @@ private extension AddRoutineDetailView {
             makerNameLabel.text = info.name
             cardImageView.image = UIImage(resource: .makerCard)
             makerImageView.kfSetImage(url: info.img)
+            makerImageView.clipsToBounds = true
+            makerImageView.layer.cornerRadius = 50
             makerButton.isHidden = false
         case .routine:
             cardTitleLabel.text = info.title
@@ -291,7 +293,7 @@ private extension AddRoutineDetailView {
         }
         
         makerImageView.snp.makeConstraints {
-            $0.bottom.equalToSuperview().inset(7)
+            $0.bottom.equalToSuperview().inset(10)
             $0.centerX.equalToSuperview()
             $0.size.equalTo(105)
         }

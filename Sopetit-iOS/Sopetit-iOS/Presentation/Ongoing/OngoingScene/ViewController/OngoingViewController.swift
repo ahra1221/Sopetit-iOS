@@ -92,9 +92,9 @@ private extension OngoingViewController {
             $0.top.equalTo(self.ongoingView.dailyRoutineView.dailyInfoButton.snp.top)
             $0.trailing.equalTo(self.ongoingView.dailyRoutineView.dailyInfoButton.snp.trailing)
         }
+        NotificationCenter.default.post(name: Notification.Name("showPopup"), object: nil)
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
-        
         self.ongoingView.dailyInfoView.addGestureRecognizer(tapGestureRecognizer)
     }
     
@@ -109,9 +109,9 @@ private extension OngoingViewController {
             $0.top.equalTo(self.ongoingView.challengeRoutineView.challengeInfoButton.snp.top)
             $0.trailing.equalTo(self.ongoingView.challengeRoutineView.challengeInfoButton.snp.trailing)
         }
+        NotificationCenter.default.post(name: Notification.Name("showPopup"), object: nil)
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapChallengeView(_:)))
-        
         self.ongoingView.dailyInfoView.addGestureRecognizer(tapGestureRecognizer)
     }
     
@@ -124,10 +124,12 @@ private extension OngoingViewController {
     }
     
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
+        NotificationCenter.default.post(name: Notification.Name("hidePopup"), object: nil)
         closeDailyInfo()
     }
     
     @objc func didTapChallengeView(_ sender: UITapGestureRecognizer) {
+        NotificationCenter.default.post(name: Notification.Name("hidePopup"), object: nil)
         closeChallengeInfo()
     }
 
@@ -212,7 +214,7 @@ extension OngoingViewController: UICollectionViewDelegateFlowLayout {
             }
             height += 18
         }
-        height += Double(16 * (texts.routines.count - 1) + 54)
+        height += Double(16 * (texts.routines.count - 1) + 90)
         ongoingView.dailyRoutineView.dailyCollectionView.snp.remakeConstraints {
             $0.height.equalTo(height)
             $0.top.equalTo(ongoingView.dailyRoutineView.dailyTitleLabel.snp.bottom).offset(12)

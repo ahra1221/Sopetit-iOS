@@ -27,7 +27,8 @@ class ChallengeRoutineCardView: UIView {
     
     private let themeLabel: UILabel = {
         let label = UILabel()
-        label.font = .fontGuide(.caption1)
+        label.font = .fontGuide(.body2)
+        label.asLineHeight(.body2)
         label.textColor = .Gray500
         return label
     }()
@@ -41,6 +42,7 @@ class ChallengeRoutineCardView: UIView {
     private let routineLabel: UILabel = {
         let label = UILabel()
         label.font = .fontGuide(.body2)
+        label.asLineHeight(.body2)
         label.textColor = .Gray700
         label.setTextWithLineHeight(text: label.text, lineHeight: 20)
         label.numberOfLines = 0

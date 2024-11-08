@@ -51,6 +51,8 @@ final class AddRoutineMenuStickyView: UIView {
     private let dailyUnderLine: UIView = {
         let view = UIView()
         view.backgroundColor = .Gray650
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 2
         return view
     }()
     
@@ -90,6 +92,8 @@ final class AddRoutineMenuStickyView: UIView {
         let view = UIView()
         view.backgroundColor = .Gray650
         view.isHidden = true
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 2
         return view
     }()
     
@@ -153,8 +157,8 @@ extension AddRoutineMenuStickyView {
         dailyMenuView.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(20)
             $0.bottom.equalTo(menuUnderlineView.snp.bottom)
-            $0.width.equalTo(104)
-            $0.height.equalTo(38)
+            $0.width.equalTo((SizeLiterals.Screen.screenWidth - 40) / 2)
+            $0.height.equalTo(39)
         }
         
         dailyStackView.snp.makeConstraints {
@@ -166,7 +170,7 @@ extension AddRoutineMenuStickyView {
             $0.bottom.equalToSuperview()
             $0.centerX.equalToSuperview()
             $0.width.equalToSuperview()
-            $0.height.equalTo(2)
+            $0.height.equalTo(3)
         }
         
         challengeMenuView.snp.makeConstraints {
@@ -177,8 +181,8 @@ extension AddRoutineMenuStickyView {
                 $0.leading.equalTo(dailyMenuView.snp.trailing)
             }
             $0.bottom.equalTo(menuUnderlineView.snp.bottom)
-            $0.width.equalTo(104)
-            $0.height.equalTo(38)
+            $0.width.equalTo((SizeLiterals.Screen.screenWidth - 40) / 2)
+            $0.height.equalTo(39)
         }
         
         challengeStackView.snp.makeConstraints {
@@ -190,7 +194,7 @@ extension AddRoutineMenuStickyView {
             $0.bottom.equalToSuperview()
             $0.centerX.equalToSuperview()
             $0.width.equalToSuperview()
-            $0.height.equalTo(2)
+            $0.height.equalTo(3)
         }
     }
 }

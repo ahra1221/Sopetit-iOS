@@ -23,7 +23,8 @@ class NewDailyRoutineHeaderView: UICollectionReusableView, UICollectionHeaderVie
     
     private let themeLabel: UILabel = {
         let label = UILabel()
-        label.font = .fontGuide(.caption1)
+        label.font = .fontGuide(.body2)
+        label.asLineHeight(.body2)
         label.textColor = .Gray500
         return label
     }()

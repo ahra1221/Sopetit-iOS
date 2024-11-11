@@ -14,7 +14,7 @@ final class SettingViewController: UIViewController {
     
     // MARK: - Properties
     
-    let sectionCellCounts = [2, 1, 1, 2]
+    let sectionCellCounts = [3, 1, 1, 2]
     private let userAppVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
     
     // MARK: - UI Components
@@ -109,8 +109,10 @@ extension SettingViewController: UITableViewDelegate {
         
         switch indexPath {
         case [0, 0]:
-            url = URL(string: I18N.Setting.personalNotion)
+            print("알림설정")
         case [0, 1]:
+            url = URL(string: I18N.Setting.personalNotion)
+        case [0, 2]:
             url = URL(string: I18N.Setting.serviceNotion)
         case [1, 0]:
             url = URL(string: I18N.Setting.feedbackFoam)
@@ -162,9 +164,12 @@ extension SettingViewController: UITableViewDataSource {
         
         switch indexPath {
         case [0, 0]:
+            cell.iconImage.image = UIImage(resource: .icNotification)
+            cell.settingLabel.text = "알림"
+        case [0, 1]:
             cell.iconImage.image = ImageLiterals.Setting.icUserSecurity
             cell.settingLabel.text = I18N.Setting.personalTitle
-        case [0, 1]:
+        case [0, 2]:
             cell.iconImage.image = ImageLiterals.Setting.icDocument
             cell.settingLabel.text = I18N.Setting.serviceTitle
         case [1, 0]:
@@ -230,15 +235,3 @@ extension SettingViewController: BackButtonProtocol {
         self.navigationController?.popViewController(animated: true)
     }
 }
-
-//extension SettingViewController: BottomSheetButtonDelegate {
-//    
-//    func addButtonTapped() { }
-//    
-//    func deleteButtonTapped() {
-//        self.dismiss(animated: false)
-//        postLogoutAPI()
-//    }
-//    
-//    func completeButtonTapped() { }
-//}

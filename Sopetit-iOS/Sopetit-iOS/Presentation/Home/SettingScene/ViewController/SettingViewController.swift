@@ -109,7 +109,8 @@ extension SettingViewController: UITableViewDelegate {
         
         switch indexPath {
         case [0, 0]:
-            print("알림설정")
+            let nav = AlarmViewController()
+            self.navigationController?.pushViewController(nav, animated: true)
         case [0, 1]:
             url = URL(string: I18N.Setting.personalNotion)
         case [0, 2]:

@@ -13,6 +13,7 @@ final class UserManager {
     @UserDefaultWrapper<String>(key: "socialType") private(set) var socialType
     @UserDefaultWrapper<String>(key: "accessToken") private(set) var accessToken
     @UserDefaultWrapper<String>(key: "refreshToken") private(set) var refreshToken
+    @UserDefaultWrapper<String>(key: "fcmToken") private(set) var fcmToken
     @UserDefaultWrapper<String>(key: "userIdentifier") private(set) var appleUserIdentifier
     @UserDefaultWrapper<Bool>(key: "postMember") private(set) var postMember
     @UserDefaultWrapper<String>(key: "dollType") private(set) var dollType
@@ -21,6 +22,7 @@ final class UserManager {
     var hasAccessToken: Bool { return self.accessToken != nil }
     var getAccessToken: String { return self.accessToken ?? "" }
     var getRefreshToken: String { return self.refreshToken ?? "" }
+    var getFcmToken: String { return self.fcmToken ?? "" }
     var getSocialType: String { return self.socialType ?? "" }
     var isPostMemeber: Bool { return self.postMember ?? false }
     var getDollType: String { return self.dollType ?? "BROWN" }
@@ -46,6 +48,10 @@ extension UserManager {
     func updateToken(_ accessToken: String, _ refreshToken: String) {
         self.accessToken = accessToken
         self.refreshToken = refreshToken
+    }
+    
+    func updateFcmToken(_ fcmToken: String) {
+        self.fcmToken = fcmToken
     }
     
     func reissueToken(_ accessToken: String) {

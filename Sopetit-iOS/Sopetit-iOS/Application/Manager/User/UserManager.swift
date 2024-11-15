@@ -18,6 +18,7 @@ final class UserManager {
     @UserDefaultWrapper<Bool>(key: "postMember") private(set) var postMember
     @UserDefaultWrapper<String>(key: "dollType") private(set) var dollType
     @UserDefaultWrapper<Bool>(key: "showTutorial") private(set) var showTutorial
+    @UserDefaultWrapper<Bool>(key: "allowAlarm") private(set) var allowAlarm
     
     var hasAccessToken: Bool { return self.accessToken != nil }
     var getAccessToken: String { return self.accessToken ?? "" }
@@ -27,6 +28,7 @@ final class UserManager {
     var isPostMemeber: Bool { return self.postMember ?? false }
     var getDollType: String { return self.dollType ?? "BROWN" }
     var isShowTutorial: Bool { return self.showTutorial ?? false }
+    var hasAllowAlarm: Bool { return self.allowAlarm ?? false }
     
     private init() {}
 }
@@ -52,6 +54,10 @@ extension UserManager {
     
     func updateFcmToken(_ fcmToken: String) {
         self.fcmToken = fcmToken
+    }
+    
+    func setAllowAlarm(_ hasAllow: Bool) {
+        self.allowAlarm = hasAllow
     }
     
     func reissueToken(_ accessToken: String) {

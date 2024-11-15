@@ -43,7 +43,7 @@ final class AlarmViewController: UIViewController, UIGestureRecognizerDelegate {
     
     private lazy var alarmSwitch: UISwitch = {
         let swicth: UISwitch = UISwitch()
-        swicth.isOn = true
+        swicth.isOn = UserManager.shared.hasAllowAlarm
         return swicth
     }()
     

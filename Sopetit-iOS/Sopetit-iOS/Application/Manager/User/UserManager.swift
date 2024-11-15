@@ -13,18 +13,22 @@ final class UserManager {
     @UserDefaultWrapper<String>(key: "socialType") private(set) var socialType
     @UserDefaultWrapper<String>(key: "accessToken") private(set) var accessToken
     @UserDefaultWrapper<String>(key: "refreshToken") private(set) var refreshToken
+    @UserDefaultWrapper<String>(key: "fcmToken") private(set) var fcmToken
     @UserDefaultWrapper<String>(key: "userIdentifier") private(set) var appleUserIdentifier
     @UserDefaultWrapper<Bool>(key: "postMember") private(set) var postMember
     @UserDefaultWrapper<String>(key: "dollType") private(set) var dollType
     @UserDefaultWrapper<Bool>(key: "showTutorial") private(set) var showTutorial
+    @UserDefaultWrapper<Bool>(key: "allowAlarm") private(set) var allowAlarm
     
     var hasAccessToken: Bool { return self.accessToken != nil }
     var getAccessToken: String { return self.accessToken ?? "" }
     var getRefreshToken: String { return self.refreshToken ?? "" }
+    var getFcmToken: String { return self.fcmToken ?? "" }
     var getSocialType: String { return self.socialType ?? "" }
     var isPostMemeber: Bool { return self.postMember ?? false }
     var getDollType: String { return self.dollType ?? "BROWN" }
     var isShowTutorial: Bool { return self.showTutorial ?? false }
+    var hasAllowAlarm: Bool { return self.allowAlarm ?? false }
     
     private init() {}
 }
@@ -46,6 +50,14 @@ extension UserManager {
     func updateToken(_ accessToken: String, _ refreshToken: String) {
         self.accessToken = accessToken
         self.refreshToken = refreshToken
+    }
+    
+    func updateFcmToken(_ fcmToken: String) {
+        self.fcmToken = fcmToken
+    }
+    
+    func setAllowAlarm(_ hasAllow: Bool) {
+        self.allowAlarm = hasAllow
     }
     
     func reissueToken(_ accessToken: String) {

@@ -137,6 +137,9 @@
 		A4648BA02C043417001EB031 /* AddRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4648B9F2C043417001EB031 /* AddRoutineView.swift */; };
 		A4648BA22C04348E001EB031 /* OngoingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4648BA12C04348E001EB031 /* OngoingViewController.swift */; };
 		A4648BA42C0434A9001EB031 /* AddRoutineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4648BA32C0434A9001EB031 /* AddRoutineViewController.swift */; };
+		A46CA1632CE206AF00AB4DCA /* AlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46CA1622CE206A300AB4DCA /* AlarmViewController.swift */; };
+		A46CA1652CE2DA0C00AB4DCA /* FirebaseDynamicLinks in Frameworks */ = {isa = PBXBuildFile; productRef = A46CA1642CE2DA0C00AB4DCA /* FirebaseDynamicLinks */; };
+		A46CA1672CE2DA0C00AB4DCA /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = A46CA1662CE2DA0C00AB4DCA /* FirebaseMessaging */; };
 		A4832BAB2B4ACF09007879FF /* omyu-pretty.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4832BAA2B4ACF09007879FF /* omyu-pretty.ttf */; };
 		A488FE8B2B697BB7000B4809 /* UpdateAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A488FE8A2B697BB7000B4809 /* UpdateAlertView.swift */; };
 		A488FE8E2B697C0E000B4809 /* VersionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A488FE8D2B697C0E000B4809 /* VersionEntity.swift */; };
@@ -302,6 +305,7 @@
 		A4648B9F2C043417001EB031 /* AddRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRoutineView.swift; sourceTree = "<group>"; };
 		A4648BA12C04348E001EB031 /* OngoingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OngoingViewController.swift; sourceTree = "<group>"; };
 		A4648BA32C0434A9001EB031 /* AddRoutineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRoutineViewController.swift; sourceTree = "<group>"; };
+		A46CA1622CE206A300AB4DCA /* AlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmViewController.swift; sourceTree = "<group>"; };
 		A4832BAA2B4ACF09007879FF /* omyu-pretty.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "omyu-pretty.ttf"; sourceTree = "<group>"; };
 		A488FE8A2B697BB7000B4809 /* UpdateAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateAlertView.swift; sourceTree = "<group>"; };
 		A488FE8D2B697C0E000B4809 /* VersionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionEntity.swift; sourceTree = "<group>"; };
@@ -347,6 +351,7 @@
 			files = (
 				00A4AA172BFCD81400FB4D46 /* FirebaseAnalyticsSwift in Frameworks */,
 				00A4AA192BFCD81400FB4D46 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
+				A46CA1672CE2DA0C00AB4DCA /* FirebaseMessaging in Frameworks */,
 				A49706352C80C4BE008D2D57 /* WebKit.framework in Frameworks */,
 				00A4AA132BFCD81400FB4D46 /* FirebaseAnalytics in Frameworks */,
 				A49BFE5A2B54273E00035EB6 /* SVGKit in Frameworks */,
@@ -357,6 +362,7 @@
 				A42C32942B3DBD7C00C4B477 /* Alamofire in Frameworks */,
 				A42C329A2B3DBD9700C4B477 /* Lottie in Frameworks */,
 				00A4AA152BFCD81400FB4D46 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
+				A46CA1652CE2DA0C00AB4DCA /* FirebaseDynamicLinks in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -899,6 +905,7 @@
 		A42C33152B3EAF3B00C4B477 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				A46CA1622CE206A300AB4DCA /* AlarmViewController.swift */,
 				045DFE7A2B504E38005D69EA /* SettingViewController.swift */,
 				045DFE802B515FAE005D69EA /* WithdrawViewController.swift */,
 				A497063C2C81E1D1008D2D57 /* LogoutBSViewController.swift */,
@@ -1319,6 +1326,8 @@
 				00A4AA162BFCD81400FB4D46 /* FirebaseAnalyticsSwift */,
 				00A4AA182BFCD81400FB4D46 /* FirebaseAnalyticsWithoutAdIdSupport */,
 				00A4AA1A2BFCD81400FB4D46 /* FirebaseCrashlytics */,
+				A46CA1642CE2DA0C00AB4DCA /* FirebaseDynamicLinks */,
+				A46CA1662CE2DA0C00AB4DCA /* FirebaseMessaging */,
 			);
 			productName = "Sopetit-iOS";
 			productReference = A42C32782B3DB8F400C4B477 /* Sopetit-iOS.app */;
@@ -1482,6 +1491,7 @@
 				0470C2532B57F03100CE43D6 /* DailyDeleteEntity.swift in Sources */,
 				A42C32D32B3EABA300C4B477 /* UITableViewRegisterable.swift in Sources */,
 				A40F9F042C67C3C6004DD1A1 /* MakersCollectionViewCell.swift in Sources */,
+				A46CA1632CE206AF00AB4DCA /* AlarmViewController.swift in Sources */,
 				A40F9F142C69D0CC004DD1A1 /* AddRoutineDetailViewController.swift in Sources */,
 				00A8E39A2B4D8B0D001461CE /* HomeView.swift in Sources */,
 				A42C32A52B3EA9A000C4B477 /* UserManager.swift in Sources */,
@@ -1706,6 +1716,7 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = XGXWL95BMU;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Sopetit-iOS/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "소프티Dev";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -1743,6 +1754,7 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = XGXWL95BMU;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Sopetit-iOS/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "소프티Dev";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -1897,6 +1909,14 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A42C329B2B3DC0D100C4B477 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
 			productName = KakaoSDK;
+		};
+		A46CA1642CE2DA0C00AB4DCA /* FirebaseDynamicLinks */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FirebaseDynamicLinks;
+		};
+		A46CA1662CE2DA0C00AB4DCA /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FirebaseMessaging;
 		};
 		A49BFE592B54273E00035EB6 /* SVGKit */ = {
 			isa = XCSwiftPackageProductDependency;

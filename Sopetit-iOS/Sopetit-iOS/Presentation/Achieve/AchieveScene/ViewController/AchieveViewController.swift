@@ -25,6 +25,7 @@ final class AchieveViewController: UIViewController {
         super.viewDidLoad()
         
         setUI()
+        setAddGesture()
     }
 }
 
@@ -34,5 +35,24 @@ extension AchieveViewController {
     
     func setUI() {
         self.navigationController?.navigationBar.isHidden = true
+    }
+    
+    func setAddGesture() {
+        let tapStatsMenu = UITapGestureRecognizer(target: self,
+                                                  action: #selector(statsMenuTapped))
+        let tapCalendarMenu = UITapGestureRecognizer(target: self,
+                                                     action: #selector(calendarMenuTapped))
+        achieveView.achieveMenuView.statsMenuView.addGestureRecognizer(tapStatsMenu)
+        achieveView.achieveMenuView.calendarMenuView.addGestureRecognizer(tapCalendarMenu)
+    }
+    
+    @objc
+    func statsMenuTapped() {
+        achieveView.achieveMenuView.setAchieveMenuTapped(statsTapped: true)
+    }
+    
+    @objc
+    func calendarMenuTapped() {
+        achieveView.achieveMenuView.setAchieveMenuTapped(statsTapped: false)
     }
 }

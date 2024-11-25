@@ -8,12 +8,34 @@
 import UIKit
 
 import SnapKit
+import FSCalendar
 
 final class AchieveView: UIView {
     
     // MARK: - UI Components
     
     let achieveMenuView = AchieveMenuView()
+    
+    let achieveCalendarView: FSCalendar = {
+        let calendar = FSCalendar()
+        calendar.placeholderType = .none
+        calendar.appearance.selectionColor = .clear
+        calendar.appearance.todayColor = .none
+        calendar.appearance.titleTodayColor = .none
+        calendar.appearance.titleSelectionColor = .none
+        calendar.appearance.borderSelectionColor = .clear
+        calendar.appearance.borderDefaultColor = .clear
+        calendar.scope = .month
+        calendar.translatesAutoresizingMaskIntoConstraints = false
+        calendar.locale = Locale(identifier: "ko_KR")
+        calendar.headerHeight = 0
+        calendar.weekdayHeight = 32
+        calendar.rowHeight = 70
+        calendar.scrollEnabled = true
+        calendar.appearance.weekdayFont = .fontGuide(.body2)
+        calendar.appearance.weekdayTextColor = .Gray400
+        return calendar
+    }()
     
     // MARK: - Life Cycles
     
@@ -40,13 +62,21 @@ private extension AchieveView {
     }
     
     func setHierarchy() {
-        addSubviews(achieveMenuView)
+        addSubviews(achieveMenuView,
+                    achieveCalendarView)
     }
     
     func setLayout() {
         achieveMenuView.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide)
             $0.leading.trailing.equalToSuperview()
+        }
+        
+        achieveCalendarView.snp.makeConstraints {
+            $0.top.equalTo(achieveMenuView.snp.bottom).offset(16)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(SizeLiterals.Screen.screenWidth - 47)
+            $0.height.equalTo(380)
         }
     }
 }

@@ -123,3 +123,13 @@ private extension CalendarDateCell {
         }
     }
 }
+
+extension CalendarDateCell {
+    
+    func configureCalendar(iconType: CalendarIconType, 
+                           dateType: CalendarDateType,
+                           date: String) {
+        calendarDateLabel.text = date
+        calendarDateLabel.asLineHeight(.caption1)
+    }
+}

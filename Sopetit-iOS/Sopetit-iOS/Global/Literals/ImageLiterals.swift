@@ -123,8 +123,6 @@ enum ImageLiterals {
         static var popover: UIImage { .load(name: "popover") }
         static var popoverChallenge: UIImage { .load(name: "popover_challenge") }
         static var toastChallengeDelete: UIImage { .load(name: "toast_cancel_challenge") }
-        
-        
     }
     
     enum HappyRoutine {

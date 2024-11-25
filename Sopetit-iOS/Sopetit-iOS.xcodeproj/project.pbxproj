@@ -52,7 +52,6 @@
 		09A9F9212C804FB400FE5836 /* GetRainbowCottonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A9F9202C804FB400FE5836 /* GetRainbowCottonView.swift */; };
 		09A9F9292C81448800FE5836 /* DailyBSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A9F9282C81448800FE5836 /* DailyBSViewController.swift */; };
 		09A9F92B2C81588E00FE5836 /* ChallengeBSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A9F92A2C81588E00FE5836 /* ChallengeBSViewController.swift */; };
-		09BCA9F02C2A76BD006E876D /* NewDailyRoutineEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BCA9EF2C2A76BD006E876D /* NewDailyRoutineEntity.swift */; };
 		09BCA9F22C2A76CE006E876D /* ChallengeRoutine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BCA9F12C2A76CE006E876D /* ChallengeRoutine.swift */; };
 		09BCA9F42C2A7741006E876D /* RoutineEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BCA9F32C2A7741006E876D /* RoutineEmptyView.swift */; };
 		09BCA9F62C2A7751006E876D /* ChallengeRoutineEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BCA9F52C2A7751006E876D /* ChallengeRoutineEmptyView.swift */; };
@@ -141,6 +140,8 @@
 		A46CA1652CE2DA0C00AB4DCA /* FirebaseDynamicLinks in Frameworks */ = {isa = PBXBuildFile; productRef = A46CA1642CE2DA0C00AB4DCA /* FirebaseDynamicLinks */; };
 		A46CA1672CE2DA0C00AB4DCA /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = A46CA1662CE2DA0C00AB4DCA /* FirebaseMessaging */; };
 		A46CA16A2CE70A2A00AB4DCA /* AchieveMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46CA1692CE70A2100AB4DCA /* AchieveMenuView.swift */; };
+		A46CA16F2CE7102D00AB4DCA /* CalendarDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46CA16E2CE7102100AB4DCA /* CalendarDateCell.swift */; };
+		A46CA1722CE7106C00AB4DCA /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = A46CA1712CE7106C00AB4DCA /* FSCalendar */; };
 		A4832BAB2B4ACF09007879FF /* omyu-pretty.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4832BAA2B4ACF09007879FF /* omyu-pretty.ttf */; };
 		A488FE8B2B697BB7000B4809 /* UpdateAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A488FE8A2B697BB7000B4809 /* UpdateAlertView.swift */; };
 		A488FE8E2B697C0E000B4809 /* VersionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A488FE8D2B697C0E000B4809 /* VersionEntity.swift */; };
@@ -222,7 +223,6 @@
 		09A9F9202C804FB400FE5836 /* GetRainbowCottonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRainbowCottonView.swift; sourceTree = "<group>"; };
 		09A9F9282C81448800FE5836 /* DailyBSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyBSViewController.swift; sourceTree = "<group>"; };
 		09A9F92A2C81588E00FE5836 /* ChallengeBSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeBSViewController.swift; sourceTree = "<group>"; };
-		09BCA9EF2C2A76BD006E876D /* NewDailyRoutineEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewDailyRoutineEntity.swift; sourceTree = "<group>"; };
 		09BCA9F12C2A76CE006E876D /* ChallengeRoutine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeRoutine.swift; sourceTree = "<group>"; };
 		09BCA9F32C2A7741006E876D /* RoutineEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineEmptyView.swift; sourceTree = "<group>"; };
 		09BCA9F52C2A7751006E876D /* ChallengeRoutineEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeRoutineEmptyView.swift; sourceTree = "<group>"; };
@@ -308,6 +308,7 @@
 		A4648BA32C0434A9001EB031 /* AddRoutineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRoutineViewController.swift; sourceTree = "<group>"; };
 		A46CA1622CE206A300AB4DCA /* AlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmViewController.swift; sourceTree = "<group>"; };
 		A46CA1692CE70A2100AB4DCA /* AchieveMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchieveMenuView.swift; sourceTree = "<group>"; };
+		A46CA16E2CE7102100AB4DCA /* CalendarDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateCell.swift; sourceTree = "<group>"; };
 		A4832BAA2B4ACF09007879FF /* omyu-pretty.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "omyu-pretty.ttf"; sourceTree = "<group>"; };
 		A488FE8A2B697BB7000B4809 /* UpdateAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateAlertView.swift; sourceTree = "<group>"; };
 		A488FE8D2B697C0E000B4809 /* VersionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionEntity.swift; sourceTree = "<group>"; };
@@ -364,6 +365,7 @@
 				A42C32942B3DBD7C00C4B477 /* Alamofire in Frameworks */,
 				A42C329A2B3DBD9700C4B477 /* Lottie in Frameworks */,
 				00A4AA152BFCD81400FB4D46 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
+				A46CA1722CE7106C00AB4DCA /* FSCalendar in Frameworks */,
 				A46CA1652CE2DA0C00AB4DCA /* FirebaseDynamicLinks in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -442,7 +444,6 @@
 		09BCA9EE2C2A7697006E876D /* Ongoing */ = {
 			isa = PBXGroup;
 			children = (
-				09BCA9EF2C2A76BD006E876D /* NewDailyRoutineEntity.swift */,
 				09BCA9F12C2A76CE006E876D /* ChallengeRoutine.swift */,
 			);
 			path = Ongoing;
@@ -990,6 +991,7 @@
 		A4648B902C04331C001EB031 /* AchieveScene */ = {
 			isa = PBXGroup;
 			children = (
+				A46CA16D2CE70FEB00AB4DCA /* Cell */,
 				A4648B922C043327001EB031 /* View */,
 				A4648B912C043322001EB031 /* ViewController */,
 			);
@@ -1077,6 +1079,14 @@
 				09CC26C92C8A839100C3BD3B /* ChallengeRoutineView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		A46CA16D2CE70FEB00AB4DCA /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				A46CA16E2CE7102100AB4DCA /* CalendarDateCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		A488FE892B697BAB000B4809 /* UpdateAlert */ = {
@@ -1331,6 +1341,7 @@
 				00A4AA1A2BFCD81400FB4D46 /* FirebaseCrashlytics */,
 				A46CA1642CE2DA0C00AB4DCA /* FirebaseDynamicLinks */,
 				A46CA1662CE2DA0C00AB4DCA /* FirebaseMessaging */,
+				A46CA1712CE7106C00AB4DCA /* FSCalendar */,
 			);
 			productName = "Sopetit-iOS";
 			productReference = A42C32782B3DB8F400C4B477 /* Sopetit-iOS.app */;
@@ -1368,6 +1379,7 @@
 				A42C329B2B3DC0D100C4B477 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				A49BFE582B54273E00035EB6 /* XCRemoteSwiftPackageReference "SVGKit" */,
 				00A4AA112BFCD81400FB4D46 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				A46CA1702CE7106C00AB4DCA /* XCRemoteSwiftPackageReference "FSCalendar" */,
 			);
 			productRefGroup = A42C32792B3DB8F400C4B477 /* Products */;
 			projectDirPath = "";
@@ -1564,7 +1576,7 @@
 				A42C32D12B3EAB7F00C4B477 /* String+.swift in Sources */,
 				A49BFDF02B4DA48200035EB6 /* ThemeSelectView.swift in Sources */,
 				A49BFE622B558B2E00035EB6 /* MemberEntity.swift in Sources */,
-				09BCA9F02C2A76BD006E876D /* NewDailyRoutineEntity.swift in Sources */,
+				A46CA16F2CE7102D00AB4DCA /* CalendarDateCell.swift in Sources */,
 				A4A516D12C36C46E00ED9CC1 /* RoutineThemeCollectionViewCell.swift in Sources */,
 				A49BFDD52B4D5F0800035EB6 /* StroyTellingViewController.swift in Sources */,
 				A4648B9E2C043406001EB031 /* OngoingView.swift in Sources */,
@@ -1853,6 +1865,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		A46CA1702CE7106C00AB4DCA /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.8.4;
+			};
+		};
 		A49BFE582B54273E00035EB6 /* XCRemoteSwiftPackageReference "SVGKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SVGKit/SVGKit.git";
@@ -1921,6 +1941,11 @@
 		A46CA1662CE2DA0C00AB4DCA /* FirebaseMessaging */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = FirebaseMessaging;
+		};
+		A46CA1712CE7106C00AB4DCA /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A46CA1702CE7106C00AB4DCA /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
 		};
 		A49BFE592B54273E00035EB6 /* SVGKit */ = {
 			isa = XCSwiftPackageProductDependency;

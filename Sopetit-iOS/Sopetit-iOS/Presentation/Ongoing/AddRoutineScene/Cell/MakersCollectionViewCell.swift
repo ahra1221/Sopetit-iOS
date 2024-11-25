@@ -124,7 +124,6 @@ private extension MakersCollectionViewCell {
             $0.leading.equalTo(makerProfileImage.snp.leading)
         }
         
-        
         makerChipCollectionView.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(16)
             $0.leading.equalToSuperview().inset(20)

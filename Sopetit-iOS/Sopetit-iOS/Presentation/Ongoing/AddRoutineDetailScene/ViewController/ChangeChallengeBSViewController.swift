@@ -154,7 +154,7 @@ extension ChangeChallengeBSViewController {
         (choiceChallengeTitle.text, choiceChallengeIcon.image, choiceChallengeCard.image) = setCardTitle(id: model.choiceThemeID)
     }
     
-    func setCardTitle(id: Int) -> (String, UIImage, UIImage){
+    func setCardTitle(id: Int) -> (String, UIImage, UIImage) {
         if id < 8 {
             return (ThemeDetailEntity.getTheme(id: id).themeTitle,
                     ThemeDetailEntity.getTheme(id: id).themeImage,

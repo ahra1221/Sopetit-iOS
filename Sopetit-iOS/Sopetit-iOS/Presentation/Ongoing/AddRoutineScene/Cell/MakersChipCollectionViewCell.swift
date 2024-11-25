@@ -68,4 +68,3 @@ extension MakersChipCollectionViewCell {
         makersChipLabel.text = model
     }
 }
-

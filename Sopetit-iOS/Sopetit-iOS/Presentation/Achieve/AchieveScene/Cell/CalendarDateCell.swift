@@ -31,6 +31,7 @@ enum CalendarDateType {
     case today
     case selected
     case nonSelected
+    case future
     
     var calendarDateBackColor: UIColor {
         switch self {
@@ -40,6 +41,8 @@ enum CalendarDateType {
             return UIColor.Gray650
         case .nonSelected:
             return UIColor.clear
+        case .future:
+            return UIColor.clear
         }
     }
     
@@ -47,6 +50,8 @@ enum CalendarDateType {
         switch self {
         case .nonSelected:
             return UIColor.Gray500
+        case .future:
+            return UIColor.Gray300
         default:
             return UIColor.SoftieWhite
         }
@@ -76,6 +81,8 @@ final class CalendarDateCell: FSCalendarCell {
     let backgroundSelectView: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 9
         return view
     }()
     
@@ -114,7 +121,8 @@ private extension CalendarDateCell {
         
         backgroundSelectView.snp.makeConstraints {
             $0.bottom.equalToSuperview()
-            $0.leading.trailing.equalToSuperview().inset(5)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(30)
             $0.height.equalTo(18)
         }
         
@@ -130,6 +138,8 @@ extension CalendarDateCell {
                            dateType: CalendarDateType,
                            date: String) {
         calendarDateLabel.text = date
-        calendarDateLabel.asLineHeight(.caption1)
+        calendarDateLabel.textColor = dateType.calendarDateTextColor
+        backgroundSelectView.backgroundColor = dateType.calendarDateBackColor
+        cottonImageView.image = iconType.calendarIconImage
     }
 }

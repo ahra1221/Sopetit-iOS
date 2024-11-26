@@ -76,7 +76,7 @@ private extension AchieveView {
             $0.top.equalTo(achieveMenuView.snp.bottom).offset(16)
             $0.centerX.equalToSuperview()
             $0.width.equalTo(SizeLiterals.Screen.screenWidth - 47)
-            $0.height.equalTo(380)
+            $0.height.equalTo(400)
         }
     }
 }

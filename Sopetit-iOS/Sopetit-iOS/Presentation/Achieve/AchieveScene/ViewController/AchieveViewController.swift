@@ -12,6 +12,11 @@ import FSCalendar
 
 final class AchieveViewController: UIViewController {
     
+    // MARK: - Properties
+    
+    private var selectedDate: Date?
+    private var formatter = DateFormatter()
+    
     // MARK: - UI Components
     
     private var achieveView = AchieveView()
@@ -80,12 +85,48 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
                                                       for: date,
                                                       at: position) as? CalendarDateCell
         else { return FSCalendarCell() }
-        let day = Calendar.current.component(.day, from: date)
-        let dayString = String(day)
-        cell.configureCalendar(iconType: .normal, 
-                               dateType: .nonSelected,
+        let bindDay = Calendar.current.component(.day, from: date)
+        let bindMonth = Calendar.current.component(.month, from: date)
+        let dayString = String(bindDay)
+        
+        let calendar = Calendar.current
+        let today = calendar.component(.day, from: Date())
+        let month = calendar.component(.month, from: Date())
+        
+        var bindDataType: CalendarDateType = .nonSelected
+        var bindIconType: CalendarIconType = .normal
+        
+        if bindMonth == month && bindDay > today {
+            bindDataType = .future
+        }
+        
+        if let selectedDate = selectedDate, Calendar.current.isDate(selectedDate, inSameDayAs: date) {
+            bindDataType = .selected
+        } else {
+            if bindMonth == month && bindDay == today {
+                bindDataType = .today
+            }
+        }
+        cell.configureCalendar(iconType: bindIconType,
+                               dateType: bindDataType,
                                date: dayString)
         return cell
+    }
+    
+    func calendar(_ calendar: FSCalendar, 
+                  didSelect date: Date,
+                  at monthPosition: FSCalendarMonthPosition) {
+        let today = Date()
+        
+        if date.compare(today) == .orderedDescending {
+            return
+        }
+        
+        if let selectedDate = selectedDate, Calendar.current.isDate(selectedDate, inSameDayAs: date) {
+            return
+        }
+        selectedDate = date
+        calendar.reloadData()
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {

@@ -15,6 +15,7 @@ final class AchieveViewController: UIViewController {
     // MARK: - Properties
     
     private var selectedDate: Date?
+    private var selectedMonth: Int?
     private var formatter = DateFormatter()
     
     // MARK: - UI Components
@@ -64,6 +65,7 @@ extension AchieveViewController {
     func setDelegate() {
         calendarView.delegate = self
         calendarView.dataSource = self
+        calendarHeaderView.delegate = self
     }
     
     @objc
@@ -74,6 +76,45 @@ extension AchieveViewController {
     @objc
     func calendarMenuTapped() {
         achieveView.achieveMenuView.setAchieveMenuTapped(statsTapped: false)
+    }
+}
+
+extension AchieveViewController: CalendarHeaderDelegate {
+    
+    func tapLeftButton() {
+        let currentPage = calendarView.currentPage
+        let calendar = Calendar.current
+        
+        if let previousMonth = calendar.date(byAdding: .month, value: -1, to: currentPage) {
+            calendarView.setCurrentPage(previousMonth, animated: true)
+            selectedMonth = calendar.component(.month, from: previousMonth)
+        }
+        calendarView.reloadData()
+    }
+    
+    func tapRightButton() {
+        let currentPage = calendarView.currentPage
+        let calendar = Calendar.current
+        let today = Date()
+        
+        let todayYear = calendar.component(.year, from: today)
+        let todayMonth = calendar.component(.month, from: today)
+        
+        let currentYear = calendar.component(.year, from: currentPage)
+        let currentMonth = calendar.component(.month, from: currentPage)
+        
+        if currentYear == todayYear && currentMonth == todayMonth {
+            calendarHeaderView.setHeaderRightButton(state: false)
+            return
+        }
+        
+        if let nextMonth = calendar.date(byAdding: .month, 
+                                         value: 1,
+                                         to: currentPage) {
+            calendarView.setCurrentPage(nextMonth, animated: true)
+            selectedMonth = calendar.component(.month, from: nextMonth)
+        }
+        calendarView.reloadData()
     }
 }
 
@@ -90,6 +131,7 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
         let bindMonth = Calendar.current.component(.month, from: date)
         let bindYear = Calendar.current.component(.year, from: date)
         let dayString = String(bindDay)
+        selectedMonth = bindMonth
         
         let calendar = Calendar.current
         let today = calendar.component(.day, from: Date())

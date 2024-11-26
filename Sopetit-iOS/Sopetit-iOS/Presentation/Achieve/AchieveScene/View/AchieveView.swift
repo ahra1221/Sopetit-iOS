@@ -78,6 +78,7 @@ private extension AchieveView {
         calendarHeaderView.snp.makeConstraints {
             $0.top.equalTo(achieveMenuView.snp.bottom).offset(28)
             $0.centerX.equalToSuperview()
+            $0.width.equalTo(SizeLiterals.Screen.screenWidth - 222)
             $0.height.equalTo(24)
         }
         

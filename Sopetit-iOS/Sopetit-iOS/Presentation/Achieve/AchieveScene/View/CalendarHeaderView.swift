@@ -9,7 +9,16 @@ import UIKit
 
 import SnapKit
 
-final class CalendarHeaderView: UIView  {
+protocol CalendarHeaderDelegate: AnyObject {
+    func tapLeftButton()
+    func tapRightButton()
+}
+
+final class CalendarHeaderView: UIView {
+    
+    // MARK: - Properties
+    
+    weak var delegate: CalendarHeaderDelegate?
     
     // MARK: - UI Components
 
@@ -48,6 +57,7 @@ final class CalendarHeaderView: UIView  {
         
         setHierarchy()
         setLayout()
+        setAddTarget()
     }
     
     @available(*, unavailable)
@@ -78,6 +88,25 @@ private extension CalendarHeaderView {
             }
         }
     }
+    
+    func setAddTarget() {
+        calendarHeaderLeftButton.addTarget(self,
+                                           action: #selector(tapLeftButton),
+                                           for: .touchUpInside)
+        calendarHeaderRightButton.addTarget(self,
+                                           action: #selector(tapRightButton),
+                                           for: .touchUpInside)
+    }
+    
+    @objc
+    func tapLeftButton() {
+        delegate?.tapLeftButton()
+    }
+    
+    @objc
+    func tapRightButton() {
+        delegate?.tapRightButton()
+    }
 }
 
 extension CalendarHeaderView {
@@ -86,5 +115,13 @@ extension CalendarHeaderView {
                          month: Int) {
         calendarDayTitle.text = "\(year)년 \(month)월"
         calendarDayTitle.asLineHeight(.body2)
+    }
+    
+    func setHeaderLeftButton(state: Bool) {
+        calendarHeaderLeftButton.isEnabled = state
+    }
+    
+    func setHeaderRightButton(state: Bool) {
+        calendarHeaderRightButton.isEnabled = state
     }
 }

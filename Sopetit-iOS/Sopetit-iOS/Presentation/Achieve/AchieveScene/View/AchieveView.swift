@@ -16,6 +16,8 @@ final class AchieveView: UIView {
     
     let achieveMenuView = AchieveMenuView()
     
+    let calendarHeaderView = CalendarHeaderView()
+    
     let achieveCalendarView: FSCalendar = {
         let calendar = FSCalendar()
         calendar.placeholderType = .none
@@ -63,6 +65,7 @@ private extension AchieveView {
     
     func setHierarchy() {
         addSubviews(achieveMenuView,
+                    calendarHeaderView,
                     achieveCalendarView)
     }
     
@@ -72,8 +75,14 @@ private extension AchieveView {
             $0.leading.trailing.equalToSuperview()
         }
         
+        calendarHeaderView.snp.makeConstraints {
+            $0.top.equalTo(achieveMenuView.snp.bottom).offset(28)
+            $0.centerX.equalToSuperview()
+            $0.height.equalTo(24)
+        }
+        
         achieveCalendarView.snp.makeConstraints {
-            $0.top.equalTo(achieveMenuView.snp.bottom).offset(16)
+            $0.top.equalTo(calendarHeaderView.snp.bottom).offset(16)
             $0.centerX.equalToSuperview()
             $0.width.equalTo(SizeLiterals.Screen.screenWidth - 47)
             $0.height.equalTo(400)

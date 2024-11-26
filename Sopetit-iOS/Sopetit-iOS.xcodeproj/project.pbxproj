@@ -142,6 +142,7 @@
 		A46CA16A2CE70A2A00AB4DCA /* AchieveMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46CA1692CE70A2100AB4DCA /* AchieveMenuView.swift */; };
 		A46CA16F2CE7102D00AB4DCA /* CalendarDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46CA16E2CE7102100AB4DCA /* CalendarDateCell.swift */; };
 		A46CA1722CE7106C00AB4DCA /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = A46CA1712CE7106C00AB4DCA /* FSCalendar */; };
+		A475D5032CF553CE00B5DDC5 /* CalendarHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A475D5022CF553CE00B5DDC5 /* CalendarHeaderView.swift */; };
 		A4832BAB2B4ACF09007879FF /* omyu-pretty.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4832BAA2B4ACF09007879FF /* omyu-pretty.ttf */; };
 		A488FE8B2B697BB7000B4809 /* UpdateAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A488FE8A2B697BB7000B4809 /* UpdateAlertView.swift */; };
 		A488FE8E2B697C0E000B4809 /* VersionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A488FE8D2B697C0E000B4809 /* VersionEntity.swift */; };
@@ -309,6 +310,7 @@
 		A46CA1622CE206A300AB4DCA /* AlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmViewController.swift; sourceTree = "<group>"; };
 		A46CA1692CE70A2100AB4DCA /* AchieveMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchieveMenuView.swift; sourceTree = "<group>"; };
 		A46CA16E2CE7102100AB4DCA /* CalendarDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateCell.swift; sourceTree = "<group>"; };
+		A475D5022CF553CE00B5DDC5 /* CalendarHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHeaderView.swift; sourceTree = "<group>"; };
 		A4832BAA2B4ACF09007879FF /* omyu-pretty.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "omyu-pretty.ttf"; sourceTree = "<group>"; };
 		A488FE8A2B697BB7000B4809 /* UpdateAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateAlertView.swift; sourceTree = "<group>"; };
 		A488FE8D2B697C0E000B4809 /* VersionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionEntity.swift; sourceTree = "<group>"; };
@@ -1011,6 +1013,7 @@
 			children = (
 				A46CA1692CE70A2100AB4DCA /* AchieveMenuView.swift */,
 				A4648B992C04337B001EB031 /* AchieveView.swift */,
+				A475D5022CF553CE00B5DDC5 /* CalendarHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1548,6 +1551,7 @@
 				A42C32EB2B3EACAC00C4B477 /* URLConstant.swift in Sources */,
 				A40F9F012C67C28B004DD1A1 /* MakersEntity.swift in Sources */,
 				A4D2EB092B57D07A00493D8C /* HomeCottonEntity.swift in Sources */,
+				A475D5032CF553CE00B5DDC5 /* CalendarHeaderView.swift in Sources */,
 				045DFE792B504E26005D69EA /* SettingView.swift in Sources */,
 				A49BFE1D2B4E541C00035EB6 /* RoutineChoiceViewController.swift in Sources */,
 				045DFE862B539BC3005D69EA /* WithdrawView.swift in Sources */,

@@ -21,6 +21,7 @@ final class AchieveViewController: UIViewController {
     
     private var achieveView = AchieveView()
     private lazy var calendarView = achieveView.achieveCalendarView
+    private lazy var calendarHeaderView = achieveView.calendarHeaderView
     
     // MARK: - Life Cycles
     
@@ -87,6 +88,7 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
         else { return FSCalendarCell() }
         let bindDay = Calendar.current.component(.day, from: date)
         let bindMonth = Calendar.current.component(.month, from: date)
+        let bindYear = Calendar.current.component(.year, from: date)
         let dayString = String(bindDay)
         
         let calendar = Calendar.current
@@ -110,6 +112,8 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
         cell.configureCalendar(iconType: bindIconType,
                                dateType: bindDataType,
                                date: dayString)
+        calendarHeaderView.configureHeader(year: bindYear,
+                                           month: bindMonth)
         return cell
     }
     

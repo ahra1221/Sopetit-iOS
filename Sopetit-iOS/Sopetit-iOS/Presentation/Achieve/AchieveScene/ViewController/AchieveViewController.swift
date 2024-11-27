@@ -37,6 +37,7 @@ final class AchieveViewController: UIViewController {
         setAddGesture()
         setRegisterCell()
         setDelegate()
+        updateCalendarHeaderButton()
     }
 }
 
@@ -77,43 +78,53 @@ extension AchieveViewController {
     func calendarMenuTapped() {
         achieveView.achieveMenuView.setAchieveMenuTapped(statsTapped: false)
     }
+    
+    func updateCalendarHeaderButton() {
+        let calendar = Calendar.current
+        let currentPage = calendarView.currentPage
+        let today = Date()
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        guard let registerDate = dateFormatter.date(from: "2024-04-06") else { return }
+        
+        if currentPage <= calendar.date(from: calendar.dateComponents([.year, .month], from: registerDate))! {
+            calendarHeaderView.setHeaderLeftButton(state: false)
+        } else {
+            calendarHeaderView.setHeaderLeftButton(state: true)
+        }
+        
+        if currentPage >= calendar.date(from: calendar.dateComponents([.year, .month], from: today))! {
+            calendarHeaderView.setHeaderRightButton(state: false)
+        } else {
+            calendarHeaderView.setHeaderRightButton(state: true)
+        }
+    }
 }
 
 extension AchieveViewController: CalendarHeaderDelegate {
     
     func tapLeftButton() {
-        let currentPage = calendarView.currentPage
         let calendar = Calendar.current
-        
+        let currentPage = calendarView.currentPage
         if let previousMonth = calendar.date(byAdding: .month, value: -1, to: currentPage) {
             calendarView.setCurrentPage(previousMonth, animated: true)
             selectedMonth = calendar.component(.month, from: previousMonth)
         }
+        updateCalendarHeaderButton()
         calendarView.reloadData()
     }
     
     func tapRightButton() {
-        let currentPage = calendarView.currentPage
         let calendar = Calendar.current
-        let today = Date()
-        
-        let todayYear = calendar.component(.year, from: today)
-        let todayMonth = calendar.component(.month, from: today)
-        
-        let currentYear = calendar.component(.year, from: currentPage)
-        let currentMonth = calendar.component(.month, from: currentPage)
-        
-        if currentYear == todayYear && currentMonth == todayMonth {
-            calendarHeaderView.setHeaderRightButton(state: false)
-            return
-        }
-        
-        if let nextMonth = calendar.date(byAdding: .month, 
+        let currentPage = calendarView.currentPage
+        if let nextMonth = calendar.date(byAdding: .month,
                                          value: 1,
                                          to: currentPage) {
             calendarView.setCurrentPage(nextMonth, animated: true)
             selectedMonth = calendar.component(.month, from: nextMonth)
         }
+        updateCalendarHeaderButton()
         calendarView.reloadData()
     }
 }

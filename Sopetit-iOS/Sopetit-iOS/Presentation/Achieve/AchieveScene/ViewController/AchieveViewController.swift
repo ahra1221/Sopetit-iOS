@@ -47,6 +47,10 @@ extension AchieveViewController {
     
     func setUI() {
         self.navigationController?.navigationBar.isHidden = true
+        
+        let today = Date()
+        selectedDate = today
+        calendarView.select(today)
     }
     
     func setAddGesture() {

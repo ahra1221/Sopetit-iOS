@@ -104,6 +104,18 @@ extension AchieveViewController {
             calendarHeaderView.setHeaderRightButton(state: true)
         }
     }
+    
+    func getDayComponents(date: String) -> (year: Int, month: Int, day: Int) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let getDate = dateFormatter.date(from: date) ?? Date()
+        
+        let calendar = Calendar.current
+        let year = calendar.component(.year, from: getDate)
+        let month = calendar.component(.month, from: getDate)
+        let day = calendar.component(.day, from: getDate)
+        return (year, month, day)
+    }
 }
 
 extension AchieveViewController: CalendarHeaderDelegate {
@@ -142,27 +154,52 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
                                                       for: date,
                                                       at: position) as? CalendarDateCell
         else { return FSCalendarCell() }
+        
         let bindDay = Calendar.current.component(.day, from: date)
         let bindMonth = Calendar.current.component(.month, from: date)
         let bindYear = Calendar.current.component(.year, from: date)
         let dayString = String(bindDay)
         selectedMonth = bindMonth
         
-        let calendar = Calendar.current
-        let today = calendar.component(.day, from: Date())
-        let month = calendar.component(.month, from: Date())
+        let day = getDayComponents(date: "").day
+        let month = getDayComponents(date: "").month
+        let year = getDayComponents(date: "").year
+        
+        let registerDay = getDayComponents(date: "2024-04-06").day
+        let registerMonth = getDayComponents(date: "2024-04-06").month
+        let registerYear = getDayComponents(date: "2024-04-06").year
         
         var bindDataType: CalendarDateType = .nonSelected
         var bindIconType: CalendarIconType = .normal
         
-        if bindMonth == month && bindDay > today {
+        if bindYear == year {
+            if bindMonth == month {
+                if bindDay > day {
+                    bindDataType = .future
+                }
+            } else if bindMonth > month {
+                bindDataType = .future
+            }
+        } else if bindYear > year {
+            bindDataType = .future
+        }
+        
+        if bindYear == registerYear {
+            if bindMonth == registerMonth {
+                if bindDay < registerDay {
+                    bindDataType = .future
+                }
+            } else if bindMonth < registerMonth {
+                bindDataType = .future
+            }
+        } else if bindYear < registerYear {
             bindDataType = .future
         }
         
         if let selectedDate = selectedDate, Calendar.current.isDate(selectedDate, inSameDayAs: date) {
             bindDataType = .selected
         } else {
-            if bindMonth == month && bindDay == today {
+            if bindYear == year && bindMonth == month && bindDay == day {
                 bindDataType = .today
             }
         }
@@ -177,9 +214,16 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
     func calendar(_ calendar: FSCalendar, 
                   didSelect date: Date,
                   at monthPosition: FSCalendarMonthPosition) {
-        let today = Date()
         
+        let today = Date()
         if date.compare(today) == .orderedDescending {
+            return
+        }
+        let dateString = "2024-04-06"
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let registerDate = dateFormatter.date(from: dateString) ?? Date()
+        if date.compare(registerDate) == .orderedAscending {
             return
         }
         

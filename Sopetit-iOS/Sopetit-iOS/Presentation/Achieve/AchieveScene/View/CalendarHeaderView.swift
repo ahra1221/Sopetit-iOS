@@ -50,6 +50,13 @@ final class CalendarHeaderView: UIView {
         return label
     }()
     
+    let goTodayButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(resource: .btnGoToday), for: .normal)
+        button.isHidden = true
+        return button
+    }()
+    
     // MARK: - Life Cycles
     
     override init(frame: CGRect) {
@@ -69,7 +76,8 @@ final class CalendarHeaderView: UIView {
 private extension CalendarHeaderView {
     
     func setHierarchy() {
-        addSubview(calendarHeaderStackView)
+        addSubviews(calendarHeaderStackView,
+                    goTodayButton)
         calendarHeaderStackView.addArrangedSubviews(calendarHeaderLeftButton,
                                                     calendarDayTitle,
                                                     calendarHeaderRightButton)
@@ -77,8 +85,7 @@ private extension CalendarHeaderView {
     
     func setLayout() {
         calendarHeaderStackView.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.centerX.equalToSuperview()
+            $0.center.equalToSuperview()
             $0.height.equalTo(24)
         }
         
@@ -86,6 +93,13 @@ private extension CalendarHeaderView {
             $0.snp.makeConstraints {
                 $0.size.equalTo(24)
             }
+        }
+        
+        goTodayButton.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.trailing.equalToSuperview()
+            $0.height.equalTo(26)
+            $0.width.equalTo(48)
         }
     }
     

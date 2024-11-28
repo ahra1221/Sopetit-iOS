@@ -23,6 +23,7 @@ final class AchieveViewController: UIViewController {
     private var achieveView = AchieveView()
     private lazy var calendarView = achieveView.achieveCalendarView
     private lazy var calendarHeaderView = achieveView.calendarHeaderView
+    private lazy var goTodayButton = achieveView.calendarHeaderView.goTodayButton
     
     // MARK: - Life Cycles
     
@@ -214,15 +215,19 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
     func calendar(_ calendar: FSCalendar, 
                   didSelect date: Date,
                   at monthPosition: FSCalendarMonthPosition) {
+        let selectDateFormmatter = DateFormatter()
+        selectDateFormmatter.dateFormat = "yyyy-MM-dd"
+        selectDateFormmatter.timeZone = TimeZone(identifier: "Asia/Seoul")
         
-        let today = Date()
-        if date.compare(today) == .orderedDescending {
+        let today = selectDateFormmatter.string(from: Date())
+        let selectDate = selectDateFormmatter.string(from: date)
+        
+        if selectDate > today {
             return
         }
+        
         let dateString = "2024-04-06"
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let registerDate = dateFormatter.date(from: dateString) ?? Date()
+        let registerDate = selectDateFormmatter.date(from: dateString) ?? Date()
         if date.compare(registerDate) == .orderedAscending {
             return
         }
@@ -230,7 +235,14 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
         if let selectedDate = selectedDate, Calendar.current.isDate(selectedDate, inSameDayAs: date) {
             return
         }
+        
+        if selectDate < today && selectDate >= dateString {
+            goTodayButton.isHidden = false
+        } else {
+            goTodayButton.isHidden = true
+        }
         selectedDate = date
+        print(selectDate)
         calendar.reloadData()
     }
     

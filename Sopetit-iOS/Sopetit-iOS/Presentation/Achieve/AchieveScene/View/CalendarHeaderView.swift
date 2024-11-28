@@ -12,6 +12,7 @@ import SnapKit
 protocol CalendarHeaderDelegate: AnyObject {
     func tapLeftButton()
     func tapRightButton()
+    func tapTodayButton()
 }
 
 final class CalendarHeaderView: UIView {
@@ -109,7 +110,10 @@ private extension CalendarHeaderView {
                                            for: .touchUpInside)
         calendarHeaderRightButton.addTarget(self,
                                            action: #selector(tapRightButton),
-                                           for: .touchUpInside)
+                                            for: .touchUpInside)
+        goTodayButton.addTarget(self,
+                                action: #selector(tapTodayButton),
+                                for: .touchUpInside)
     }
     
     @objc
@@ -120,6 +124,11 @@ private extension CalendarHeaderView {
     @objc
     func tapRightButton() {
         delegate?.tapRightButton()
+    }
+    
+    @objc
+    func tapTodayButton() {
+        delegate?.tapTodayButton()
     }
 }
 

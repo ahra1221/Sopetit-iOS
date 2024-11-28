@@ -144,6 +144,16 @@ extension AchieveViewController: CalendarHeaderDelegate {
         updateCalendarHeaderButton()
         calendarView.reloadData()
     }
+    
+    func tapTodayButton() {
+        let today = Date()
+        calendarView.select(today)
+        calendarView.setCurrentPage(today, animated: true)
+        selectedDate = today
+        calendarView.reloadData()
+        updateCalendarHeaderButton()
+        goTodayButton.isHidden = true
+    }
 }
 
 extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
@@ -212,7 +222,7 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
         return cell
     }
     
-    func calendar(_ calendar: FSCalendar, 
+    func calendar(_ calendar: FSCalendar,
                   didSelect date: Date,
                   at monthPosition: FSCalendarMonthPosition) {
         let selectDateFormmatter = DateFormatter()

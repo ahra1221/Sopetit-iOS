@@ -256,6 +256,24 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
         calendar.reloadData()
     }
     
+    func maximumDate(for calendar: FSCalendar) -> Date {
+        return Date()
+    }
+    
+    func minimumDate(for calendar: FSCalendar) -> Date {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+
+        let dateString = "2024-04-06"
+        let registerDate = formatter.date(from: dateString) ?? Date()
+        return registerDate
+    }
+    
+    func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
+        updateCalendarHeaderButton()
+        calendar.reloadData()
+    }
+    
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
         return .clear
     }

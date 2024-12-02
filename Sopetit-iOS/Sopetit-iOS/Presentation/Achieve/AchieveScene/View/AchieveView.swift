@@ -8,22 +8,35 @@
 import UIKit
 
 import SnapKit
+import FSCalendar
 
 final class AchieveView: UIView {
     
     // MARK: - UI Components
     
-    private let ongoingReadyImage = UIImageView(image: UIImage(resource: .imgAchieveReady))
+    let achieveMenuView = AchieveMenuView()
     
-    private let ongoingReadyTitle: UILabel = {
-        let label = UILabel()
-        label.text = I18N.Ongoing.ongoingReadyTitle
-        label.textColor = .Gray700
-        label.font = .fontGuide(.head3)
-        label.numberOfLines = 0
-        label.asLineHeight(.head3)
-        label.textAlignment = .center
-        return label
+    let calendarHeaderView = CalendarHeaderView()
+    
+    let achieveCalendarView: FSCalendar = {
+        let calendar = FSCalendar()
+        calendar.placeholderType = .none
+        calendar.appearance.selectionColor = .clear
+        calendar.appearance.todayColor = .none
+        calendar.appearance.titleTodayColor = .none
+        calendar.appearance.titleSelectionColor = .none
+        calendar.appearance.borderSelectionColor = .clear
+        calendar.appearance.borderDefaultColor = .clear
+        calendar.scope = .month
+        calendar.translatesAutoresizingMaskIntoConstraints = false
+        calendar.locale = Locale(identifier: "ko_KR")
+        calendar.headerHeight = 0
+        calendar.weekdayHeight = 32
+        calendar.rowHeight = 70
+        calendar.scrollEnabled = true
+        calendar.appearance.weekdayFont = .fontGuide(.body2)
+        calendar.appearance.weekdayTextColor = .Gray400
+        return calendar
     }()
     
     // MARK: - Life Cycles
@@ -48,25 +61,32 @@ private extension AchieveView {
     
     func setUI() {
         self.backgroundColor = .Gray50
-        ongoingReadyImage.contentMode = .scaleAspectFit
     }
     
     func setHierarchy() {
-        addSubviews(ongoingReadyImage,
-                    ongoingReadyTitle)
+        addSubviews(achieveMenuView,
+                    calendarHeaderView,
+                    achieveCalendarView)
     }
     
     func setLayout() {
-        ongoingReadyImage.snp.makeConstraints {
-            $0.top.equalTo(safeAreaLayoutGuide).offset(SizeLiterals.Screen.screenHeight * 210 / 812)
-            $0.centerX.equalToSuperview()
-            $0.width.equalTo(110)
-            $0.height.equalTo(120)
+        achieveMenuView.snp.makeConstraints {
+            $0.top.equalTo(safeAreaLayoutGuide)
+            $0.leading.trailing.equalToSuperview()
         }
         
-        ongoingReadyTitle.snp.makeConstraints {
-            $0.top.equalTo(ongoingReadyImage.snp.bottom).offset(12)
+        calendarHeaderView.snp.makeConstraints {
+            $0.top.equalTo(achieveMenuView.snp.bottom).offset(28)
             $0.centerX.equalToSuperview()
+            $0.width.equalTo(SizeLiterals.Screen.screenWidth - 40)
+            $0.height.equalTo(26)
+        }
+        
+        achieveCalendarView.snp.makeConstraints {
+            $0.top.equalTo(calendarHeaderView.snp.bottom).offset(16)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(SizeLiterals.Screen.screenWidth - 47)
+            $0.height.equalTo(400)
         }
     }
 }

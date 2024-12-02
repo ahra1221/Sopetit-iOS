@@ -102,7 +102,8 @@ extension RoutineChoiceViewController {
     }
     
     func setSelectedCount(routineIndex: Int) {
-        let bindCnt = switch routineIndex {
+        let bindCnt =
+        switch routineIndex {
         case 0:
             selectedFirstCount
         case 1:

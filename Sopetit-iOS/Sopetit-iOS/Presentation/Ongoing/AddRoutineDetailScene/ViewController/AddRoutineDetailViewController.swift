@@ -284,7 +284,7 @@ extension AddRoutineDetailViewController {
     }
     
     func getChallengeMember() {
-        AddDailyRoutineService.shared.getChallengeMember{ networkResult in
+        AddDailyRoutineService.shared.getChallengeMember { networkResult in
             switch networkResult {
             case .noEntity:
                 self.hasChallengeRoutine = false

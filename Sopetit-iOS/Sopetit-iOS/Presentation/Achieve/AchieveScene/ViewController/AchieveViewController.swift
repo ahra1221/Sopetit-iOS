@@ -52,6 +52,10 @@ extension AchieveViewController {
         let today = Date()
         selectedDate = today
         calendarView.select(today)
+        
+        let inital = extractDayAndWeekday(selectDate: today)
+        achieveView.bindSelectDate(date: inital.extractedDay,
+                                   week: inital.extractedWeekday)
     }
     
     func setAddGesture() {
@@ -117,6 +121,19 @@ extension AchieveViewController {
         let day = calendar.component(.day, from: getDate)
         return (year, month, day)
     }
+    
+    func extractDayAndWeekday(selectDate: Date) -> (extractedDay: String,
+                                                    extractedWeekday: String) {
+        let dayFormatter = DateFormatter()
+        dayFormatter.dateFormat = "d"
+        let weekdayFormatter = DateFormatter()
+        weekdayFormatter.dateFormat = "E"
+        weekdayFormatter.locale = Locale(identifier: "ko_KR")
+        
+        let selectDay = dayFormatter.string(from: selectDate)
+        let selectWeekday = weekdayFormatter.string(from: selectDate)
+        return (selectDay, selectWeekday)
+    }
 }
 
 extension AchieveViewController: CalendarHeaderDelegate {
@@ -153,6 +170,9 @@ extension AchieveViewController: CalendarHeaderDelegate {
         calendarView.reloadData()
         updateCalendarHeaderButton()
         goTodayButton.isHidden = true
+        let inital = extractDayAndWeekday(selectDate: today)
+        achieveView.bindSelectDate(date: inital.extractedDay,
+                                   week: inital.extractedWeekday)
     }
 }
 
@@ -251,6 +271,9 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
         } else {
             goTodayButton.isHidden = true
         }
+        
+        achieveView.bindSelectDate(date: extractDayAndWeekday(selectDate: date).extractedDay,
+                                   week: extractDayAndWeekday(selectDate: date).extractedWeekday)
         selectedDate = date
         print(selectDate)
         calendar.reloadData()

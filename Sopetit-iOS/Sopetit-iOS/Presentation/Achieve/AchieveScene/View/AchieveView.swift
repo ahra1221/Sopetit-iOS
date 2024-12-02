@@ -16,6 +16,14 @@ final class AchieveView: UIView {
     
     let achieveMenuView = AchieveMenuView()
     
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.showsVerticalScrollIndicator = false
+        return scrollView
+    }()
+    
+    private let contentView = UIView()
+    
     let calendarHeaderView = CalendarHeaderView()
     
     let achieveCalendarView: FSCalendar = {
@@ -37,6 +45,26 @@ final class AchieveView: UIView {
         calendar.appearance.weekdayFont = .fontGuide(.body2)
         calendar.appearance.weekdayTextColor = .Gray400
         return calendar
+    }()
+    
+    private let divideView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .Gray200
+        return view
+    }()
+    
+    private let selectDateLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .Gray700
+        label.font = .fontGuide(.head3)
+        return label
+    }()
+    
+    private let selectDateCountLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .Gray500
+        label.font = .fontGuide(.body2)
+        return label
     }()
     
     // MARK: - Life Cycles
@@ -65,8 +93,13 @@ private extension AchieveView {
     
     func setHierarchy() {
         addSubviews(achieveMenuView,
-                    calendarHeaderView,
-                    achieveCalendarView)
+                    scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubviews(calendarHeaderView,
+                                achieveCalendarView,
+                                divideView,
+                                selectDateLabel,
+                                selectDateCountLabel)
     }
     
     func setLayout() {
@@ -75,8 +108,21 @@ private extension AchieveView {
             $0.leading.trailing.equalToSuperview()
         }
         
+        scrollView.snp.makeConstraints {
+            $0.top.equalTo(achieveMenuView.snp.bottom)
+            $0.horizontalEdges.equalToSuperview()
+            $0.bottom.equalTo(self.safeAreaLayoutGuide)
+        }
+        
+        contentView.snp.makeConstraints {
+            $0.top.equalTo(scrollView)
+            $0.horizontalEdges.bottom.equalToSuperview()
+            $0.width.equalTo(scrollView.snp.width)
+            $0.height.equalTo(scrollView.snp.height).priority(.low)
+        }
+        
         calendarHeaderView.snp.makeConstraints {
-            $0.top.equalTo(achieveMenuView.snp.bottom).offset(28)
+            $0.top.equalToSuperview().inset(28)
             $0.centerX.equalToSuperview()
             $0.width.equalTo(SizeLiterals.Screen.screenWidth - 40)
             $0.height.equalTo(26)
@@ -88,5 +134,35 @@ private extension AchieveView {
             $0.width.equalTo(SizeLiterals.Screen.screenWidth - 47)
             $0.height.equalTo(400)
         }
+        
+        divideView.snp.makeConstraints {
+            $0.top.equalTo(achieveCalendarView.snp.bottom).offset(20)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(2)
+        }
+        
+        selectDateLabel.snp.makeConstraints {
+            $0.top.equalTo(divideView.snp.bottom).offset(20)
+            $0.leading.equalToSuperview().inset(20)
+        }
+        
+        selectDateCountLabel.snp.makeConstraints {
+            $0.centerY.equalTo(selectDateLabel)
+            $0.leading.equalTo(selectDateLabel.snp.trailing).offset(4)
+        }
+    }
+}
+
+extension AchieveView {
+    
+    func bindSelectDate(date: String, week: String) {
+        selectDateLabel.text = "\(date)일 (\(week))"
+        selectDateLabel.asLineHeight(.head3)
+    }
+    
+    func bindSelectDateCount(cnt: Int) {
+        selectDateCountLabel.text = "\(cnt)개"
+        selectDateCountLabel.partColorChange(targetString: String(cnt), textColor: .Red200)
+        selectDateCountLabel.asLineHeight(.body2)
     }
 }

@@ -177,6 +177,8 @@
 		A49BFE4F2B53CE7700035EB6 /* DollImageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49BFE4E2B53CE7700035EB6 /* DollImageEntity.swift */; };
 		A49BFE5A2B54273E00035EB6 /* SVGKit in Frameworks */ = {isa = PBXBuildFile; productRef = A49BFE592B54273E00035EB6 /* SVGKit */; };
 		A49BFE622B558B2E00035EB6 /* MemberEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49BFE612B558B2E00035EB6 /* MemberEntity.swift */; };
+		A49E0AED2CFEC62600588087 /* MemberProfileEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E0AEC2CFEC62600588087 /* MemberProfileEntity.swift */; };
+		A49E0AEF2CFEC66800588087 /* AchieveService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E0AEE2CFEC66800588087 /* AchieveService.swift */; };
 		A4A516D12C36C46E00ED9CC1 /* RoutineThemeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A516D02C36C46E00ED9CC1 /* RoutineThemeCollectionViewCell.swift */; };
 		A4A516D32C36C7DA00ED9CC1 /* ThemeDetailEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A516D22C36C7DA00ED9CC1 /* ThemeDetailEntity.swift */; };
 		A4D2EB092B57D07A00493D8C /* HomeCottonEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D2EB082B57D07A00493D8C /* HomeCottonEntity.swift */; };
@@ -348,6 +350,8 @@
 		A49BFE4C2B51275C00035EB6 /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
 		A49BFE4E2B53CE7700035EB6 /* DollImageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DollImageEntity.swift; sourceTree = "<group>"; };
 		A49BFE612B558B2E00035EB6 /* MemberEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberEntity.swift; sourceTree = "<group>"; };
+		A49E0AEC2CFEC62600588087 /* MemberProfileEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberProfileEntity.swift; sourceTree = "<group>"; };
+		A49E0AEE2CFEC66800588087 /* AchieveService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchieveService.swift; sourceTree = "<group>"; };
 		A4A516D02C36C46E00ED9CC1 /* RoutineThemeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineThemeCollectionViewCell.swift; sourceTree = "<group>"; };
 		A4A516D22C36C7DA00ED9CC1 /* ThemeDetailEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeDetailEntity.swift; sourceTree = "<group>"; };
 		A4D2EB082B57D07A00493D8C /* HomeCottonEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCottonEntity.swift; sourceTree = "<group>"; };
@@ -740,6 +744,7 @@
 				A42C32FF2B3EAE3E00C4B477 /* HomeService.swift */,
 				098DFCA62B57EA770099063D /* AddDailyRoutineService.swift */,
 				09A342CB2C6E865700F52C81 /* DailyRoutineService.swift */,
+				A49E0AEE2CFEC66800588087 /* AchieveService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -747,6 +752,7 @@
 		A42C32DD2B3EAC4B00C4B477 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				A49E0AEB2CFEC61C00588087 /* Achieve */,
 				A42C32EF2B3EADAF00C4B477 /* Auth */,
 				A42C32EE2B3EADA900C4B477 /* Onboarding */,
 				A42C32ED2B3EADA300C4B477 /* Home */,
@@ -1291,6 +1297,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		A49E0AEB2CFEC61C00588087 /* Achieve */ = {
+			isa = PBXGroup;
+			children = (
+				A49E0AEC2CFEC62600588087 /* MemberProfileEntity.swift */,
+			);
+			path = Achieve;
+			sourceTree = "<group>";
+		};
 		A4D9F6E42C5D2F6900A9F719 /* TutorialScene */ = {
 			isa = PBXGroup;
 			children = (
@@ -1484,6 +1498,7 @@
 				A49BFE2A2B4E857300035EB6 /* DollNameView.swift in Sources */,
 				A42C32B72B3EAAD800C4B477 /* ImageLiterals.swift in Sources */,
 				0470C2552B57F9B900CE43D6 /* DailyPatchEntity.swift in Sources */,
+				A49E0AEF2CFEC66800588087 /* AchieveService.swift in Sources */,
 				045DFE7B2B504E38005D69EA /* SettingViewController.swift in Sources */,
 				09BCAA022C2A7C79006E876D /* GetCottonViewController.swift in Sources */,
 				09BCA9F42C2A7741006E876D /* RoutineEmptyView.swift in Sources */,
@@ -1509,6 +1524,7 @@
 				A42C32B92B3EAAE300C4B477 /* ColorLiterals.swift in Sources */,
 				A42C32A72B3EA9BF00C4B477 /* UserDefaultWrapper.swift in Sources */,
 				09A9F9292C81448800FE5836 /* DailyBSViewController.swift in Sources */,
+				A49E0AED2CFEC62600588087 /* MemberProfileEntity.swift in Sources */,
 				A4648BA42C0434A9001EB031 /* AddRoutineViewController.swift in Sources */,
 				A42C32CB2B3EAB4B00C4B477 /* NSObject+.swift in Sources */,
 				A42C32CF2B3EAB7700C4B477 /* UIColor+.swift in Sources */,

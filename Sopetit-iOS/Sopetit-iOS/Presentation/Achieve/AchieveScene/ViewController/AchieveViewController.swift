@@ -17,6 +17,7 @@ final class AchieveViewController: UIViewController {
     private var selectedDate: Date?
     private var selectedMonth: Int?
     private var formatter = DateFormatter()
+    private var memberProfileEntity: MemberProfileEntity?
     
     // MARK: - UI Components
     
@@ -34,6 +35,7 @@ final class AchieveViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        getMemberProfileAPI()
         setUI()
         setAddGesture()
         setRegisterCell()
@@ -359,5 +361,38 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
     
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
         return 0
+    }
+}
+
+// MARK: - Networks
+
+extension AchieveViewController {
+    
+    func getMemberProfileAPI() {
+        AchieveService.shared.getMemberProfileAPI { networkResult in
+            switch networkResult {
+            case .success(let data):
+                if let data = data as? GenericResponse<MemberProfileEntity> {
+                    print("🌀🌀🌀🌀🌀")
+                    dump(data)
+                    print("🌀🌀🌀🌀🌀")
+                    if let listData = data.data {
+                        self.memberProfileEntity = listData
+                    }
+                }
+            case .reissue:
+                ReissueService.shared.postReissueAPI(refreshToken: UserManager.shared.getRefreshToken) { success in
+                    if success {
+                        self.getMemberProfileAPI()
+                    } else {
+                        self.makeSessionExpiredAlert()
+                    }
+                }
+            case .requestErr, .serverErr:
+                break
+            default:
+                break
+            }
+        }
     }
 }

@@ -67,6 +67,32 @@ final class AchieveView: UIView {
         return label
     }()
     
+    private let selectDateMemoTopDotView = UIImageView(image: UIImage(resource: .imgDot))
+    private let selectDateMemoBottomDotView = UIImageView(image: UIImage(resource: .imgDot))
+    
+    private let addMemoButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(resource: .btnAddMemo), for: .normal)
+        return button
+    }()
+    
+    private let bearFaceImage: UIImageView = {
+        let imageview = UIImageView()
+        imageview.image = UIImage(named: "img_memo_\(UserManager.shared.getDollType.lowercased())")
+        return imageview
+    }()
+    
+    private let memoLabel: UILabel = {
+        let label = UILabel()
+        label.text = "그냥 집에 가고싶은데요\n아아 집이여\n아아아"
+        label.textColor = .Gray500
+        label.textAlignment = .left
+        label.font = .fontGuide(.body2)
+        label.asLineHeight(.body2)
+        label.numberOfLines = 0
+        return label
+    }()
+    
     // MARK: - Life Cycles
     
     override init(frame: CGRect) {
@@ -98,8 +124,13 @@ private extension AchieveView {
         contentView.addSubviews(calendarHeaderView,
                                 achieveCalendarView,
                                 divideView,
+                                addMemoButton,
                                 selectDateLabel,
-                                selectDateCountLabel)
+                                selectDateCountLabel,
+                                bearFaceImage,
+                                memoLabel,
+                                selectDateMemoTopDotView,
+                                selectDateMemoBottomDotView)
     }
     
     func setLayout() {
@@ -141,6 +172,12 @@ private extension AchieveView {
             $0.height.equalTo(2)
         }
         
+        addMemoButton.snp.makeConstraints {
+            $0.top.equalTo(divideView.snp.bottom).offset(16)
+            $0.trailing.equalToSuperview().inset(20)
+            $0.size.equalTo(32)
+        }
+        
         selectDateLabel.snp.makeConstraints {
             $0.top.equalTo(divideView.snp.bottom).offset(20)
             $0.leading.equalToSuperview().inset(20)
@@ -149,6 +186,32 @@ private extension AchieveView {
         selectDateCountLabel.snp.makeConstraints {
             $0.centerY.equalTo(selectDateLabel)
             $0.leading.equalTo(selectDateLabel.snp.trailing).offset(4)
+        }
+        
+        selectDateMemoTopDotView.snp.makeConstraints {
+            $0.bottom.equalTo(memoLabel.snp.top).offset(-16)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.height.equalTo(1)
+        }
+        
+        bearFaceImage.snp.makeConstraints {
+            $0.centerY.equalTo(memoLabel)
+            $0.leading.equalToSuperview().inset(24)
+            $0.width.equalTo(50)
+            $0.height.equalTo(49)
+        }
+        
+        memoLabel.snp.makeConstraints {
+            $0.top.equalTo(selectDateLabel.snp.bottom).offset(28)
+            $0.leading.equalTo(bearFaceImage.snp.trailing).offset(12)
+            $0.trailing.equalToSuperview().inset(24)
+        }
+        
+        selectDateMemoBottomDotView.snp.makeConstraints {
+            $0.top.equalTo(memoLabel.snp.bottom).offset(16)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.height.equalTo(1)
+            $0.bottom.equalToSuperview().inset(30)
         }
     }
 }

@@ -71,6 +71,10 @@ extension AchieveViewController {
         achieveView.achieveMenuView.calendarMenuView.addGestureRecognizer(tapCalendarMenu)
         achieveView.memoLabel.addGestureRecognizer(tapMemo)
         achieveView.bearFaceImage.addGestureRecognizer(tapBear)
+        
+        achieveView.addMemoButton.addTarget(self,
+                                            action: #selector(addMemoButtonTapped),
+                                            for: .touchUpInside)
     }
     
     func setRegisterCell() {
@@ -97,6 +101,13 @@ extension AchieveViewController {
     @objc
     func memoTapped() {
         let nav = EditMemoBSViewController(memo: "아아아\n아라라라ㅏ라라아랄ㅇ라ㅏㅇ아아아\ndkdk")
+        nav.modalPresentationStyle = .overFullScreen
+        self.present(nav, animated: false)
+    }
+    
+    @objc
+    func addMemoButtonTapped() {
+        let nav = AddMemoBSViewController(memo: "")
         nav.modalPresentationStyle = .overFullScreen
         self.present(nav, animated: false)
     }

@@ -14,6 +14,7 @@ final class EditMemoBSViewController: UIViewController {
     // MARK: - Properties
     
     private var bottomHeight: CGFloat = SizeLiterals.Screen.screenHeight * 280 / 812
+    private var memoContent: String?
     
     // MARK: - UI Components
     
@@ -75,6 +76,7 @@ final class EditMemoBSViewController: UIViewController {
     // MARK: - Life Cycles
     
     init(memo: String) {
+        self.memoContent = memo
         super.init(nibName: nil, bundle: nil)
         self.bindUI(memo: memo)
     }
@@ -226,7 +228,9 @@ extension EditMemoBSViewController {
     
     @objc
     func tapEditButton() {
-        
+        let nav = AddMemoBSViewController(memo: self.memoContent ?? "")
+        nav.modalPresentationStyle = .overFullScreen
+        self.present(nav, animated: false)
     }
     
     @objc

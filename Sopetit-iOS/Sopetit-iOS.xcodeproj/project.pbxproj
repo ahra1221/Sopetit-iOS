@@ -145,6 +145,8 @@
 		A475D5032CF553CE00B5DDC5 /* CalendarHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A475D5022CF553CE00B5DDC5 /* CalendarHeaderView.swift */; };
 		A475D5252CFE8C1300B5DDC5 /* EditMemoBSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A475D5242CFE8C1300B5DDC5 /* EditMemoBSViewController.swift */; };
 		A475D5292CFEA27000B5DDC5 /* HeightForView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A475D5282CFEA27000B5DDC5 /* HeightForView.swift */; };
+		A475D52B2CFEABA700B5DDC5 /* AddMemoBSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A475D52A2CFEABA700B5DDC5 /* AddMemoBSViewController.swift */; };
+		A475D52D2CFEB18300B5DDC5 /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A475D52C2CFEB18300B5DDC5 /* UITextView+.swift */; };
 		A4832BAB2B4ACF09007879FF /* omyu-pretty.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4832BAA2B4ACF09007879FF /* omyu-pretty.ttf */; };
 		A488FE8B2B697BB7000B4809 /* UpdateAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A488FE8A2B697BB7000B4809 /* UpdateAlertView.swift */; };
 		A488FE8E2B697C0E000B4809 /* VersionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A488FE8D2B697C0E000B4809 /* VersionEntity.swift */; };
@@ -315,6 +317,8 @@
 		A475D5022CF553CE00B5DDC5 /* CalendarHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHeaderView.swift; sourceTree = "<group>"; };
 		A475D5242CFE8C1300B5DDC5 /* EditMemoBSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMemoBSViewController.swift; sourceTree = "<group>"; };
 		A475D5282CFEA27000B5DDC5 /* HeightForView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeightForView.swift; sourceTree = "<group>"; };
+		A475D52A2CFEABA700B5DDC5 /* AddMemoBSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMemoBSViewController.swift; sourceTree = "<group>"; };
+		A475D52C2CFEB18300B5DDC5 /* UITextView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
 		A4832BAA2B4ACF09007879FF /* omyu-pretty.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "omyu-pretty.ttf"; sourceTree = "<group>"; };
 		A488FE8A2B697BB7000B4809 /* UpdateAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateAlertView.swift; sourceTree = "<group>"; };
 		A488FE8D2B697C0E000B4809 /* VersionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionEntity.swift; sourceTree = "<group>"; };
@@ -677,6 +681,7 @@
 				A42C32CE2B3EAB7700C4B477 /* UIColor+.swift */,
 				A42C32D02B3EAB7F00C4B477 /* String+.swift */,
 				A49BFE4C2B51275C00035EB6 /* UIImageView+.swift */,
+				A475D52C2CFEB18300B5DDC5 /* UITextView+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1010,6 +1015,7 @@
 			children = (
 				A4648B9B2C043387001EB031 /* AchieveViewController.swift */,
 				A475D5242CFE8C1300B5DDC5 /* EditMemoBSViewController.swift */,
+				A475D52A2CFEABA700B5DDC5 /* AddMemoBSViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1544,6 +1550,7 @@
 				A42C32E12B3EAC7800C4B477 /* Config.swift in Sources */,
 				A42C32FA2B3EADF900C4B477 /* DailyRoutineEntity.swift in Sources */,
 				A49BFE232B4E565D00035EB6 /* RoutineChoiceEntity.swift in Sources */,
+				A475D52D2CFEB18300B5DDC5 /* UITextView+.swift in Sources */,
 				A49BFDF52B4DA85300035EB6 /* ThemeSelectCollectionViewCell.swift in Sources */,
 				0084F19D2B4A896500F87860 /* LoginViewController.swift in Sources */,
 				A4648B9C2C043387001EB031 /* AchieveViewController.swift in Sources */,
@@ -1584,6 +1591,7 @@
 				A488FE8E2B697C0E000B4809 /* VersionEntity.swift in Sources */,
 				0016380D2B8FA1A80099A77D /* LoginViewModel.swift in Sources */,
 				045DFE812B515FAE005D69EA /* WithdrawViewController.swift in Sources */,
+				A475D52B2CFEABA700B5DDC5 /* AddMemoBSViewController.swift in Sources */,
 				A42C32D12B3EAB7F00C4B477 /* String+.swift in Sources */,
 				A475D5292CFEA27000B5DDC5 /* HeightForView.swift in Sources */,
 				A49BFDF02B4DA48200035EB6 /* ThemeSelectView.swift in Sources */,

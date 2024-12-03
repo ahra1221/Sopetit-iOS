@@ -70,7 +70,7 @@ final class AchieveView: UIView {
     private let selectDateMemoTopDotView = UIImageView(image: UIImage(resource: .imgDot))
     private let selectDateMemoBottomDotView = UIImageView(image: UIImage(resource: .imgDot))
     
-    private let addMemoButton: UIButton = {
+    let addMemoButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(resource: .btnAddMemo), for: .normal)
         return button

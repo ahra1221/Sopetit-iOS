@@ -14,6 +14,8 @@ final class AddMemoBSViewController: UIViewController {
     // MARK: - Properties
     
     private var bottomHeight: CGFloat = SizeLiterals.Screen.screenHeight * 312 / 812
+    private var bottomsheetBottomOffest = 0.0
+    private var isKeyboardVisible = false
     
     // MARK: - UI Components
     
@@ -30,6 +32,7 @@ final class AddMemoBSViewController: UIViewController {
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         view.layer.cornerRadius = 20
         view.clipsToBounds = false
+        view.isUserInteractionEnabled = true
         return view
     }()
     
@@ -122,6 +125,26 @@ final class AddMemoBSViewController: UIViewController {
         super.viewDidAppear(animated)
         
         showBottomSheet()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(self, 
+                                               selector: #selector(keyboardUp),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self, 
+                                               selector: #selector(keyboardDown),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 }
 
@@ -226,12 +249,30 @@ extension AddMemoBSViewController {
     }
     
     func setDismissAction() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideBottomSheetAction))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleSwipeGesture))
         backgroundView.addGestureRecognizer(tapGesture)
         
-        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(hideBottomSheetAction))
+        let tapGesture2 = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboardAndBottomSheet))
+        bottomSheet.addGestureRecognizer(tapGesture2)
+        
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture))
         swipeGesture.direction = .down
         view.addGestureRecognizer(swipeGesture)
+    }
+    
+    @objc
+    func handleSwipeGesture() {
+        if isKeyboardVisible {
+            dismissKeyboardAndBottomSheet()
+        } else {
+            hideBottomSheet()
+        }
+    }
+    
+    @objc
+    func dismissKeyboardAndBottomSheet() {
+        view.endEditing(true)
+        isKeyboardVisible = false
     }
     
     @objc
@@ -262,6 +303,37 @@ extension AddMemoBSViewController {
             textView.isEditable = true
         } else {
             textView.deleteBackward()
+        }
+    }
+    
+    @objc func keyboardUp(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
+              let animationDuration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {
+            return
+        }
+        
+        let keyboardHeight = keyboardFrame.height
+        isKeyboardVisible = true
+        bottomSheet.snp.updateConstraints {
+            $0.top.equalToSuperview().inset(SizeLiterals.Screen.screenHeight - bottomHeight - keyboardHeight)
+        }
+        UIView.animate(withDuration: animationDuration) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    @objc func keyboardDown(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let animationDuration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {
+            return
+        }
+        isKeyboardVisible = false
+        bottomSheet.snp.updateConstraints {
+            $0.leading.trailing.bottom.equalToSuperview()
+        }
+        UIView.animate(withDuration: animationDuration) {
+            self.view.layoutIfNeeded()
         }
     }
 }

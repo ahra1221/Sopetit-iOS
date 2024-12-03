@@ -42,4 +42,83 @@ extension AchieveService {
             }
         }
     }
+    
+    func postMemoAPI(addMemoEntity: AddMemosRequestEntity,
+                     completion: @escaping (NetworkResult<Any>) -> Void) {
+        let url = URLConstant.memosURL
+        let header: HTTPHeaders = NetworkConstant.hasTokenHeader
+        let body: Parameters = [
+            "achievedDate": addMemoEntity.achievedDate,
+            "content": addMemoEntity.content
+        ]
+        let dataRequest = AF.request(url,
+                                     method: .post,
+                                     parameters: body,
+                                     encoding: JSONEncoding.default,
+                                     headers: header)
+        dataRequest.responseData { response in
+            switch response.result {
+            case .success:
+                guard let statusCode = response.response?.statusCode else { return }
+                guard let data = response.data else { return }
+                let networkResult = self.judgeStatus(by: statusCode,
+                                                     data,
+                                                     MemosResponseEntity.self)
+                completion(networkResult)
+            case .failure:
+                completion(.networkFail)
+            }
+        }
+    }
+    
+    func deleteRoutineListAPI(memoId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
+        let url = URLConstant.memosWithIdURL + "\(memoId)"
+        let header: HTTPHeaders = NetworkConstant.hasTokenHeader
+        let dataRequest = AF.request(url,
+                                     method: .delete,
+                                     encoding: JSONEncoding.default,
+                                     headers: header)
+        
+        dataRequest.responseData { response in
+            switch response.result {
+            case .success:
+                guard let statusCode = response.response?.statusCode else { return }
+                guard let data = response.data else { return }
+                let networkResult = self.judgeStatus(by: statusCode,
+                                                     data,
+                                                     EmptyEntity.self)
+                completion(networkResult)
+            case .failure:
+                completion(.networkFail)
+            }
+        }
+    }
+    
+    func patchRoutineAPI(memoId: Int,
+                         content: String,
+                         completion: @escaping (NetworkResult<Any>) -> Void) {
+        let url = URLConstant.memosWithIdURL + "\(memoId)"
+        let header: HTTPHeaders = NetworkConstant.hasTokenHeader
+        let body: Parameters = [
+            "content": content
+        ]
+        let dataRequest = AF.request(url,
+                                     method: .patch,
+                                     encoding: JSONEncoding.default,
+                                     headers: header)
+        
+        dataRequest.responseData { response in
+            switch response.result {
+            case .success:
+                guard let statusCode = response.response?.statusCode else { return }
+                guard let data = response.data else { return }
+                let networkResult = self.judgeStatus(by: statusCode,
+                                                     data,
+                                                     EmptyEntity.self)
+                completion(networkResult)
+            case .failure:
+                completion(.networkFail)
+            }
+        }
+    }
 }

@@ -63,4 +63,6 @@ enum URLConstant {
     // MARK: - Achieve URL
     
     static let membersProfileURL = baseURL + "/api/v1/members/profile"
+    static let memosURL = baseURL + "/api/v3/memos"
+    static let memosWithIdURL = baseURL + "/api/v3/memos/"
 }

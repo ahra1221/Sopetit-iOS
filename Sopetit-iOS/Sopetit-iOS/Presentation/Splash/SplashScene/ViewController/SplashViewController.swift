@@ -57,6 +57,9 @@ private extension SplashViewController {
         
         self.updateAlertView.isHidden = true
         self.navigationController?.navigationBar.isHidden = true
+        
+        print("🚨🚨🚨accesstoken🚨🚨🚨")
+        print(UserManager.shared.getAccessToken)
     }
     
     func setDelegate() {

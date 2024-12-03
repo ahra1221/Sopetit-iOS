@@ -143,6 +143,8 @@
 		A46CA16F2CE7102D00AB4DCA /* CalendarDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46CA16E2CE7102100AB4DCA /* CalendarDateCell.swift */; };
 		A46CA1722CE7106C00AB4DCA /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = A46CA1712CE7106C00AB4DCA /* FSCalendar */; };
 		A475D5032CF553CE00B5DDC5 /* CalendarHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A475D5022CF553CE00B5DDC5 /* CalendarHeaderView.swift */; };
+		A475D5252CFE8C1300B5DDC5 /* EditMemoBSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A475D5242CFE8C1300B5DDC5 /* EditMemoBSViewController.swift */; };
+		A475D5292CFEA27000B5DDC5 /* HeightForView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A475D5282CFEA27000B5DDC5 /* HeightForView.swift */; };
 		A4832BAB2B4ACF09007879FF /* omyu-pretty.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4832BAA2B4ACF09007879FF /* omyu-pretty.ttf */; };
 		A488FE8B2B697BB7000B4809 /* UpdateAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A488FE8A2B697BB7000B4809 /* UpdateAlertView.swift */; };
 		A488FE8E2B697C0E000B4809 /* VersionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A488FE8D2B697C0E000B4809 /* VersionEntity.swift */; };
@@ -311,6 +313,8 @@
 		A46CA1692CE70A2100AB4DCA /* AchieveMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchieveMenuView.swift; sourceTree = "<group>"; };
 		A46CA16E2CE7102100AB4DCA /* CalendarDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateCell.swift; sourceTree = "<group>"; };
 		A475D5022CF553CE00B5DDC5 /* CalendarHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHeaderView.swift; sourceTree = "<group>"; };
+		A475D5242CFE8C1300B5DDC5 /* EditMemoBSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMemoBSViewController.swift; sourceTree = "<group>"; };
+		A475D5282CFEA27000B5DDC5 /* HeightForView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeightForView.swift; sourceTree = "<group>"; };
 		A4832BAA2B4ACF09007879FF /* omyu-pretty.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "omyu-pretty.ttf"; sourceTree = "<group>"; };
 		A488FE8A2B697BB7000B4809 /* UpdateAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateAlertView.swift; sourceTree = "<group>"; };
 		A488FE8D2B697C0E000B4809 /* VersionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionEntity.swift; sourceTree = "<group>"; };
@@ -645,6 +649,7 @@
 			children = (
 				A42C32D62B3EAC1300C4B477 /* MakeVibrate.swift */,
 				A42C32D82B3EAC1C00C4B477 /* MakeAlert.swift */,
+				A475D5282CFEA27000B5DDC5 /* HeightForView.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1004,6 +1009,7 @@
 			isa = PBXGroup;
 			children = (
 				A4648B9B2C043387001EB031 /* AchieveViewController.swift */,
+				A475D5242CFE8C1300B5DDC5 /* EditMemoBSViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1511,6 +1517,7 @@
 				A40F9F042C67C3C6004DD1A1 /* MakersCollectionViewCell.swift in Sources */,
 				A46CA1632CE206AF00AB4DCA /* AlarmViewController.swift in Sources */,
 				A40F9F142C69D0CC004DD1A1 /* AddRoutineDetailViewController.swift in Sources */,
+				A475D5252CFE8C1300B5DDC5 /* EditMemoBSViewController.swift in Sources */,
 				00A8E39A2B4D8B0D001461CE /* HomeView.swift in Sources */,
 				A46CA16A2CE70A2A00AB4DCA /* AchieveMenuView.swift in Sources */,
 				A42C32A52B3EA9A000C4B477 /* UserManager.swift in Sources */,
@@ -1578,6 +1585,7 @@
 				0016380D2B8FA1A80099A77D /* LoginViewModel.swift in Sources */,
 				045DFE812B515FAE005D69EA /* WithdrawViewController.swift in Sources */,
 				A42C32D12B3EAB7F00C4B477 /* String+.swift in Sources */,
+				A475D5292CFEA27000B5DDC5 /* HeightForView.swift in Sources */,
 				A49BFDF02B4DA48200035EB6 /* ThemeSelectView.swift in Sources */,
 				A49BFE622B558B2E00035EB6 /* MemberEntity.swift in Sources */,
 				A46CA16F2CE7102D00AB4DCA /* CalendarDateCell.swift in Sources */,

@@ -76,13 +76,14 @@ final class AchieveView: UIView {
         return button
     }()
     
-    private let bearFaceImage: UIImageView = {
+    let bearFaceImage: UIImageView = {
         let imageview = UIImageView()
         imageview.image = UIImage(named: "img_memo_\(UserManager.shared.getDollType.lowercased())")
+        imageview.isUserInteractionEnabled = true
         return imageview
     }()
     
-    private let memoLabel: UILabel = {
+    let memoLabel: UILabel = {
         let label = UILabel()
         label.text = "그냥 집에 가고싶은데요\n아아 집이여\n아아아"
         label.textColor = .Gray500
@@ -90,6 +91,7 @@ final class AchieveView: UIView {
         label.font = .fontGuide(.body2)
         label.asLineHeight(.body2)
         label.numberOfLines = 0
+        label.isUserInteractionEnabled = true
         return label
     }()
     

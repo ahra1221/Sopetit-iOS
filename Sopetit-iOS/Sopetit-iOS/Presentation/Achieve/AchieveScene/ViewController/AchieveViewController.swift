@@ -63,8 +63,14 @@ extension AchieveViewController {
                                                   action: #selector(statsMenuTapped))
         let tapCalendarMenu = UITapGestureRecognizer(target: self,
                                                      action: #selector(calendarMenuTapped))
+        let tapMemo =  UITapGestureRecognizer(target: self,
+                                              action: #selector(memoTapped))
+        let tapBear =  UITapGestureRecognizer(target: self,
+                                              action: #selector(memoTapped))
         achieveView.achieveMenuView.statsMenuView.addGestureRecognizer(tapStatsMenu)
         achieveView.achieveMenuView.calendarMenuView.addGestureRecognizer(tapCalendarMenu)
+        achieveView.memoLabel.addGestureRecognizer(tapMemo)
+        achieveView.bearFaceImage.addGestureRecognizer(tapBear)
     }
     
     func setRegisterCell() {
@@ -86,6 +92,13 @@ extension AchieveViewController {
     @objc
     func calendarMenuTapped() {
         achieveView.achieveMenuView.setAchieveMenuTapped(statsTapped: false)
+    }
+    
+    @objc
+    func memoTapped() {
+        let nav = EditMemoBSViewController(memo: "아아아\n아라라라ㅏ라라아랄ㅇ라ㅏㅇ아아아\ndkdk")
+        nav.modalPresentationStyle = .overFullScreen
+        self.present(nav, animated: false)
     }
     
     func updateCalendarHeaderButton() {

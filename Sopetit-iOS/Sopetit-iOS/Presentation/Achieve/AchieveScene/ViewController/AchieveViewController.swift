@@ -17,7 +17,7 @@ final class AchieveViewController: UIViewController {
     private var selectedDate: Date?
     private var selectedMonth: Int?
     private var formatter = DateFormatter()
-    private var memberProfileEntity: MemberProfileEntity?
+    private var registerDate: String = ""
     
     // MARK: - UI Components
     
@@ -54,6 +54,7 @@ extension AchieveViewController {
         let today = Date()
         selectedDate = today
         calendarView.select(today)
+        achieveView.calendarHeaderView.calendarHeaderRightButton.isEnabled = false
         
         let inital = extractDayAndWeekday(selectDate: today)
         achieveView.bindSelectDate(date: inital.extractedDay,
@@ -121,7 +122,7 @@ extension AchieveViewController {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        guard let registerDate = dateFormatter.date(from: "2024-04-06") else { return }
+        guard let registerDate = dateFormatter.date(from: self.registerDate) else { return }
         
         if currentPage <= calendar.date(from: calendar.dateComponents([.year, .month], from: registerDate))! {
             calendarHeaderView.setHeaderLeftButton(state: false)
@@ -222,9 +223,9 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
         let month = getDayComponents(date: "").month
         let year = getDayComponents(date: "").year
         
-        let registerDay = getDayComponents(date: "2024-04-06").day
-        let registerMonth = getDayComponents(date: "2024-04-06").month
-        let registerYear = getDayComponents(date: "2024-04-06").year
+        let registerDay = getDayComponents(date: self.registerDate).day
+        let registerMonth = getDayComponents(date: self.registerDate).month
+        let registerYear = getDayComponents(date: self.registerDate).year
         
         var bindDataType: CalendarDateType = .nonSelected
         var bindIconType: CalendarIconType = .normal
@@ -282,8 +283,7 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
             return
         }
         
-        let dateString = "2024-04-06"
-        let registerDate = selectDateFormmatter.date(from: dateString) ?? Date()
+        let registerDate = selectDateFormmatter.date(from: self.registerDate) ?? Date()
         if date.compare(registerDate) == .orderedAscending {
             return
         }
@@ -292,7 +292,7 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
             return
         }
         
-        if selectDate < today && selectDate >= dateString {
+        if selectDate < today && selectDate >= self.registerDate {
             goTodayButton.isHidden = false
         } else {
             goTodayButton.isHidden = true
@@ -312,9 +312,7 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
     func minimumDate(for calendar: FSCalendar) -> Date {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
-
-        let dateString = "2024-04-06"
-        let registerDate = formatter.date(from: dateString) ?? Date()
+        let registerDate = formatter.date(from: self.registerDate) ?? Date()
         return registerDate
     }
     
@@ -373,11 +371,9 @@ extension AchieveViewController {
             switch networkResult {
             case .success(let data):
                 if let data = data as? GenericResponse<MemberProfileEntity> {
-                    print("🌀🌀🌀🌀🌀")
-                    dump(data)
-                    print("🌀🌀🌀🌀🌀")
-                    if let listData = data.data {
-                        self.memberProfileEntity = listData
+                    if let memberProfilData = data.data {
+                        let date = memberProfilData.createdAt.split(separator: "T").first ?? ""
+                        self.registerDate = String(date)
                     }
                 }
             case .reissue:

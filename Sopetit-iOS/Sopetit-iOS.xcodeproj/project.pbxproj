@@ -181,6 +181,8 @@
 		A49E0AEF2CFEC66800588087 /* AchieveService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E0AEE2CFEC66800588087 /* AchieveService.swift */; };
 		A49E0AF12CFECAE500588087 /* MemosRequestEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E0AF02CFECAE500588087 /* MemosRequestEntity.swift */; };
 		A49E0AF32CFECB2A00588087 /* MemosResponseEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E0AF22CFECB2A00588087 /* MemosResponseEntity.swift */; };
+		A49E0AF52D0123BC00588087 /* CalendarEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E0AF42D0123BC00588087 /* CalendarEntity.swift */; };
+		A49E0AF72D01302900588087 /* CalendarRequestEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E0AF62D01302900588087 /* CalendarRequestEntity.swift */; };
 		A4A516D12C36C46E00ED9CC1 /* RoutineThemeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A516D02C36C46E00ED9CC1 /* RoutineThemeCollectionViewCell.swift */; };
 		A4A516D32C36C7DA00ED9CC1 /* ThemeDetailEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A516D22C36C7DA00ED9CC1 /* ThemeDetailEntity.swift */; };
 		A4D2EB092B57D07A00493D8C /* HomeCottonEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D2EB082B57D07A00493D8C /* HomeCottonEntity.swift */; };
@@ -356,6 +358,8 @@
 		A49E0AEE2CFEC66800588087 /* AchieveService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchieveService.swift; sourceTree = "<group>"; };
 		A49E0AF02CFECAE500588087 /* MemosRequestEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemosRequestEntity.swift; sourceTree = "<group>"; };
 		A49E0AF22CFECB2A00588087 /* MemosResponseEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemosResponseEntity.swift; sourceTree = "<group>"; };
+		A49E0AF42D0123BC00588087 /* CalendarEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEntity.swift; sourceTree = "<group>"; };
+		A49E0AF62D01302900588087 /* CalendarRequestEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarRequestEntity.swift; sourceTree = "<group>"; };
 		A4A516D02C36C46E00ED9CC1 /* RoutineThemeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineThemeCollectionViewCell.swift; sourceTree = "<group>"; };
 		A4A516D22C36C7DA00ED9CC1 /* ThemeDetailEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeDetailEntity.swift; sourceTree = "<group>"; };
 		A4D2EB082B57D07A00493D8C /* HomeCottonEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCottonEntity.swift; sourceTree = "<group>"; };
@@ -1307,6 +1311,8 @@
 				A49E0AEC2CFEC62600588087 /* MemberProfileEntity.swift */,
 				A49E0AF02CFECAE500588087 /* MemosRequestEntity.swift */,
 				A49E0AF22CFECB2A00588087 /* MemosResponseEntity.swift */,
+				A49E0AF42D0123BC00588087 /* CalendarEntity.swift */,
+				A49E0AF62D01302900588087 /* CalendarRequestEntity.swift */,
 			);
 			path = Achieve;
 			sourceTree = "<group>";
@@ -1497,6 +1503,7 @@
 				A49BFDE52B4D7EDF00035EB6 /* CustomProgressView.swift in Sources */,
 				A49BFE1F2B4E542B00035EB6 /* RoutineChoiceView.swift in Sources */,
 				A49BFDE12B4D7A5400035EB6 /* DollChoiceViewController.swift in Sources */,
+				A49E0AF52D0123BC00588087 /* CalendarEntity.swift in Sources */,
 				A40F9F1A2C6AD944004DD1A1 /* AddRoutineInfoEntity.swift in Sources */,
 				A42C33042B3EAE4F00C4B477 /* AuthService.swift in Sources */,
 				A4648BA02C043417001EB031 /* AddRoutineView.swift in Sources */,
@@ -1579,6 +1586,7 @@
 				0084F19D2B4A896500F87860 /* LoginViewController.swift in Sources */,
 				A4648B9C2C043387001EB031 /* AchieveViewController.swift in Sources */,
 				A4D9F6EB2C5D2F8C00A9F719 /* TutorialView.swift in Sources */,
+				A49E0AF72D01302900588087 /* CalendarRequestEntity.swift in Sources */,
 				09A9F91F2C804E3500FE5836 /* GetRainbowCottonViewController.swift in Sources */,
 				A49BFDF22B4DA53A00035EB6 /* ThemeSelectEntity.swift in Sources */,
 				A49BFDE92B4D873400035EB6 /* DollChoiceCollectionViewCell.swift in Sources */,

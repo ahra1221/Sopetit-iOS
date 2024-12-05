@@ -26,9 +26,6 @@ extension AchieveService {
                                      encoding: JSONEncoding.default,
                                      headers: header)
         dataRequest.responseData { response in
-            print("🌀🌀🌀🌀🌀")
-            dump(response)
-            print("🌀🌀🌀🌀🌀")
             switch response.result {
             case .success:
                 guard let statusCode = response.response?.statusCode else { return }
@@ -115,6 +112,38 @@ extension AchieveService {
                 let networkResult = self.judgeStatus(by: statusCode,
                                                      data,
                                                      EmptyEntity.self)
+                completion(networkResult)
+            case .failure:
+                completion(.networkFail)
+            }
+        }
+    }
+    
+    func getCalendar(requestEntity: CalendarRequestEntity,
+                     completion: @escaping (NetworkResult<Any>) -> Void) {
+        let url = URLConstant.calendarURL
+        let header: HTTPHeaders = NetworkConstant.hasTokenHeader
+        let parameters: Parameters = [
+            "year": requestEntity.year,
+            "month": requestEntity.month
+        ]
+        let dataRequest = AF.request(url,
+                                     method: .get,
+                                     parameters: parameters,
+                                     encoding: URLEncoding.default,
+                                     headers: header)
+        dataRequest.responseData { response in
+            print("🍎🍎🍎datarequest🍎🍎")
+            print(dataRequest)
+            print("🍎🍎🍎response🍎🍎")
+            print(response)
+            switch response.result {
+            case .success:
+                guard let statusCode = response.response?.statusCode else { return }
+                guard let data = response.data else { return }
+                let networkResult = self.judgeNoGenericStatus(by: statusCode,
+                                                              data,
+                                                              CalendarEntity.self)
                 completion(networkResult)
             case .failure:
                 completion(.networkFail)

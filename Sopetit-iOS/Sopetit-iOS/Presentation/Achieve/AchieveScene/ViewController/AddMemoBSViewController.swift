@@ -70,7 +70,7 @@ final class AddMemoBSViewController: UIViewController {
         textView.backgroundColor = .Gray200
         textView.layer.cornerRadius = 8
         textView.isScrollEnabled = false
-        textView.textContainerInset = UIEdgeInsets(top: 16, left: 16, bottom: 0, right: 16)
+        textView.textContainerInset = UIEdgeInsets(top: SizeLiterals.Screen.screenHeight * 16 / 812, left: 16, bottom: 0, right: 16)
         
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.minimumLineHeight = 20

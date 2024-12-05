@@ -76,6 +76,7 @@ extension NewDailyRoutineHeaderView {
     
     func setDataBind(text: String, image: Int) {
         themeLabel.text = text
+        themeLabel.asLineHeight(.body2)
         themeImageView.image = UIImage(named: "theme\(image)")
     }
 }

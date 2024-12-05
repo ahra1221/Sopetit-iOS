@@ -44,7 +44,6 @@ final class AchieveViewController: UIViewController {
         setAddGesture()
         setRegisterCell()
         setDelegate()
-//        updateCalendarHeaderButton()
     }
 }
 
@@ -93,7 +92,7 @@ extension AchieveViewController {
         calendarView.delegate = self
         calendarView.dataSource = self
         calendarHeaderView.delegate = self
-//        achieveCV.delegate = self
+        achieveCV.delegate = self
         achieveCV.dataSource = self
     }
     
@@ -242,6 +241,48 @@ extension AchieveViewController: UICollectionViewDataSource {
             return headerView
         }
         return UICollectionReusableView()
+    }
+}
+
+extension AchieveViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let label: UILabel = {
+            let label = UILabel()
+            let value = findValue(for: formatDateToString(selectedDate ?? Date()))
+            label.text = value.histories[indexPath.section].histories[indexPath.item].content.replacingOccurrences(of: "\n", with: " ")
+            label.font = .fontGuide(.body2)
+            return label
+        }()
+        
+        let height = max(heightForView(text: label.text ?? "", font: label.font, width: SizeLiterals.Screen.screenWidth - 119), 24) + 32
+        
+        return CGSize(width: SizeLiterals.Screen.screenWidth - 40, height: height)
+    }
+    
+    func heightForView(text: String, font: UIFont, width: CGFloat) -> CGFloat {
+        let label: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
+        label.numberOfLines = 0
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
+        label.font = font
+        label.text = text
+        label.setTextWithLineHeight(text: label.text, lineHeight: 20)
+        label.sizeToFit()
+        return label.frame.height
+    }
+    
+    func heightForContentView(numberOfSection: Int, texts: [CalendarHistory]) -> Double {
+        var height = Double(numberOfSection) * 20.0
+        
+        for k in texts {
+            for i in k.histories {
+                let textHeight = heightForView(text: i.content.replacingOccurrences(of: "\n", with: " "), font: .fontGuide(.body2), width: SizeLiterals.Screen.screenWidth - 119) + 32
+                height += textHeight
+            }
+            height += 12
+        }
+        height += Double(16 * (texts.count - 1) + 30)
+        return height
     }
 }
 
@@ -402,13 +443,18 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
                                    week: extractDayAndWeekday(selectDate: date).extractedWeekday)
         selectedDate = date
         if hasDateKey(for: selectDate) {
-            let memo = findValue(for: selectDate).memoContent
+            let value = findValue(for: selectDate)
+            let memo = value.memoContent
+            let height = heightForContentView(numberOfSection: value.histories.count,
+                                              texts: value.histories)
             print("🙏🏻🙏🏻🙏🏻🙏🏻🙏🏻")
-            print(memo)
+            dump(value.histories)
+            print("🙏🏻🙏🏻🙏🏻🙏🏻🙏🏻")
+            print(height)
             if memo == "" { // 메모는 안썼음
-                achieveView.bindIsMemo(isRecord: false)
+                achieveView.bindIsMemo(isRecord: false, height: height)
             } else { // 달성도 하고 메모도 씀
-                achieveView.bindIsMemo(isRecord: true)
+                achieveView.bindIsMemo(isRecord: true, height: height)
             }
         } else {
             achieveView.bindIsEmptyView(isEmpty: true)

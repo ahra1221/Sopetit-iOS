@@ -23,6 +23,8 @@ final class CalendarHistoryCell: UICollectionViewCell,
         label.textColor = .Gray700
         label.textAlignment = .left
         label.font = .fontGuide(.body2)
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
     
@@ -61,6 +63,7 @@ private extension CalendarHistoryCell {
     func setLayout() {
         historyTitleLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(16)
+            $0.trailing.equalTo(historyDetailButton.snp.leading).offset(-23)
             $0.centerY.equalToSuperview()
         }
         
@@ -77,7 +80,7 @@ extension CalendarHistoryCell {
     func bindHistoryCell(content: String,
                          isMission: Bool,
                          themeId: Int) {
-        historyTitleLabel.text = content
+        historyTitleLabel.text = content.replacingOccurrences(of: "\n", with: " ")
         historyTitleLabel.asLineHeight(.body2)
         backgroundColor = isMission ? UIColor(named: "ThemeBack\(themeId)") : .SoftieWhite
     }

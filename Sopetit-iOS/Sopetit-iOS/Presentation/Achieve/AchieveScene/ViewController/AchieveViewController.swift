@@ -40,7 +40,7 @@ final class AchieveViewController: UIViewController {
         setAddGesture()
         setRegisterCell()
         setDelegate()
-        updateCalendarHeaderButton()
+//        updateCalendarHeaderButton()
     }
 }
 
@@ -208,9 +208,7 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
     func calendar(_ calendar: FSCalendar,
                   cellFor date: Date,
                   at position: FSCalendarMonthPosition) -> FSCalendarCell {
-        guard let cell = calendar.dequeueReusableCell(withIdentifier: CalendarDateCell.className,
-                                                      for: date,
-                                                      at: position) as? CalendarDateCell
+        guard let cell = calendar.dequeueReusableCell(withIdentifier: CalendarDateCell.className, for: date, at: position) as? CalendarDateCell
         else { return FSCalendarCell() }
         
         let bindDay = Calendar.current.component(.day, from: date)
@@ -234,6 +232,8 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
             if bindMonth == month {
                 if bindDay > day {
                     bindDataType = .future
+                } else if bindDay < day {
+                    bindDataType = .nonSelected
                 }
             } else if bindMonth > month {
                 bindDataType = .future
@@ -374,6 +374,7 @@ extension AchieveViewController {
                     if let memberProfilData = data.data {
                         let date = memberProfilData.createdAt.split(separator: "T").first ?? ""
                         self.registerDate = String(date)
+                        self.calendarView.reloadData()
                     }
                 }
             case .reissue:

@@ -183,6 +183,7 @@ extension AchieveViewController {
     
     func hasDateKey(for key: String) -> Bool {
         if calendarEntity.data[key] != nil {
+            print("💊💊hasDateKey💊💊")
             return true
         } else {
             return false
@@ -350,7 +351,8 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
                                    week: extractDayAndWeekday(selectDate: date).extractedWeekday)
         selectedDate = date
         if hasDateKey(for: selectDate) {
-            achieveView.bindIsEmptyView(isEmpty: false)
+            let memo = findValue(for: selectDate).memoContent
+            achieveView.bindIsMemo(isRecord: !(memo == ""))
         } else {
             achieveView.bindIsEmptyView(isEmpty: true)
         }

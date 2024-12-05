@@ -271,4 +271,18 @@ extension AchieveView {
             $0.isHidden = isEmpty
         } // 컬렉션뷰도 추가해야함
     }
+    
+    func bindIsMemo(isRecord: Bool) {
+        [emptyBearImage, emptyLabel].forEach {
+            $0.isHidden = true
+        }
+        
+        [addMemoButton].forEach {
+            $0.isHidden = isRecord
+        }
+        
+        [bearFaceImage, memoLabel, selectDateMemoTopDotView, selectDateMemoBottomDotView].forEach {
+            $0.isHidden = !isRecord
+        }
+    }
 }

@@ -7,7 +7,9 @@
 
 import UIKit
 
-class NewDailyRoutineHeaderView: UICollectionReusableView, UICollectionHeaderViewRegisterable {
+import SnapKit
+
+final class NewDailyRoutineHeaderView: UICollectionReusableView, UICollectionHeaderViewRegisterable {
     
     // MARK: - Properties
     

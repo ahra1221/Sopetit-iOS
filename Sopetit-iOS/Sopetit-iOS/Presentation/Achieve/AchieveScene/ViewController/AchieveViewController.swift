@@ -27,6 +27,7 @@ final class AchieveViewController: UIViewController {
     private lazy var calendarView = achieveView.achieveCalendarView
     private lazy var calendarHeaderView = achieveView.calendarHeaderView
     private lazy var goTodayButton = achieveView.calendarHeaderView.goTodayButton
+    private lazy var achieveCV = achieveView.achieveCollectionView
     
     // MARK: - Life Cycles
     
@@ -92,6 +93,8 @@ extension AchieveViewController {
         calendarView.delegate = self
         calendarView.dataSource = self
         calendarHeaderView.delegate = self
+//        achieveCV.delegate = self
+        achieveCV.dataSource = self
     }
     
     @objc
@@ -183,7 +186,6 @@ extension AchieveViewController {
     
     func hasDateKey(for key: String) -> Bool {
         if calendarEntity.data[key] != nil {
-            print("💊💊hasDateKey💊💊")
             return true
         } else {
             return false
@@ -197,6 +199,53 @@ extension AchieveViewController {
         print("🤕🤕🤕🤕")
     }
 }
+
+// MARK: - CollectionView
+
+extension AchieveViewController: UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        if hasDateKey(for: formatDateToString(selectedDate ?? Date())) {
+            let value = findValue(for: formatDateToString(selectedDate ?? Date()))
+            return value.histories.count
+        } else {
+            print("emptyview")
+            achieveView.bindIsEmptyView(isEmpty: true)
+        }
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        let value = findValue(for: formatDateToString(selectedDate ?? Date()))
+        return value.histories[section].histories.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = CalendarHistoryCell.dequeueReusableCell(collectionView: achieveCV, indexPath: indexPath)
+        let value = findValue(for: formatDateToString(selectedDate ?? Date()))
+        cell.bindHistoryCell(content: value.histories[indexPath.section].histories[indexPath.item].content,
+                             isMission: value.histories[indexPath.section].histories[indexPath.item].isMission,
+                             themeId: value.histories[indexPath.section].themeID)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: SizeLiterals.Screen.screenWidth - 40, height: 22)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionView.elementKindSectionHeader {
+            let headerView = NewDailyRoutineHeaderView.dequeueReusableHeaderView(collectionView: achieveCV, indexPath: indexPath)
+            let value = findValue(for: formatDateToString(selectedDate ?? Date()))
+            headerView.setDataBind(text: value.histories[indexPath.section].themeName,
+                                   image: value.histories[indexPath.section].themeID)
+            return headerView
+        }
+        return UICollectionReusableView()
+    }
+}
+
+// MARK: - CalendarHeaderDelegate
 
 extension AchieveViewController: CalendarHeaderDelegate {
     
@@ -237,6 +286,8 @@ extension AchieveViewController: CalendarHeaderDelegate {
                                    week: inital.extractedWeekday)
     }
 }
+
+// MARK: - FSCalendar
 
 extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
     
@@ -352,13 +403,20 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
         selectedDate = date
         if hasDateKey(for: selectDate) {
             let memo = findValue(for: selectDate).memoContent
-            achieveView.bindIsMemo(isRecord: !(memo == ""))
+            print("🙏🏻🙏🏻🙏🏻🙏🏻🙏🏻")
+            print(memo)
+            if memo == "" { // 메모는 안썼음
+                achieveView.bindIsMemo(isRecord: false)
+            } else { // 달성도 하고 메모도 씀
+                achieveView.bindIsMemo(isRecord: true)
+            }
         } else {
             achieveView.bindIsEmptyView(isEmpty: true)
         }
         print(selectDate)
         achieveView.layoutIfNeeded()
         calendar.reloadData()
+        achieveCV.reloadData()
     }
     
     func maximumDate(for calendar: FSCalendar) -> Date {

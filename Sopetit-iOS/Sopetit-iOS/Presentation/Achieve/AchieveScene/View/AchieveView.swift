@@ -106,6 +106,22 @@ final class AchieveView: UIView {
         return label
     }()
     
+    let achieveCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
+        collectionView.isScrollEnabled = false
+        collectionView.scrollsToTop = false
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.collectionViewLayout = layout
+        collectionView.backgroundColor = .clear
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 54, right: 0)
+        layout.itemSize = CGSize(width: SizeLiterals.Screen.screenWidth - 40, height: 56)
+        layout.headerReferenceSize = CGSize(width: SizeLiterals.Screen.screenWidth - 40, height: 22)
+        return collectionView
+    }()
+    
     // MARK: - Life Cycles
     
     override init(frame: CGRect) {
@@ -114,6 +130,7 @@ final class AchieveView: UIView {
         setUI()
         setHierarchy()
         setLayout()
+        setRegisterCell()
     }
     
     @available(*, unavailable)
@@ -144,7 +161,8 @@ private extension AchieveView {
                                 memoLabel,
                                 selectDateMemoTopDotView,
                                 selectDateMemoBottomDotView,
-                                emptyBearImage, emptyLabel)
+                                emptyBearImage, emptyLabel,
+                                achieveCollectionView)
     }
     
     func setLayout() {
@@ -225,7 +243,6 @@ private extension AchieveView {
             $0.top.equalTo(memoLabel.snp.bottom).offset(16)
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(1)
-            $0.bottom.equalToSuperview().inset(30)
         }
         
         emptyBearImage.snp.makeConstraints {
@@ -238,8 +255,21 @@ private extension AchieveView {
         emptyLabel.snp.makeConstraints {
             $0.top.equalTo(emptyBearImage.snp.bottom).offset(12)
             $0.centerX.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(30)
+            $0.bottom.equalToSuperview().inset(20)
         }
+        
+        achieveCollectionView.snp.makeConstraints {
+            $0.top.equalTo(selectDateMemoBottomDotView.snp.bottom).offset(16)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(SizeLiterals.Screen.screenWidth)
+            $0.height.equalTo(1000)
+            $0.bottom.equalToSuperview().inset(20)
+        }
+    }
+    
+    func setRegisterCell() {
+        CalendarHistoryCell.register(target: achieveCollectionView)
+        NewDailyRoutineHeaderView.register(target: achieveCollectionView)
     }
 }
 
@@ -263,16 +293,20 @@ extension AchieveView {
     }
     
     func bindIsEmptyView(isEmpty: Bool) {
+        print("🙏🏻🙏🏻isEmptyvalue🙏🏻🙏🏻🙏🏻")
+        print(isEmpty)
         [emptyBearImage, emptyLabel].forEach {
             $0.isHidden = !isEmpty
         }
         
-        [bearFaceImage, memoLabel, selectDateMemoTopDotView, selectDateMemoBottomDotView, addMemoButton].forEach {
+        [bearFaceImage, memoLabel, selectDateMemoTopDotView, selectDateMemoBottomDotView, addMemoButton, achieveCollectionView].forEach {
             $0.isHidden = isEmpty
-        } // 컬렉션뷰도 추가해야함
+        }
     }
     
     func bindIsMemo(isRecord: Bool) {
+        achieveCollectionView.isHidden = false
+        
         [emptyBearImage, emptyLabel].forEach {
             $0.isHidden = true
         }

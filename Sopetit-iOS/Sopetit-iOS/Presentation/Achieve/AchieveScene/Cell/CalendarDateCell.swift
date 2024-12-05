@@ -49,7 +49,7 @@ enum CalendarDateType {
     var calendarDateTextColor: UIColor {
         switch self {
         case .nonSelected:
-            return UIColor.Gray500
+            return UIColor.Gray700
         case .future:
             return UIColor.Gray300
         default:

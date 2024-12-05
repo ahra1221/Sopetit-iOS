@@ -17,6 +17,9 @@ final class AchieveViewController: UIViewController {
     private var selectedDate: Date?
     private var selectedMonth: Int?
     private var formatter = DateFormatter()
+    private var registerDate: String = ""
+    private lazy var requestEntity: CalendarRequestEntity = CalendarRequestEntity(year: self.getDayComponents(date: "").year, month: self.getDayComponents(date: "").month)
+    private var calendarEntity: CalendarEntity = CalendarEntity(success: false, message: "", data: ["": CalendarDate(memoID: 0, memoContent: "", histories: [])])
     
     // MARK: - UI Components
     
@@ -24,6 +27,7 @@ final class AchieveViewController: UIViewController {
     private lazy var calendarView = achieveView.achieveCalendarView
     private lazy var calendarHeaderView = achieveView.calendarHeaderView
     private lazy var goTodayButton = achieveView.calendarHeaderView.goTodayButton
+    private lazy var achieveCV = achieveView.achieveCollectionView
     
     // MARK: - Life Cycles
     
@@ -34,11 +38,12 @@ final class AchieveViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        getMemberProfileAPI()
+        getCalendarAPI(entity: requestEntity)
         setUI()
         setAddGesture()
         setRegisterCell()
         setDelegate()
-        updateCalendarHeaderButton()
     }
 }
 
@@ -52,6 +57,11 @@ extension AchieveViewController {
         let today = Date()
         selectedDate = today
         calendarView.select(today)
+        achieveView.calendarHeaderView.calendarHeaderRightButton.isEnabled = false
+        
+        let inital = extractDayAndWeekday(selectDate: today)
+        achieveView.bindSelectDate(date: inital.extractedDay,
+                                   week: inital.extractedWeekday)
     }
     
     func setAddGesture() {
@@ -59,8 +69,18 @@ extension AchieveViewController {
                                                   action: #selector(statsMenuTapped))
         let tapCalendarMenu = UITapGestureRecognizer(target: self,
                                                      action: #selector(calendarMenuTapped))
+        let tapMemo =  UITapGestureRecognizer(target: self,
+                                              action: #selector(memoTapped))
+        let tapBear =  UITapGestureRecognizer(target: self,
+                                              action: #selector(memoTapped))
         achieveView.achieveMenuView.statsMenuView.addGestureRecognizer(tapStatsMenu)
         achieveView.achieveMenuView.calendarMenuView.addGestureRecognizer(tapCalendarMenu)
+        achieveView.memoLabel.addGestureRecognizer(tapMemo)
+        achieveView.bearFaceImage.addGestureRecognizer(tapBear)
+        
+        achieveView.addMemoButton.addTarget(self,
+                                            action: #selector(addMemoButtonTapped),
+                                            for: .touchUpInside)
     }
     
     func setRegisterCell() {
@@ -72,6 +92,8 @@ extension AchieveViewController {
         calendarView.delegate = self
         calendarView.dataSource = self
         calendarHeaderView.delegate = self
+        achieveCV.delegate = self
+        achieveCV.dataSource = self
     }
     
     @objc
@@ -84,6 +106,20 @@ extension AchieveViewController {
         achieveView.achieveMenuView.setAchieveMenuTapped(statsTapped: false)
     }
     
+    @objc
+    func memoTapped() {
+        let nav = EditMemoBSViewController(memo: "아아아\n아라라라ㅏ라라아랄ㅇ라ㅏㅇ아아아\ndkdk")
+        nav.modalPresentationStyle = .overFullScreen
+        self.present(nav, animated: false)
+    }
+    
+    @objc
+    func addMemoButtonTapped() {
+        let nav = AddMemoBSViewController(memo: "")
+        nav.modalPresentationStyle = .overFullScreen
+        self.present(nav, animated: false)
+    }
+    
     func updateCalendarHeaderButton() {
         let calendar = Calendar.current
         let currentPage = calendarView.currentPage
@@ -91,7 +127,7 @@ extension AchieveViewController {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        guard let registerDate = dateFormatter.date(from: "2024-04-06") else { return }
+        guard let registerDate = dateFormatter.date(from: self.registerDate) else { return }
         
         if currentPage <= calendar.date(from: calendar.dateComponents([.year, .month], from: registerDate))! {
             calendarHeaderView.setHeaderLeftButton(state: false)
@@ -117,7 +153,158 @@ extension AchieveViewController {
         let day = calendar.component(.day, from: getDate)
         return (year, month, day)
     }
+    
+    func extractDayAndWeekday(selectDate: Date) -> (extractedDay: String,
+                                                    extractedWeekday: String) {
+        let dayFormatter = DateFormatter()
+        dayFormatter.dateFormat = "d"
+        let weekdayFormatter = DateFormatter()
+        weekdayFormatter.dateFormat = "E"
+        weekdayFormatter.locale = Locale(identifier: "ko_KR")
+        
+        let selectDay = dayFormatter.string(from: selectDate)
+        let selectWeekday = weekdayFormatter.string(from: selectDate)
+        return (selectDay, selectWeekday)
+    }
+    
+    func formatDateToString(_ date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        return dateFormatter.string(from: date)
+    }
+    
+    func findValue(for key: String) -> CalendarDate {
+        if let value = calendarEntity.data[key] {
+            return value
+        } else {
+            print("Key '\(key)' not found.")
+            return CalendarDate(memoID: 0, memoContent: "", histories: [])
+        }
+    }
+    
+    func hasDateKey(for key: String) -> Bool {
+        if calendarEntity.data[key] != nil {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func bindCalendar(bindDate: String) {
+        let bindValue = findValue(for: bindDate)
+        print("🤕🤕binding 해야할 value🤕🤕")
+        print(bindValue)
+        print("🤕🤕🤕🤕")
+    }
 }
+
+// MARK: - CollectionView
+
+extension AchieveViewController: UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        if hasDateKey(for: formatDateToString(selectedDate ?? Date())) {
+            let value = findValue(for: formatDateToString(selectedDate ?? Date()))
+            return value.histories.count
+        } else {
+            print("emptyview")
+            achieveView.bindIsEmptyView(isEmpty: true)
+        }
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        let value = findValue(for: formatDateToString(selectedDate ?? Date()))
+        return value.histories[section].histories.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = CalendarHistoryCell.dequeueReusableCell(collectionView: achieveCV, indexPath: indexPath)
+        let value = findValue(for: formatDateToString(selectedDate ?? Date()))
+        cell.bindHistoryCell(content: value.histories[indexPath.section].histories[indexPath.item].content,
+                             isMission: value.histories[indexPath.section].histories[indexPath.item].isMission,
+                             themeId: value.histories[indexPath.section].themeID)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: SizeLiterals.Screen.screenWidth - 40, height: 22)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionView.elementKindSectionHeader {
+            let headerView = NewDailyRoutineHeaderView.dequeueReusableHeaderView(collectionView: achieveCV, indexPath: indexPath)
+            let value = findValue(for: formatDateToString(selectedDate ?? Date()))
+            headerView.setDataBind(text: value.histories[indexPath.section].themeName,
+                                   image: value.histories[indexPath.section].themeID)
+            return headerView
+        }
+        return UICollectionReusableView()
+    }
+}
+
+extension AchieveViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let label: UILabel = {
+            let label = UILabel()
+            let value = findValue(for: formatDateToString(selectedDate ?? Date()))
+            label.text = value.histories[indexPath.section].histories[indexPath.item].content.replacingOccurrences(of: "\n", with: " ")
+            label.font = .fontGuide(.body2)
+            return label
+        }()
+        
+        let height = max(heightForView(text: label.text ?? "", font: label.font, width: SizeLiterals.Screen.screenWidth - 119), 24) + 32
+        
+        return CGSize(width: SizeLiterals.Screen.screenWidth - 40, height: height)
+    }
+    
+    func heightForView(text: String, font: UIFont, width: CGFloat) -> CGFloat {
+        let label: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
+        label.numberOfLines = 0
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
+        label.font = font
+        label.text = text
+        label.setTextWithLineHeight(text: label.text, lineHeight: 20)
+        label.sizeToFit()
+        return label.frame.height
+    }
+    
+    func heightForContentView(numberOfSection: Int, texts: [CalendarHistory]) -> Double {
+        var height = Double(numberOfSection) * 20.0
+        
+        for k in texts {
+            for i in k.histories {
+                let textHeight = heightForView(text: i.content.replacingOccurrences(of: "\n", with: " "), font: .fontGuide(.body2), width: SizeLiterals.Screen.screenWidth - 119) + 32
+                height += textHeight
+            }
+            height += 12
+        }
+        height += Double(16 * (texts.count - 1) + 30)
+        return height
+    }
+    
+    func setTodayView() {
+        let today = formatDateToString(Date())
+        if hasDateKey(for: today) {
+            let value = findValue(for: today)
+            let memo = value.memoContent
+            let height = heightForContentView(numberOfSection: value.histories.count,
+                                              texts: value.histories)
+            if memo == "" { // 메모는 안썼음
+                achieveView.bindIsMemo(isRecord: false, height: height)
+            } else { // 달성도 하고 메모도 씀
+                achieveView.bindIsMemo(isRecord: true, height: height)
+            }
+        } else {
+            achieveView.bindIsEmptyView(isEmpty: true)
+        }
+        achieveCV.reloadData()
+    }
+}
+
+// MARK: - CalendarHeaderDelegate
 
 extension AchieveViewController: CalendarHeaderDelegate {
     
@@ -153,17 +340,21 @@ extension AchieveViewController: CalendarHeaderDelegate {
         calendarView.reloadData()
         updateCalendarHeaderButton()
         goTodayButton.isHidden = true
+        let inital = extractDayAndWeekday(selectDate: today)
+        achieveView.bindSelectDate(date: inital.extractedDay,
+                                   week: inital.extractedWeekday)
+        setTodayView()
     }
 }
+
+// MARK: - FSCalendar
 
 extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
     
     func calendar(_ calendar: FSCalendar,
                   cellFor date: Date,
                   at position: FSCalendarMonthPosition) -> FSCalendarCell {
-        guard let cell = calendar.dequeueReusableCell(withIdentifier: CalendarDateCell.className,
-                                                      for: date,
-                                                      at: position) as? CalendarDateCell
+        guard let cell = calendar.dequeueReusableCell(withIdentifier: CalendarDateCell.className, for: date, at: position) as? CalendarDateCell
         else { return FSCalendarCell() }
         
         let bindDay = Calendar.current.component(.day, from: date)
@@ -176,17 +367,18 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
         let month = getDayComponents(date: "").month
         let year = getDayComponents(date: "").year
         
-        let registerDay = getDayComponents(date: "2024-04-06").day
-        let registerMonth = getDayComponents(date: "2024-04-06").month
-        let registerYear = getDayComponents(date: "2024-04-06").year
+        let registerDay = getDayComponents(date: self.registerDate).day
+        let registerMonth = getDayComponents(date: self.registerDate).month
+        let registerYear = getDayComponents(date: self.registerDate).year
         
         var bindDataType: CalendarDateType = .nonSelected
-        var bindIconType: CalendarIconType = .normal
         
         if bindYear == year {
             if bindMonth == month {
                 if bindDay > day {
                     bindDataType = .future
+                } else if bindDay < day {
+                    bindDataType = .nonSelected
                 }
             } else if bindMonth > month {
                 bindDataType = .future
@@ -214,6 +406,21 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
                 bindDataType = .today
             }
         }
+        
+        var bindIconType: CalendarIconType = .normal
+        
+        let bindDateString = formatDateToString(date)
+        if hasDateKey(for: bindDateString) { // 달성한 루틴이 있음
+            let memo = findValue(for: bindDateString).memoContent
+            if memo == "" { // 메모는 안썼음
+                bindIconType = .achieveRoutine
+            } else { // 달성도 하고 메모도 씀
+                bindIconType = .hasRecord
+            }
+        } else { // 달성한 루틴이 없음
+            bindIconType = .normal
+        }
+        
         cell.configureCalendar(iconType: bindIconType,
                                dateType: bindDataType,
                                date: dayString)
@@ -236,8 +443,7 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
             return
         }
         
-        let dateString = "2024-04-06"
-        let registerDate = selectDateFormmatter.date(from: dateString) ?? Date()
+        let registerDate = selectDateFormmatter.date(from: self.registerDate) ?? Date()
         if date.compare(registerDate) == .orderedAscending {
             return
         }
@@ -246,14 +452,32 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
             return
         }
         
-        if selectDate < today && selectDate >= dateString {
+        if selectDate < today && selectDate >= self.registerDate {
             goTodayButton.isHidden = false
         } else {
             goTodayButton.isHidden = true
         }
+        
+        achieveView.bindSelectDate(date: extractDayAndWeekday(selectDate: date).extractedDay,
+                                   week: extractDayAndWeekday(selectDate: date).extractedWeekday)
         selectedDate = date
+        if hasDateKey(for: selectDate) {
+            let value = findValue(for: selectDate)
+            let memo = value.memoContent
+            let height = heightForContentView(numberOfSection: value.histories.count,
+                                              texts: value.histories)
+            if memo == "" { // 메모는 안썼음
+                achieveView.bindIsMemo(isRecord: false, height: height)
+            } else { // 달성도 하고 메모도 씀
+                achieveView.bindIsMemo(isRecord: true, height: height)
+            }
+        } else {
+            achieveView.bindIsEmptyView(isEmpty: true)
+        }
         print(selectDate)
+        achieveView.layoutIfNeeded()
         calendar.reloadData()
+        achieveCV.reloadData()
     }
     
     func maximumDate(for calendar: FSCalendar) -> Date {
@@ -263,9 +487,7 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
     func minimumDate(for calendar: FSCalendar) -> Date {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
-
-        let dateString = "2024-04-06"
-        let registerDate = formatter.date(from: dateString) ?? Date()
+        let registerDate = formatter.date(from: self.registerDate) ?? Date()
         return registerDate
     }
     
@@ -312,5 +534,69 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
     
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
         return 0
+    }
+}
+
+// MARK: - Networks
+
+extension AchieveViewController {
+    
+    func getMemberProfileAPI() {
+        AchieveService.shared.getMemberProfileAPI { networkResult in
+            switch networkResult {
+            case .success(let data):
+                if let data = data as? GenericResponse<MemberProfileEntity> {
+                    if let memberProfilData = data.data {
+                        let date = memberProfilData.createdAt.split(separator: "T").first ?? ""
+                        self.registerDate = String(date)
+                        self.calendarView.reloadData()
+                    }
+                }
+            case .reissue:
+                ReissueService.shared.postReissueAPI(refreshToken: UserManager.shared.getRefreshToken) { success in
+                    if success {
+                        self.getMemberProfileAPI()
+                    } else {
+                        self.makeSessionExpiredAlert()
+                    }
+                }
+            case .requestErr, .serverErr:
+                break
+            default:
+                break
+            }
+        }
+    }
+    
+    func getCalendarAPI(entity: CalendarRequestEntity) {
+        print("💭💭💭entity💭💭")
+        print(entity)
+        AchieveService.shared.getCalendar(requestEntity: entity) { networkResult in
+            print("💭💭💭networkresult💭💭")
+            print(entity)
+            switch networkResult {
+            case .success(let data):
+                if let data = data as? CalendarEntity {
+                    print("💭💭💭💭💭")
+                    dump(data)
+                    print("💭💭💭💭💭")
+                    self.calendarEntity = data
+//                    self.bindCalendar(bindDate: self.formatDateToString(Date()))
+                    self.setTodayView()
+                }
+            case .reissue:
+                ReissueService.shared.postReissueAPI(refreshToken: UserManager.shared.getRefreshToken) { success in
+                    if success {
+                        self.getCalendarAPI(entity: entity)
+                    } else {
+                        self.makeSessionExpiredAlert()
+                    }
+                }
+            case .requestErr, .serverErr:
+                break
+            default:
+                break
+            }
+        }
     }
 }

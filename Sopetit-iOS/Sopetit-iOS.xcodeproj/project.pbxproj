@@ -143,6 +143,10 @@
 		A46CA16F2CE7102D00AB4DCA /* CalendarDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46CA16E2CE7102100AB4DCA /* CalendarDateCell.swift */; };
 		A46CA1722CE7106C00AB4DCA /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = A46CA1712CE7106C00AB4DCA /* FSCalendar */; };
 		A475D5032CF553CE00B5DDC5 /* CalendarHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A475D5022CF553CE00B5DDC5 /* CalendarHeaderView.swift */; };
+		A475D5252CFE8C1300B5DDC5 /* EditMemoBSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A475D5242CFE8C1300B5DDC5 /* EditMemoBSViewController.swift */; };
+		A475D5292CFEA27000B5DDC5 /* HeightForView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A475D5282CFEA27000B5DDC5 /* HeightForView.swift */; };
+		A475D52B2CFEABA700B5DDC5 /* AddMemoBSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A475D52A2CFEABA700B5DDC5 /* AddMemoBSViewController.swift */; };
+		A475D52D2CFEB18300B5DDC5 /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A475D52C2CFEB18300B5DDC5 /* UITextView+.swift */; };
 		A4832BAB2B4ACF09007879FF /* omyu-pretty.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4832BAA2B4ACF09007879FF /* omyu-pretty.ttf */; };
 		A488FE8B2B697BB7000B4809 /* UpdateAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A488FE8A2B697BB7000B4809 /* UpdateAlertView.swift */; };
 		A488FE8E2B697C0E000B4809 /* VersionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A488FE8D2B697C0E000B4809 /* VersionEntity.swift */; };
@@ -173,6 +177,14 @@
 		A49BFE4F2B53CE7700035EB6 /* DollImageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49BFE4E2B53CE7700035EB6 /* DollImageEntity.swift */; };
 		A49BFE5A2B54273E00035EB6 /* SVGKit in Frameworks */ = {isa = PBXBuildFile; productRef = A49BFE592B54273E00035EB6 /* SVGKit */; };
 		A49BFE622B558B2E00035EB6 /* MemberEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49BFE612B558B2E00035EB6 /* MemberEntity.swift */; };
+		A49E0AED2CFEC62600588087 /* MemberProfileEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E0AEC2CFEC62600588087 /* MemberProfileEntity.swift */; };
+		A49E0AEF2CFEC66800588087 /* AchieveService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E0AEE2CFEC66800588087 /* AchieveService.swift */; };
+		A49E0AF12CFECAE500588087 /* MemosRequestEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E0AF02CFECAE500588087 /* MemosRequestEntity.swift */; };
+		A49E0AF32CFECB2A00588087 /* MemosResponseEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E0AF22CFECB2A00588087 /* MemosResponseEntity.swift */; };
+		A49E0AF52D0123BC00588087 /* CalendarEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E0AF42D0123BC00588087 /* CalendarEntity.swift */; };
+		A49E0AF72D01302900588087 /* CalendarRequestEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E0AF62D01302900588087 /* CalendarRequestEntity.swift */; };
+		A49E0AF92D01558B00588087 /* CalendarHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E0AF82D01558B00588087 /* CalendarHistoryCell.swift */; };
+		A49E0AFC2D01610E00588087 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A49E0AFB2D01610E00588087 /* Colors.xcassets */; };
 		A4A516D12C36C46E00ED9CC1 /* RoutineThemeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A516D02C36C46E00ED9CC1 /* RoutineThemeCollectionViewCell.swift */; };
 		A4A516D32C36C7DA00ED9CC1 /* ThemeDetailEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A516D22C36C7DA00ED9CC1 /* ThemeDetailEntity.swift */; };
 		A4D2EB092B57D07A00493D8C /* HomeCottonEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D2EB082B57D07A00493D8C /* HomeCottonEntity.swift */; };
@@ -311,6 +323,10 @@
 		A46CA1692CE70A2100AB4DCA /* AchieveMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchieveMenuView.swift; sourceTree = "<group>"; };
 		A46CA16E2CE7102100AB4DCA /* CalendarDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateCell.swift; sourceTree = "<group>"; };
 		A475D5022CF553CE00B5DDC5 /* CalendarHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHeaderView.swift; sourceTree = "<group>"; };
+		A475D5242CFE8C1300B5DDC5 /* EditMemoBSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMemoBSViewController.swift; sourceTree = "<group>"; };
+		A475D5282CFEA27000B5DDC5 /* HeightForView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeightForView.swift; sourceTree = "<group>"; };
+		A475D52A2CFEABA700B5DDC5 /* AddMemoBSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMemoBSViewController.swift; sourceTree = "<group>"; };
+		A475D52C2CFEB18300B5DDC5 /* UITextView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
 		A4832BAA2B4ACF09007879FF /* omyu-pretty.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "omyu-pretty.ttf"; sourceTree = "<group>"; };
 		A488FE8A2B697BB7000B4809 /* UpdateAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateAlertView.swift; sourceTree = "<group>"; };
 		A488FE8D2B697C0E000B4809 /* VersionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionEntity.swift; sourceTree = "<group>"; };
@@ -340,6 +356,14 @@
 		A49BFE4C2B51275C00035EB6 /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
 		A49BFE4E2B53CE7700035EB6 /* DollImageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DollImageEntity.swift; sourceTree = "<group>"; };
 		A49BFE612B558B2E00035EB6 /* MemberEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberEntity.swift; sourceTree = "<group>"; };
+		A49E0AEC2CFEC62600588087 /* MemberProfileEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberProfileEntity.swift; sourceTree = "<group>"; };
+		A49E0AEE2CFEC66800588087 /* AchieveService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchieveService.swift; sourceTree = "<group>"; };
+		A49E0AF02CFECAE500588087 /* MemosRequestEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemosRequestEntity.swift; sourceTree = "<group>"; };
+		A49E0AF22CFECB2A00588087 /* MemosResponseEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemosResponseEntity.swift; sourceTree = "<group>"; };
+		A49E0AF42D0123BC00588087 /* CalendarEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEntity.swift; sourceTree = "<group>"; };
+		A49E0AF62D01302900588087 /* CalendarRequestEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarRequestEntity.swift; sourceTree = "<group>"; };
+		A49E0AF82D01558B00588087 /* CalendarHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHistoryCell.swift; sourceTree = "<group>"; };
+		A49E0AFB2D01610E00588087 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		A4A516D02C36C46E00ED9CC1 /* RoutineThemeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineThemeCollectionViewCell.swift; sourceTree = "<group>"; };
 		A4A516D22C36C7DA00ED9CC1 /* ThemeDetailEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeDetailEntity.swift; sourceTree = "<group>"; };
 		A4D2EB082B57D07A00493D8C /* HomeCottonEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCottonEntity.swift; sourceTree = "<group>"; };
@@ -645,6 +669,7 @@
 			children = (
 				A42C32D62B3EAC1300C4B477 /* MakeVibrate.swift */,
 				A42C32D82B3EAC1C00C4B477 /* MakeAlert.swift */,
+				A475D5282CFEA27000B5DDC5 /* HeightForView.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -672,6 +697,7 @@
 				A42C32CE2B3EAB7700C4B477 /* UIColor+.swift */,
 				A42C32D02B3EAB7F00C4B477 /* String+.swift */,
 				A49BFE4C2B51275C00035EB6 /* UIImageView+.swift */,
+				A475D52C2CFEB18300B5DDC5 /* UITextView+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -694,6 +720,7 @@
 				A42C32AF2B3EAA5300C4B477 /* Lottie */,
 				A42C32AE2B3EAA4800C4B477 /* Font */,
 				A42C32842B3DB8F500C4B477 /* Assets.xcassets */,
+				A49E0AFB2D01610E00588087 /* Colors.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -730,6 +757,7 @@
 				A42C32FF2B3EAE3E00C4B477 /* HomeService.swift */,
 				098DFCA62B57EA770099063D /* AddDailyRoutineService.swift */,
 				09A342CB2C6E865700F52C81 /* DailyRoutineService.swift */,
+				A49E0AEE2CFEC66800588087 /* AchieveService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -737,6 +765,7 @@
 		A42C32DD2B3EAC4B00C4B477 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				A49E0AEB2CFEC61C00588087 /* Achieve */,
 				A42C32EF2B3EADAF00C4B477 /* Auth */,
 				A42C32EE2B3EADA900C4B477 /* Onboarding */,
 				A42C32ED2B3EADA300C4B477 /* Home */,
@@ -1004,6 +1033,8 @@
 			isa = PBXGroup;
 			children = (
 				A4648B9B2C043387001EB031 /* AchieveViewController.swift */,
+				A475D5242CFE8C1300B5DDC5 /* EditMemoBSViewController.swift */,
+				A475D52A2CFEABA700B5DDC5 /* AddMemoBSViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1088,6 +1119,7 @@
 			isa = PBXGroup;
 			children = (
 				A46CA16E2CE7102100AB4DCA /* CalendarDateCell.swift */,
+				A49E0AF82D01558B00588087 /* CalendarHistoryCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1279,6 +1311,18 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		A49E0AEB2CFEC61C00588087 /* Achieve */ = {
+			isa = PBXGroup;
+			children = (
+				A49E0AEC2CFEC62600588087 /* MemberProfileEntity.swift */,
+				A49E0AF02CFECAE500588087 /* MemosRequestEntity.swift */,
+				A49E0AF22CFECB2A00588087 /* MemosResponseEntity.swift */,
+				A49E0AF42D0123BC00588087 /* CalendarEntity.swift */,
+				A49E0AF62D01302900588087 /* CalendarRequestEntity.swift */,
+			);
+			path = Achieve;
+			sourceTree = "<group>";
+		};
 		A4D9F6E42C5D2F6900A9F719 /* TutorialScene */ = {
 			isa = PBXGroup;
 			children = (
@@ -1411,6 +1455,7 @@
 				A42C32852B3DB8F500C4B477 /* Assets.xcassets in Resources */,
 				00B68F392B5935A300ED8CF6 /* happy_complete_ios.json in Resources */,
 				A42C33652B413F2100C4B477 /* Pretendard-Medium.otf in Resources */,
+				A49E0AFC2D01610E00588087 /* Colors.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1465,6 +1510,7 @@
 				A49BFDE52B4D7EDF00035EB6 /* CustomProgressView.swift in Sources */,
 				A49BFE1F2B4E542B00035EB6 /* RoutineChoiceView.swift in Sources */,
 				A49BFDE12B4D7A5400035EB6 /* DollChoiceViewController.swift in Sources */,
+				A49E0AF52D0123BC00588087 /* CalendarEntity.swift in Sources */,
 				A40F9F1A2C6AD944004DD1A1 /* AddRoutineInfoEntity.swift in Sources */,
 				A42C33042B3EAE4F00C4B477 /* AuthService.swift in Sources */,
 				A4648BA02C043417001EB031 /* AddRoutineView.swift in Sources */,
@@ -1472,6 +1518,7 @@
 				A49BFE2A2B4E857300035EB6 /* DollNameView.swift in Sources */,
 				A42C32B72B3EAAD800C4B477 /* ImageLiterals.swift in Sources */,
 				0470C2552B57F9B900CE43D6 /* DailyPatchEntity.swift in Sources */,
+				A49E0AEF2CFEC66800588087 /* AchieveService.swift in Sources */,
 				045DFE7B2B504E38005D69EA /* SettingViewController.swift in Sources */,
 				09BCAA022C2A7C79006E876D /* GetCottonViewController.swift in Sources */,
 				09BCA9F42C2A7741006E876D /* RoutineEmptyView.swift in Sources */,
@@ -1497,6 +1544,7 @@
 				A42C32B92B3EAAE300C4B477 /* ColorLiterals.swift in Sources */,
 				A42C32A72B3EA9BF00C4B477 /* UserDefaultWrapper.swift in Sources */,
 				09A9F9292C81448800FE5836 /* DailyBSViewController.swift in Sources */,
+				A49E0AED2CFEC62600588087 /* MemberProfileEntity.swift in Sources */,
 				A4648BA42C0434A9001EB031 /* AddRoutineViewController.swift in Sources */,
 				A42C32CB2B3EAB4B00C4B477 /* NSObject+.swift in Sources */,
 				A42C32CF2B3EAB7700C4B477 /* UIColor+.swift in Sources */,
@@ -1511,6 +1559,7 @@
 				A40F9F042C67C3C6004DD1A1 /* MakersCollectionViewCell.swift in Sources */,
 				A46CA1632CE206AF00AB4DCA /* AlarmViewController.swift in Sources */,
 				A40F9F142C69D0CC004DD1A1 /* AddRoutineDetailViewController.swift in Sources */,
+				A475D5252CFE8C1300B5DDC5 /* EditMemoBSViewController.swift in Sources */,
 				00A8E39A2B4D8B0D001461CE /* HomeView.swift in Sources */,
 				A46CA16A2CE70A2A00AB4DCA /* AchieveMenuView.swift in Sources */,
 				A42C32A52B3EA9A000C4B477 /* UserManager.swift in Sources */,
@@ -1518,11 +1567,13 @@
 				A42C33702B42DAAB00C4B477 /* StringLiterals.swift in Sources */,
 				004029062B4EDCF6002127BC /* ActionCollectionViewCell.swift in Sources */,
 				A42C32C72B3EAB3B00C4B477 /* UIViewController+.swift in Sources */,
+				A49E0AF12CFECAE500588087 /* MemosRequestEntity.swift in Sources */,
 				A42C32C32B3EAB2400C4B477 /* UITextField+.swift in Sources */,
 				09A9F9212C804FB400FE5836 /* GetRainbowCottonView.swift in Sources */,
 				A42C32BF2B3EAB0E00C4B477 /* UIImage+.swift in Sources */,
 				098DFCA52B568A010099063D /* HappinessRoutineIdEntity.swift in Sources */,
 				A42C33002B3EAE3E00C4B477 /* HomeService.swift in Sources */,
+				A49E0AF32CFECB2A00588087 /* MemosResponseEntity.swift in Sources */,
 				A40F9F372C6D9C41004DD1A1 /* AddRoutineBottomSheetEntity.swift in Sources */,
 				098DFCAB2B580A1A0099063D /* DailyRoutinesEntity.swift in Sources */,
 				09BCA9FD2C2A77FC006E876D /* NewDailyRoutineCollectionViewCell.swift in Sources */,
@@ -1537,10 +1588,12 @@
 				A42C32E12B3EAC7800C4B477 /* Config.swift in Sources */,
 				A42C32FA2B3EADF900C4B477 /* DailyRoutineEntity.swift in Sources */,
 				A49BFE232B4E565D00035EB6 /* RoutineChoiceEntity.swift in Sources */,
+				A475D52D2CFEB18300B5DDC5 /* UITextView+.swift in Sources */,
 				A49BFDF52B4DA85300035EB6 /* ThemeSelectCollectionViewCell.swift in Sources */,
 				0084F19D2B4A896500F87860 /* LoginViewController.swift in Sources */,
 				A4648B9C2C043387001EB031 /* AchieveViewController.swift in Sources */,
 				A4D9F6EB2C5D2F8C00A9F719 /* TutorialView.swift in Sources */,
+				A49E0AF72D01302900588087 /* CalendarRequestEntity.swift in Sources */,
 				09A9F91F2C804E3500FE5836 /* GetRainbowCottonViewController.swift in Sources */,
 				A49BFDF22B4DA53A00035EB6 /* ThemeSelectEntity.swift in Sources */,
 				A49BFDE92B4D873400035EB6 /* DollChoiceCollectionViewCell.swift in Sources */,
@@ -1551,6 +1604,7 @@
 				A42C32EB2B3EACAC00C4B477 /* URLConstant.swift in Sources */,
 				A40F9F012C67C28B004DD1A1 /* MakersEntity.swift in Sources */,
 				A4D2EB092B57D07A00493D8C /* HomeCottonEntity.swift in Sources */,
+				A49E0AF92D01558B00588087 /* CalendarHistoryCell.swift in Sources */,
 				A475D5032CF553CE00B5DDC5 /* CalendarHeaderView.swift in Sources */,
 				045DFE792B504E26005D69EA /* SettingView.swift in Sources */,
 				A49BFE1D2B4E541C00035EB6 /* RoutineChoiceViewController.swift in Sources */,
@@ -1577,7 +1631,9 @@
 				A488FE8E2B697C0E000B4809 /* VersionEntity.swift in Sources */,
 				0016380D2B8FA1A80099A77D /* LoginViewModel.swift in Sources */,
 				045DFE812B515FAE005D69EA /* WithdrawViewController.swift in Sources */,
+				A475D52B2CFEABA700B5DDC5 /* AddMemoBSViewController.swift in Sources */,
 				A42C32D12B3EAB7F00C4B477 /* String+.swift in Sources */,
+				A475D5292CFEA27000B5DDC5 /* HeightForView.swift in Sources */,
 				A49BFDF02B4DA48200035EB6 /* ThemeSelectView.swift in Sources */,
 				A49BFE622B558B2E00035EB6 /* MemberEntity.swift in Sources */,
 				A46CA16F2CE7102D00AB4DCA /* CalendarDateCell.swift in Sources */,

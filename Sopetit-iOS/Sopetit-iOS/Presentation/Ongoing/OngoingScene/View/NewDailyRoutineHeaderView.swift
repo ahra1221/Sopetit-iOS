@@ -7,7 +7,9 @@
 
 import UIKit
 
-class NewDailyRoutineHeaderView: UICollectionReusableView, UICollectionHeaderViewRegisterable {
+import SnapKit
+
+final class NewDailyRoutineHeaderView: UICollectionReusableView, UICollectionHeaderViewRegisterable {
     
     // MARK: - Properties
     
@@ -74,6 +76,7 @@ extension NewDailyRoutineHeaderView {
     
     func setDataBind(text: String, image: Int) {
         themeLabel.text = text
+        themeLabel.asLineHeight(.body2)
         themeImageView.image = UIImage(named: "theme\(image)")
     }
 }

@@ -18,6 +18,8 @@ final class AchieveViewController: UIViewController {
     private var selectedMonth: Int?
     private var formatter = DateFormatter()
     private var registerDate: String = ""
+    private lazy var requestEntity: CalendarRequestEntity = CalendarRequestEntity(year: self.getDayComponents(date: "").year, month: self.getDayComponents(date: "").month)
+    private var calendarEntity: CalendarEntity = CalendarEntity(success: false, message: "", data: ["":CalendarDate(memoID: 0, memoContent: "", histories: [])])
     
     // MARK: - UI Components
     
@@ -36,6 +38,7 @@ final class AchieveViewController: UIViewController {
         super.viewDidLoad()
         
         getMemberProfileAPI()
+        getCalendarAPI(entity: requestEntity)
         setUI()
         setAddGesture()
         setRegisterCell()
@@ -161,6 +164,37 @@ extension AchieveViewController {
         let selectWeekday = weekdayFormatter.string(from: selectDate)
         return (selectDay, selectWeekday)
     }
+    
+    func formatDateToString(_ date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        return dateFormatter.string(from: date)
+    }
+    
+    func findValue(for key: String) -> CalendarDate {
+        if let value = calendarEntity.data[key] {
+            return value
+        } else {
+            print("Key '\(key)' not found.")
+            return CalendarDate(memoID: 0, memoContent: "", histories: [])
+        }
+    }
+    
+    func hasDateKey(for key: String) -> Bool {
+        if calendarEntity.data[key] != nil {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func bindCalendar(bindDate: String) {
+        let bindValue = findValue(for: bindDate)
+        print("🤕🤕binding 해야할 value🤕🤕")
+        print(bindValue)
+        print("🤕🤕🤕🤕")
+    }
 }
 
 extension AchieveViewController: CalendarHeaderDelegate {
@@ -226,7 +260,6 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
         let registerYear = getDayComponents(date: self.registerDate).year
         
         var bindDataType: CalendarDateType = .nonSelected
-        var bindIconType: CalendarIconType = .normal
         
         if bindYear == year {
             if bindMonth == month {
@@ -261,6 +294,21 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
                 bindDataType = .today
             }
         }
+        
+        var bindIconType: CalendarIconType = .normal
+        
+        let bindDateString = formatDateToString(date)
+        if hasDateKey(for: bindDateString) { // 달성한 루틴이 있음
+            let memo = findValue(for: bindDateString).memoContent
+            if memo == "" { // 메모는 안썼음
+                bindIconType = .achieveRoutine
+            } else { // 달성도 하고 메모도 씀
+                bindIconType = .hasRecord
+            }
+        } else { // 달성한 루틴이 없음
+            bindIconType = .normal
+        }
+        
         cell.configureCalendar(iconType: bindIconType,
                                dateType: bindDataType,
                                date: dayString)
@@ -381,6 +429,37 @@ extension AchieveViewController {
                 ReissueService.shared.postReissueAPI(refreshToken: UserManager.shared.getRefreshToken) { success in
                     if success {
                         self.getMemberProfileAPI()
+                    } else {
+                        self.makeSessionExpiredAlert()
+                    }
+                }
+            case .requestErr, .serverErr:
+                break
+            default:
+                break
+            }
+        }
+    }
+    
+    func getCalendarAPI(entity: CalendarRequestEntity) {
+        print("💭💭💭entity💭💭")
+        print(entity)
+        AchieveService.shared.getCalendar(requestEntity: entity) { networkResult in
+            print("💭💭💭networkresult💭💭")
+            print(entity)
+            switch networkResult {
+            case .success(let data):
+                if let data = data as? CalendarEntity {
+                    print("💭💭💭💭💭")
+                    dump(data)
+                    print("💭💭💭💭💭")
+                    self.calendarEntity = data
+                    self.bindCalendar(bindDate: self.formatDateToString(Date()))
+                }
+            case .reissue:
+                ReissueService.shared.postReissueAPI(refreshToken: UserManager.shared.getRefreshToken) { success in
+                    if success {
+                        self.getCalendarAPI(entity: entity)
                     } else {
                         self.makeSessionExpiredAlert()
                     }

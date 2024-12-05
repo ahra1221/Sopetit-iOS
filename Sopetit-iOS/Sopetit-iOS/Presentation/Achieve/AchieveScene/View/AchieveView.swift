@@ -95,6 +95,17 @@ final class AchieveView: UIView {
         return label
     }()
     
+    private let emptyBearImage = UIImageView(image: UIImage(resource: .emptyroutine))
+    
+    private let emptyLabel: UILabel = {
+        let label = UILabel()
+        label.text = "달성한 루틴이 없어요"
+        label.textColor = .Gray500
+        label.font = .fontGuide(.head3)
+        label.asLineHeight(.head3)
+        return label
+    }()
+    
     // MARK: - Life Cycles
     
     override init(frame: CGRect) {
@@ -132,7 +143,8 @@ private extension AchieveView {
                                 bearFaceImage,
                                 memoLabel,
                                 selectDateMemoTopDotView,
-                                selectDateMemoBottomDotView)
+                                selectDateMemoBottomDotView,
+                                emptyBearImage, emptyLabel)
     }
     
     func setLayout() {
@@ -215,6 +227,19 @@ private extension AchieveView {
             $0.height.equalTo(1)
             $0.bottom.equalToSuperview().inset(30)
         }
+        
+        emptyBearImage.snp.makeConstraints {
+            $0.top.equalTo(selectDateLabel.snp.bottom).offset(SizeLiterals.Screen.screenHeight * 36 / 812)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(100)
+            $0.height.equalTo(120)
+        }
+        
+        emptyLabel.snp.makeConstraints {
+            $0.top.equalTo(emptyBearImage.snp.bottom).offset(12)
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(30)
+        }
     }
 }
 
@@ -229,5 +254,21 @@ extension AchieveView {
         selectDateCountLabel.text = "\(cnt)개"
         selectDateCountLabel.partColorChange(targetString: String(cnt), textColor: .Red200)
         selectDateCountLabel.asLineHeight(.body2)
+    }
+    
+    func bindMemo(memo: String) {
+        if memo == "" {
+            
+        }
+    }
+    
+    func bindIsEmptyView(isEmpty: Bool) {
+        [emptyBearImage, emptyLabel].forEach {
+            $0.isHidden = !isEmpty
+        }
+        
+        [bearFaceImage, memoLabel, selectDateMemoTopDotView, selectDateMemoBottomDotView, addMemoButton].forEach {
+            $0.isHidden = isEmpty
+        } // 컬렉션뷰도 추가해야함
     }
 }

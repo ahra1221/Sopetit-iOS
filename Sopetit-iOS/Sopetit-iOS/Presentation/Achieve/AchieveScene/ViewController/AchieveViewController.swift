@@ -19,7 +19,7 @@ final class AchieveViewController: UIViewController {
     private var formatter = DateFormatter()
     private var registerDate: String = ""
     private lazy var requestEntity: CalendarRequestEntity = CalendarRequestEntity(year: self.getDayComponents(date: "").year, month: self.getDayComponents(date: "").month)
-    private var calendarEntity: CalendarEntity = CalendarEntity(success: false, message: "", data: ["":CalendarDate(memoID: 0, memoContent: "", histories: [])])
+    private var calendarEntity: CalendarEntity = CalendarEntity(success: false, message: "", data: ["": CalendarDate(memoID: 0, memoContent: "", histories: [])])
     
     // MARK: - UI Components
     
@@ -349,7 +349,13 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
         achieveView.bindSelectDate(date: extractDayAndWeekday(selectDate: date).extractedDay,
                                    week: extractDayAndWeekday(selectDate: date).extractedWeekday)
         selectedDate = date
+        if hasDateKey(for: selectDate) {
+            achieveView.bindIsEmptyView(isEmpty: false)
+        } else {
+            achieveView.bindIsEmptyView(isEmpty: true)
+        }
         print(selectDate)
+        achieveView.layoutIfNeeded()
         calendar.reloadData()
     }
     

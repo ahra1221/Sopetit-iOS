@@ -241,6 +241,7 @@ extension AchieveView {
     }
     
     func bindIsEmptyView(isEmpty: Bool) {
+        addMemoButton.isHidden = true
         contentView.addSubviews(emptyBearImage, emptyLabel)
         emptyBearImage.snp.makeConstraints {
             $0.top.equalTo(selectDateLabel.snp.bottom).offset(SizeLiterals.Screen.screenHeight * 36 / 812)
@@ -255,7 +256,7 @@ extension AchieveView {
             $0.bottom.equalToSuperview().inset(20)
         }
         
-        [bearFaceImage, memoLabel, selectDateMemoTopDotView, selectDateMemoBottomDotView, addMemoButton, achieveCollectionView].forEach {
+        [bearFaceImage, memoLabel, selectDateMemoTopDotView, selectDateMemoBottomDotView, achieveCollectionView].forEach {
             $0.removeFromSuperview()
         }
     }
@@ -303,7 +304,7 @@ extension AchieveView {
                 $0.bottom.equalToSuperview().inset(20)
             }
         } else {
-            [bearFaceImage, memoLabel, selectDateMemoTopDotView, selectDateMemoBottomDotView, addMemoButton].forEach {
+            [bearFaceImage, memoLabel, selectDateMemoTopDotView, selectDateMemoBottomDotView].forEach {
                 $0.removeFromSuperview()
             }
             achieveCollectionView.snp.makeConstraints {
@@ -315,8 +316,8 @@ extension AchieveView {
             }
         }
         
-        [addMemoButton].forEach {
-            $0.isHidden = isRecord
-        }
+        print("➡️➡️➡️➡️➡️")
+        print(isRecord)
+        addMemoButton.isHidden = isRecord
     }
 }

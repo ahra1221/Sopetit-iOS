@@ -284,6 +284,24 @@ extension AchieveViewController: UICollectionViewDelegateFlowLayout {
         height += Double(16 * (texts.count - 1) + 30)
         return height
     }
+    
+    func setTodayView() {
+        let today = formatDateToString(Date())
+        if hasDateKey(for: today) {
+            let value = findValue(for: today)
+            let memo = value.memoContent
+            let height = heightForContentView(numberOfSection: value.histories.count,
+                                              texts: value.histories)
+            if memo == "" { // 메모는 안썼음
+                achieveView.bindIsMemo(isRecord: false, height: height)
+            } else { // 달성도 하고 메모도 씀
+                achieveView.bindIsMemo(isRecord: true, height: height)
+            }
+        } else {
+            achieveView.bindIsEmptyView(isEmpty: true)
+        }
+        achieveCV.reloadData()
+    }
 }
 
 // MARK: - CalendarHeaderDelegate
@@ -325,6 +343,7 @@ extension AchieveViewController: CalendarHeaderDelegate {
         let inital = extractDayAndWeekday(selectDate: today)
         achieveView.bindSelectDate(date: inital.extractedDay,
                                    week: inital.extractedWeekday)
+        setTodayView()
     }
 }
 
@@ -447,10 +466,6 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
             let memo = value.memoContent
             let height = heightForContentView(numberOfSection: value.histories.count,
                                               texts: value.histories)
-            print("🙏🏻🙏🏻🙏🏻🙏🏻🙏🏻")
-            dump(value.histories)
-            print("🙏🏻🙏🏻🙏🏻🙏🏻🙏🏻")
-            print(height)
             if memo == "" { // 메모는 안썼음
                 achieveView.bindIsMemo(isRecord: false, height: height)
             } else { // 달성도 하고 메모도 씀
@@ -566,7 +581,8 @@ extension AchieveViewController {
                     dump(data)
                     print("💭💭💭💭💭")
                     self.calendarEntity = data
-                    self.bindCalendar(bindDate: self.formatDateToString(Date()))
+//                    self.bindCalendar(bindDate: self.formatDateToString(Date()))
+                    self.setTodayView()
                 }
             case .reissue:
                 ReissueService.shared.postReissueAPI(refreshToken: UserManager.shared.getRefreshToken) { success in

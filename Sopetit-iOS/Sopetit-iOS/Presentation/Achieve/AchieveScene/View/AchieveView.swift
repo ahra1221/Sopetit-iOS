@@ -241,6 +241,11 @@ extension AchieveView {
     }
     
     func bindIsEmptyView(isEmpty: Bool) {
+        [bearFaceImage, memoLabel, selectDateMemoTopDotView, selectDateMemoBottomDotView, achieveCollectionView].forEach {
+            $0.removeFromSuperview()
+            $0.constraints.forEach { $0.isActive = false }
+        }
+        
         addMemoButton.isHidden = true
         contentView.addSubviews(emptyBearImage, emptyLabel)
         emptyBearImage.snp.makeConstraints {
@@ -255,15 +260,12 @@ extension AchieveView {
             $0.centerX.equalToSuperview()
             $0.bottom.equalToSuperview().inset(20)
         }
-        
-        [bearFaceImage, memoLabel, selectDateMemoTopDotView, selectDateMemoBottomDotView, achieveCollectionView].forEach {
-            $0.removeFromSuperview()
-        }
     }
     
     func bindIsMemo(isRecord: Bool, height: Double) {
-        [emptyBearImage, emptyLabel].forEach {
+        [emptyBearImage, emptyLabel, bearFaceImage, memoLabel, selectDateMemoTopDotView, selectDateMemoBottomDotView, achieveCollectionView].forEach {
             $0.removeFromSuperview()
+            $0.constraints.forEach { $0.isActive = false }
         }
         if isRecord {
             contentView.addSubviews(bearFaceImage, memoLabel, selectDateMemoTopDotView, selectDateMemoBottomDotView)
@@ -304,9 +306,6 @@ extension AchieveView {
                 $0.bottom.equalToSuperview().inset(20)
             }
         } else {
-            [bearFaceImage, memoLabel, selectDateMemoTopDotView, selectDateMemoBottomDotView].forEach {
-                $0.removeFromSuperview()
-            }
             achieveCollectionView.snp.makeConstraints {
                 $0.top.equalTo(selectDateLabel.snp.bottom).offset(20)
                 $0.centerX.equalToSuperview()

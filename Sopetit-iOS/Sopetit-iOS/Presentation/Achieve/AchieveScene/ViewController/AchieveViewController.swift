@@ -35,6 +35,12 @@ final class AchieveViewController: UIViewController {
         self.view = achieveView
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        getCalendarAPI(entity: requestEntity)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -116,6 +122,7 @@ extension AchieveViewController {
     @objc
     func addMemoButtonTapped() {
         let nav = AddMemoBSViewController(memo: "")
+        nav.selectDate = self.selectedDate ?? Date()
         nav.modalPresentationStyle = .overFullScreen
         self.present(nav, animated: false)
     }
@@ -165,13 +172,6 @@ extension AchieveViewController {
         let selectDay = dayFormatter.string(from: selectDate)
         let selectWeekday = weekdayFormatter.string(from: selectDate)
         return (selectDay, selectWeekday)
-    }
-    
-    func formatDateToString(_ date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        dateFormatter.locale = Locale(identifier: "ko_KR")
-        return dateFormatter.string(from: date)
     }
     
     func findValue(for key: String) -> CalendarDate {
@@ -466,6 +466,9 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
             let memo = value.memoContent
             let height = heightForContentView(numberOfSection: value.histories.count,
                                               texts: value.histories)
+            print("🍄🍄🍄didselectcalendar🍄🍄🍄")
+            print(selectDate)
+            print(height)
             if memo == "" { // 메모는 안썼음
                 achieveView.bindIsMemo(isRecord: false, height: height)
             } else { // 달성도 하고 메모도 씀
@@ -583,6 +586,7 @@ extension AchieveViewController {
                     self.calendarEntity = data
 //                    self.bindCalendar(bindDate: self.formatDateToString(Date()))
                     self.setTodayView()
+                    self.calendarView.reloadData()
                 }
             case .reissue:
                 ReissueService.shared.postReissueAPI(refreshToken: UserManager.shared.getRefreshToken) { success in

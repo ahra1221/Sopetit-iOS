@@ -15,6 +15,7 @@ final class EditMemoBSViewController: UIViewController {
     
     private var bottomHeight: CGFloat = SizeLiterals.Screen.screenHeight * 280 / 812
     private var memoContent: String?
+    private var memoId: Int?
     
     // MARK: - UI Components
     
@@ -75,8 +76,9 @@ final class EditMemoBSViewController: UIViewController {
     
     // MARK: - Life Cycles
     
-    init(memo: String) {
+    init(memo: String, memoId: Int) {
         self.memoContent = memo
+        self.memoId = memoId
         super.init(nibName: nil, bundle: nil)
         self.bindUI(memo: memo)
     }
@@ -228,13 +230,43 @@ extension EditMemoBSViewController {
     
     @objc
     func tapEditButton() {
-        let nav = AddMemoBSViewController(memo: self.memoContent ?? "")
+        let nav = AddMemoBSViewController(memo: self.memoContent ?? "",
+                                          memoId: self.memoId ?? 0)
         nav.modalPresentationStyle = .overFullScreen
         self.present(nav, animated: false)
     }
     
     @objc
     func tapDelButton() {
-        
+        delMemo()
+    }
+}
+
+// MARK: - Networks
+
+extension EditMemoBSViewController {
+    
+    func delMemo() {
+        AchieveService.shared.deleteRoutineListAPI(memoId: self.memoId ?? 0) { networkResult in
+            switch networkResult {
+            case .success(let data):
+                if let data = data as? GenericResponse<EmptyEntity> {
+                    NotificationCenter.default.post(name: Notification.Name("delMemo"), object: nil)
+                    self.hideBottomSheet()
+                }
+            case .reissue:
+                ReissueService.shared.postReissueAPI(refreshToken: UserManager.shared.getRefreshToken) { success in
+                    if success {
+                        self.delMemo()
+                    } else {
+                        self.makeSessionExpiredAlert()
+                    }
+                }
+            case .requestErr, .serverErr:
+                self.makeServerErrorAlert()
+            default:
+                break
+            }
+        }
     }
 }

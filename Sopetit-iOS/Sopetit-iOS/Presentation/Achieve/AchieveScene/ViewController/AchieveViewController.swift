@@ -21,6 +21,7 @@ final class AchieveViewController: UIViewController {
     private lazy var requestEntity: CalendarRequestEntity = CalendarRequestEntity(year: self.getDayComponents(date: "").year, month: self.getDayComponents(date: "").month)
     private var calendarEntity: CalendarEntity = CalendarEntity(success: false, message: "", data: ["": CalendarDate(memoID: 0, memoContent: "", histories: [])])
     private var selectedDateMemo: String = ""
+    private var selectedDateMemoId: Int = 0
     
     // MARK: - UI Components
     
@@ -120,14 +121,15 @@ extension AchieveViewController {
     
     @objc
     func memoTapped() {
-        let nav = EditMemoBSViewController(memo: selectedDateMemo)
+        let nav = EditMemoBSViewController(memo: selectedDateMemo,
+                                           memoId: selectedDateMemoId)
         nav.modalPresentationStyle = .overFullScreen
         self.present(nav, animated: false)
     }
     
     @objc
     func addMemoButtonTapped() {
-        let nav = AddMemoBSViewController(memo: "")
+        let nav = AddMemoBSViewController(memo: "", memoId: selectedDateMemoId)
         nav.selectDate = self.selectedDate ?? Date()
         nav.modalPresentationStyle = .overFullScreen
         self.present(nav, animated: false)
@@ -205,6 +207,7 @@ extension AchieveViewController {
             let height = heightForContentView(numberOfSection: value.histories.count,
                                               texts: value.histories)
             selectedDateMemo = memo
+            selectedDateMemoId = value.memoID
             if memo == "" { // 메모는 안썼음
                 achieveView.bindIsMemo(isRecord: false, height: height, memo: memo)
             } else { // 달성도 하고 메모도 씀
@@ -218,9 +221,20 @@ extension AchieveViewController {
     
     func addObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(addMemo), name: Notification.Name("addMemo"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(delMemo), name: Notification.Name("delMemo"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(patchMemo), name: Notification.Name("patchMemo"), object: nil)
     }
     
     @objc func addMemo() {
+        getCalendarAPI(entity: requestEntity)
+    }
+    
+    @objc func delMemo() { // 삭제 토스트 추가 예정
+        getCalendarAPI(entity: requestEntity)
+    }
+    
+    @objc func patchMemo() { // 수정 토스트 추가 예정
+        print("🤖🤖수정하고 왓어요.🤖🤖")
         getCalendarAPI(entity: requestEntity)
     }
 }
@@ -563,11 +577,7 @@ extension AchieveViewController {
     }
     
     func getCalendarAPI(entity: CalendarRequestEntity) {
-        print("💭💭💭entity💭💭")
-        print(entity)
         AchieveService.shared.getCalendar(requestEntity: entity) { networkResult in
-            print("💭💭💭networkresult💭💭")
-            print(entity)
             switch networkResult {
             case .success(let data):
                 if let data = data as? CalendarEntity {
@@ -587,7 +597,7 @@ extension AchieveViewController {
                     }
                 }
             case .requestErr, .serverErr:
-                break
+                self.makeServerErrorAlert()
             default:
                 break
             }

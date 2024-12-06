@@ -10,7 +10,3 @@ import Foundation
 struct AddMemosRequestEntity: Codable {
     let achievedDate, content: String
 }
-
-struct EditMemosRequestEntity: Codable {
-    let content: String
-}

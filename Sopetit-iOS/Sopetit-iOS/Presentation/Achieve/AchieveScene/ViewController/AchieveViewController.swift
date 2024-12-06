@@ -50,6 +50,11 @@ final class AchieveViewController: UIViewController {
         setAddGesture()
         setRegisterCell()
         setDelegate()
+        addObserver()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }
 
@@ -191,11 +196,30 @@ extension AchieveViewController {
         }
     }
     
-    func bindCalendar(bindDate: String) {
-        let bindValue = findValue(for: bindDate)
-        print("🤕🤕binding 해야할 value🤕🤕")
-        print(bindValue)
-        print("🤕🤕🤕🤕")
+    func setSelectDateView() {
+        let today = formatDateToString(selectedDate ?? Date())
+        if hasDateKey(for: today) {
+            let value = findValue(for: today)
+            let memo = value.memoContent
+            let height = heightForContentView(numberOfSection: value.histories.count,
+                                              texts: value.histories)
+            if memo == "" { // 메모는 안썼음
+                achieveView.bindIsMemo(isRecord: false, height: height, memo: memo)
+            } else { // 달성도 하고 메모도 씀
+                achieveView.bindIsMemo(isRecord: true, height: height, memo: memo)
+            }
+        } else {
+            achieveView.bindIsEmptyView(isEmpty: true)
+        }
+        achieveCV.reloadData()
+    }
+    
+    func addObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(addMemo), name: Notification.Name("addMemo"), object: nil)
+    }
+    
+    @objc func addMemo() {
+        getCalendarAPI(entity: requestEntity)
     }
 }
 
@@ -284,24 +308,6 @@ extension AchieveViewController: UICollectionViewDelegateFlowLayout {
         height += Double(16 * (texts.count - 1) + 30)
         return height
     }
-    
-    func setTodayView() {
-        let today = formatDateToString(Date())
-        if hasDateKey(for: today) {
-            let value = findValue(for: today)
-            let memo = value.memoContent
-            let height = heightForContentView(numberOfSection: value.histories.count,
-                                              texts: value.histories)
-            if memo == "" { // 메모는 안썼음
-                achieveView.bindIsMemo(isRecord: false, height: height)
-            } else { // 달성도 하고 메모도 씀
-                achieveView.bindIsMemo(isRecord: true, height: height)
-            }
-        } else {
-            achieveView.bindIsEmptyView(isEmpty: true)
-        }
-        achieveCV.reloadData()
-    }
 }
 
 // MARK: - CalendarHeaderDelegate
@@ -343,7 +349,7 @@ extension AchieveViewController: CalendarHeaderDelegate {
         let inital = extractDayAndWeekday(selectDate: today)
         achieveView.bindSelectDate(date: inital.extractedDay,
                                    week: inital.extractedWeekday)
-        setTodayView()
+        setSelectDateView()
     }
 }
 
@@ -461,26 +467,11 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
         achieveView.bindSelectDate(date: extractDayAndWeekday(selectDate: date).extractedDay,
                                    week: extractDayAndWeekday(selectDate: date).extractedWeekday)
         selectedDate = date
-        if hasDateKey(for: selectDate) {
-            let value = findValue(for: selectDate)
-            let memo = value.memoContent
-            let height = heightForContentView(numberOfSection: value.histories.count,
-                                              texts: value.histories)
-            print("🍄🍄🍄didselectcalendar🍄🍄🍄")
-            print(selectDate)
-            print(height)
-            if memo == "" { // 메모는 안썼음
-                achieveView.bindIsMemo(isRecord: false, height: height)
-            } else { // 달성도 하고 메모도 씀
-                achieveView.bindIsMemo(isRecord: true, height: height)
-            }
-        } else {
-            achieveView.bindIsEmptyView(isEmpty: true)
-        }
+        setSelectDateView()
         print(selectDate)
-        achieveView.layoutIfNeeded()
+//        achieveView.setNeedsDisplay()
+//        achieveView.layoutIfNeeded()
         calendar.reloadData()
-        achieveCV.reloadData()
     }
     
     func maximumDate(for calendar: FSCalendar) -> Date {
@@ -584,8 +575,7 @@ extension AchieveViewController {
                     dump(data)
                     print("💭💭💭💭💭")
                     self.calendarEntity = data
-//                    self.bindCalendar(bindDate: self.formatDateToString(Date()))
-                    self.setTodayView()
+                    self.setSelectDateView()
                     self.calendarView.reloadData()
                 }
             case .reissue:

@@ -85,7 +85,6 @@ final class AchieveView: UIView {
     
     let memoLabel: UILabel = {
         let label = UILabel()
-        label.text = "그냥 집에 가고싶은데요\n아아 집이여\n아아아"
         label.textColor = .Gray500
         label.textAlignment = .left
         label.font = .fontGuide(.body2)
@@ -234,16 +233,10 @@ extension AchieveView {
         selectDateCountLabel.asLineHeight(.body2)
     }
     
-    func bindMemo(memo: String) {
-        if memo == "" {
-            
-        }
-    }
-    
     func bindIsEmptyView(isEmpty: Bool) {
         [bearFaceImage, memoLabel, selectDateMemoTopDotView, selectDateMemoBottomDotView, achieveCollectionView].forEach {
             $0.removeFromSuperview()
-            $0.constraints.forEach { $0.isActive = false }
+            $0.snp.removeConstraints()
         }
         
         addMemoButton.isHidden = true
@@ -262,19 +255,24 @@ extension AchieveView {
         }
     }
     
-    func bindIsMemo(isRecord: Bool, height: Double) {
+    func bindIsMemo(isRecord: Bool, height: Double, memo: String) {
         [emptyBearImage, emptyLabel, bearFaceImage, memoLabel, selectDateMemoTopDotView, selectDateMemoBottomDotView, achieveCollectionView].forEach {
             $0.removeFromSuperview()
-            $0.constraints.forEach { $0.isActive = false }
+            $0.snp.removeConstraints()
         }
+        let memoHeight = heightForView(text: memo, font: .fontGuide(.body2), width: SizeLiterals.Screen.screenWidth - 110)
+        
         if isRecord {
             contentView.addSubviews(bearFaceImage, memoLabel, selectDateMemoTopDotView, selectDateMemoBottomDotView)
+            
+            memoLabel.text = memo
+            memoLabel.asLineHeight(.body2)
         }
         contentView.addSubview(achieveCollectionView)
         
         if isRecord {
             selectDateMemoTopDotView.snp.makeConstraints {
-                $0.bottom.equalTo(memoLabel.snp.top).offset(-16)
+                $0.bottom.equalTo(memoHeight <= 49 ? bearFaceImage.snp.top : memoLabel.snp.top).offset(-16)
                 $0.leading.trailing.equalToSuperview().inset(20)
                 $0.height.equalTo(1)
             }
@@ -287,13 +285,13 @@ extension AchieveView {
             }
             
             memoLabel.snp.makeConstraints {
-                $0.top.equalTo(selectDateLabel.snp.bottom).offset(28)
+                $0.top.equalTo(selectDateLabel.snp.bottom).offset(36)
                 $0.leading.equalTo(bearFaceImage.snp.trailing).offset(12)
                 $0.trailing.equalToSuperview().inset(24)
             }
             
             selectDateMemoBottomDotView.snp.makeConstraints {
-                $0.top.equalTo(memoLabel.snp.bottom).offset(16)
+                $0.top.equalTo(memoHeight <= 49 ? bearFaceImage.snp.bottom : memoLabel.snp.bottom).offset(16)
                 $0.leading.trailing.equalToSuperview().inset(20)
                 $0.height.equalTo(1)
             }
@@ -315,8 +313,6 @@ extension AchieveView {
             }
         }
         
-        print("➡️➡️➡️➡️➡️")
-        print(isRecord)
         addMemoButton.isHidden = isRecord
     }
 }

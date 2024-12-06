@@ -17,6 +17,8 @@ final class AddMemoBSViewController: UIViewController {
     private var bottomsheetBottomOffest = 0.0
     private var isKeyboardVisible = false
     
+    var selectDate: Date = Date()
+    
     // MARK: - UI Components
     
     private let backgroundView: UIView = {
@@ -289,7 +291,7 @@ extension AddMemoBSViewController {
     
     @objc
     func tapCompleteButton() {
-        hideBottomSheet()
+        postMemo()
     }
     
     func checkMaxLength(_ textView: UITextView) {
@@ -365,5 +367,36 @@ extension AddMemoBSViewController: UITextViewDelegate {
     
     func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
         return true
+    }
+}
+
+// MARK: - Networks
+
+extension AddMemoBSViewController {
+    
+    func postMemo() {
+        AchieveService.shared.postMemoAPI(addMemoEntity: AddMemosRequestEntity(achievedDate: formatDateToString(selectDate), content: editMemoTextView.text)) { networkResult in
+            switch networkResult {
+            case .success(let data):
+                if let data = data as? GenericResponse<MemosResponseEntity> {
+                    print("➡️➡️➡️")
+                    dump(data)
+                    NotificationCenter.default.post(name: Notification.Name("addMemo"), object: nil)
+                    self.hideBottomSheet()
+                }
+            case .reissue:
+                ReissueService.shared.postReissueAPI(refreshToken: UserManager.shared.getRefreshToken) { success in
+                    if success {
+                        self.postMemo()
+                    } else {
+                        self.makeSessionExpiredAlert()
+                    }
+                }
+            case .requestErr, .serverErr:
+                break
+            default:
+                break
+            }
+        }
     }
 }

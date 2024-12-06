@@ -91,9 +91,9 @@ extension AchieveService {
         }
     }
     
-    func patchRoutineAPI(memoId: Int,
-                         content: String,
-                         completion: @escaping (NetworkResult<Any>) -> Void) {
+    func patchMemoAPI(memoId: Int,
+                      content: String,
+                      completion: @escaping (NetworkResult<Any>) -> Void) {
         let url = URLConstant.memosWithIdURL + "\(memoId)"
         let header: HTTPHeaders = NetworkConstant.hasTokenHeader
         let body: Parameters = [
@@ -101,6 +101,7 @@ extension AchieveService {
         ]
         let dataRequest = AF.request(url,
                                      method: .patch,
+                                     parameters: body,
                                      encoding: JSONEncoding.default,
                                      headers: header)
         
@@ -133,10 +134,6 @@ extension AchieveService {
                                      encoding: URLEncoding.default,
                                      headers: header)
         dataRequest.responseData { response in
-            print("🍎🍎🍎datarequest🍎🍎")
-            print(dataRequest)
-            print("🍎🍎🍎response🍎🍎")
-            print(response)
             switch response.result {
             case .success:
                 guard let statusCode = response.response?.statusCode else { return }

@@ -16,6 +16,8 @@ final class AddMemoBSViewController: UIViewController {
     private var bottomHeight: CGFloat = SizeLiterals.Screen.screenHeight * 312 / 812
     private var bottomsheetBottomOffest = 0.0
     private var isKeyboardVisible = false
+    private var isAddMemo: Bool = false
+    private var memoId: Int = 0
     
     var selectDate: Date = Date()
     
@@ -103,7 +105,8 @@ final class AddMemoBSViewController: UIViewController {
     
     // MARK: - Life Cycles
     
-    init(memo: String) {
+    init(memo: String, memoId: Int) {
+        self.memoId = memoId
         super.init(nibName: nil, bundle: nil)
         self.bindUI(memo: memo)
     }
@@ -130,12 +133,12 @@ final class AddMemoBSViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        NotificationCenter.default.addObserver(self, 
+        NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardUp),
                                                name: UIResponder.keyboardWillShowNotification,
                                                object: nil)
         
-        NotificationCenter.default.addObserver(self, 
+        NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardDown),
                                                name: UIResponder.keyboardWillHideNotification,
                                                object: nil)
@@ -153,9 +156,10 @@ final class AddMemoBSViewController: UIViewController {
 extension AddMemoBSViewController {
     
     func bindUI(memo: String) {
-        if memo.isEmpty { // AddMemo
-            
+        if memo == "" { // AddMemo
+            isAddMemo = true
         } else { // EditMemo
+            isAddMemo = false
             editMemoTextView.text = memo
             editMemoTextView.textColor = .Gray700
             textCountLabel.text = String(memo.count)
@@ -291,7 +295,11 @@ extension AddMemoBSViewController {
     
     @objc
     func tapCompleteButton() {
-        postMemo()
+        if isAddMemo {
+            postMemo()
+        } else { // patch
+            patchMemo()
+        }
     }
     
     func checkMaxLength(_ textView: UITextView) {
@@ -393,7 +401,32 @@ extension AddMemoBSViewController {
                     }
                 }
             case .requestErr, .serverErr:
+                self.makeServerErrorAlert()
+            default:
                 break
+            }
+        }
+    }
+    
+    func patchMemo() {
+        AchieveService.shared.patchMemoAPI(memoId: self.memoId,
+                                           content: self.editMemoTextView.text) { networkResult in
+            switch networkResult {
+            case .success(let data):
+                if let _ = data as? GenericResponse<EmptyEntity> {
+                    NotificationCenter.default.post(name: Notification.Name("patchMemo"), object: nil)
+                    self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                }
+            case .reissue:
+                ReissueService.shared.postReissueAPI(refreshToken: UserManager.shared.getRefreshToken) { success in
+                    if success {
+                        self.postMemo()
+                    } else {
+                        self.makeSessionExpiredAlert()
+                    }
+                }
+            case .requestErr, .serverErr:
+                self.makeServerErrorAlert()
             default:
                 break
             }

@@ -185,6 +185,7 @@
 		A49E0AF72D01302900588087 /* CalendarRequestEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E0AF62D01302900588087 /* CalendarRequestEntity.swift */; };
 		A49E0AF92D01558B00588087 /* CalendarHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E0AF82D01558B00588087 /* CalendarHistoryCell.swift */; };
 		A49E0AFC2D01610E00588087 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A49E0AFB2D01610E00588087 /* Colors.xcassets */; };
+		A49E0AFE2D02D9F700588087 /* ToastWithCheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E0AFD2D02D9F700588087 /* ToastWithCheckView.swift */; };
 		A4A516D12C36C46E00ED9CC1 /* RoutineThemeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A516D02C36C46E00ED9CC1 /* RoutineThemeCollectionViewCell.swift */; };
 		A4A516D32C36C7DA00ED9CC1 /* ThemeDetailEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A516D22C36C7DA00ED9CC1 /* ThemeDetailEntity.swift */; };
 		A4D2EB092B57D07A00493D8C /* HomeCottonEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D2EB082B57D07A00493D8C /* HomeCottonEntity.swift */; };
@@ -364,6 +365,7 @@
 		A49E0AF62D01302900588087 /* CalendarRequestEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarRequestEntity.swift; sourceTree = "<group>"; };
 		A49E0AF82D01558B00588087 /* CalendarHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHistoryCell.swift; sourceTree = "<group>"; };
 		A49E0AFB2D01610E00588087 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		A49E0AFD2D02D9F700588087 /* ToastWithCheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastWithCheckView.swift; sourceTree = "<group>"; };
 		A4A516D02C36C46E00ED9CC1 /* RoutineThemeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineThemeCollectionViewCell.swift; sourceTree = "<group>"; };
 		A4A516D22C36C7DA00ED9CC1 /* ThemeDetailEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeDetailEntity.swift; sourceTree = "<group>"; };
 		A4D2EB082B57D07A00493D8C /* HomeCottonEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCottonEntity.swift; sourceTree = "<group>"; };
@@ -1045,6 +1047,7 @@
 				A46CA1692CE70A2100AB4DCA /* AchieveMenuView.swift */,
 				A4648B992C04337B001EB031 /* AchieveView.swift */,
 				A475D5022CF553CE00B5DDC5 /* CalendarHeaderView.swift */,
+				A49E0AFD2D02D9F700588087 /* ToastWithCheckView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1489,6 +1492,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				00CCDCD22B53CB40007DD0E6 /* SplashViewController.swift in Sources */,
+				A49E0AFE2D02D9F700588087 /* ToastWithCheckView.swift in Sources */,
 				A40F9F122C69D0C6004DD1A1 /* AddRoutineDetailView.swift in Sources */,
 				09CC26CA2C8A839100C3BD3B /* ChallengeRoutineView.swift in Sources */,
 				A4D9F6E32C5D2D7700A9F719 /* HomeTutorialEntity.swift in Sources */,

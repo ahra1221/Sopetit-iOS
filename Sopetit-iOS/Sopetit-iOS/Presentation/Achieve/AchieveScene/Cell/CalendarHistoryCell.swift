@@ -82,6 +82,10 @@ extension CalendarHistoryCell {
                          themeId: Int) {
         historyTitleLabel.text = content.replacingOccurrences(of: "\n", with: " ")
         historyTitleLabel.asLineHeight(.body2)
-        backgroundColor = isMission ? UIColor(named: "ThemeBack\(themeId)") : .SoftieWhite
+        if themeId > 8 {
+            backgroundColor = UIColor(named: "ThemeBack8")
+        } else {
+            backgroundColor = isMission ? UIColor(named: "ThemeBack\(themeId)") : .SoftieWhite
+        }
     }
 }

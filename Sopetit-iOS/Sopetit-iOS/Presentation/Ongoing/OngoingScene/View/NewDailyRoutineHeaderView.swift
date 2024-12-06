@@ -77,6 +77,10 @@ extension NewDailyRoutineHeaderView {
     func setDataBind(text: String, image: Int) {
         themeLabel.text = text
         themeLabel.asLineHeight(.body2)
-        themeImageView.image = UIImage(named: "theme\(image)")
+        if image > 8 {
+            themeImageView.image = UIImage(named: "theme8")
+        } else {
+            themeImageView.image = UIImage(named: "theme\(image)")
+        }
     }
 }

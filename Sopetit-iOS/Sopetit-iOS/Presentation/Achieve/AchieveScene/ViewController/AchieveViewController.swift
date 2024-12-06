@@ -20,6 +20,7 @@ final class AchieveViewController: UIViewController {
     private var registerDate: String = ""
     private lazy var requestEntity: CalendarRequestEntity = CalendarRequestEntity(year: self.getDayComponents(date: "").year, month: self.getDayComponents(date: "").month)
     private var calendarEntity: CalendarEntity = CalendarEntity(success: false, message: "", data: ["": CalendarDate(memoID: 0, memoContent: "", histories: [])])
+    private var selectedDateMemo: String = ""
     
     // MARK: - UI Components
     
@@ -119,7 +120,7 @@ extension AchieveViewController {
     
     @objc
     func memoTapped() {
-        let nav = EditMemoBSViewController(memo: "아아아\n아라라라ㅏ라라아랄ㅇ라ㅏㅇ아아아\ndkdk")
+        let nav = EditMemoBSViewController(memo: selectedDateMemo)
         nav.modalPresentationStyle = .overFullScreen
         self.present(nav, animated: false)
     }
@@ -203,6 +204,7 @@ extension AchieveViewController {
             let memo = value.memoContent
             let height = heightForContentView(numberOfSection: value.histories.count,
                                               texts: value.histories)
+            selectedDateMemo = memo
             if memo == "" { // 메모는 안썼음
                 achieveView.bindIsMemo(isRecord: false, height: height, memo: memo)
             } else { // 달성도 하고 메모도 씀
@@ -469,8 +471,6 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
         selectedDate = date
         setSelectDateView()
         print(selectDate)
-//        achieveView.setNeedsDisplay()
-//        achieveView.layoutIfNeeded()
         calendar.reloadData()
     }
     

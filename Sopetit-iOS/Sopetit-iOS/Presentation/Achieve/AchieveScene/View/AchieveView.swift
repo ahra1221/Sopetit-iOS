@@ -121,6 +121,9 @@ final class AchieveView: UIView {
         return collectionView
     }()
     
+    let delMemoToast = ToastWithCheckView(toastContent: "메모를 삭제했어요")
+    let editMemoToast = ToastWithCheckView(toastContent: "메모를 수정했어요")
+    
     // MARK: - Life Cycles
     
     override init(frame: CGRect) {
@@ -144,11 +147,15 @@ private extension AchieveView {
     
     func setUI() {
         self.backgroundColor = .Gray50
+        delMemoToast.isHidden = true
+        editMemoToast.isHidden = true
     }
     
     func setHierarchy() {
         addSubviews(achieveMenuView,
-                    scrollView)
+                    scrollView,  
+                    delMemoToast,
+                    editMemoToast)
         scrollView.addSubview(contentView)
         contentView.addSubviews(calendarHeaderView,
                                 achieveCalendarView,
@@ -211,6 +218,16 @@ private extension AchieveView {
         selectDateCountLabel.snp.makeConstraints {
             $0.centerY.equalTo(selectDateLabel)
             $0.leading.equalTo(selectDateLabel.snp.trailing).offset(4)
+        }
+        
+        delMemoToast.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(safeAreaLayoutGuide).offset(-24)
+        }
+        
+        editMemoToast.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(safeAreaLayoutGuide).offset(-24)
         }
     }
     

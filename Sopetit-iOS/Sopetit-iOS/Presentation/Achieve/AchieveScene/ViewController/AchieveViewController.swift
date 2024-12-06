@@ -229,13 +229,26 @@ extension AchieveViewController {
         getCalendarAPI(entity: requestEntity)
     }
     
-    @objc func delMemo() { // 삭제 토스트 추가 예정
+    @objc func delMemo() {
         getCalendarAPI(entity: requestEntity)
+        achieveView.delMemoToast.isHidden = false
+        UIView.animate(withDuration: 0.5, delay: 0.7, options: .curveEaseOut, animations: {
+            self.achieveView.delMemoToast.alpha = 0.0
+        }, completion: {_ in
+            self.achieveView.delMemoToast.isHidden = true
+            self.achieveView.delMemoToast.alpha = 1.0
+        })
     }
     
-    @objc func patchMemo() { // 수정 토스트 추가 예정
-        print("🤖🤖수정하고 왓어요.🤖🤖")
+    @objc func patchMemo() {
         getCalendarAPI(entity: requestEntity)
+        achieveView.editMemoToast.isHidden = false
+        UIView.animate(withDuration: 0.5, delay: 0.7, options: .curveEaseOut, animations: {
+            self.achieveView.editMemoToast.alpha = 0.0
+        }, completion: {_ in
+            self.achieveView.editMemoToast.isHidden = true
+            self.achieveView.editMemoToast.alpha = 1.0
+        })
     }
 }
 

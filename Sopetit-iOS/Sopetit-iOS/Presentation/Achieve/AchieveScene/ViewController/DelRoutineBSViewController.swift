@@ -104,7 +104,7 @@ final class DelRoutineBSViewController: UIViewController {
 extension DelRoutineBSViewController {
     
     func bindUI(content: String) {
-        routineContentLabel.text = content
+        routineContentLabel.text = content.replacingOccurrences(of: "\n", with: " ")
         routineContentLabel.asLineHeight(.body2)
         routineContentLabel.textAlignment = .center
         let backViewHeight = heightForView(text: content, font: .fontGuide(.body2), width: SizeLiterals.Screen.screenWidth - 40) + 40.0
@@ -211,7 +211,8 @@ extension DelRoutineBSViewController {
     
     @objc
     func tapDelButton() {
-        if isChallenge ?? false {
+        guard let isChallenge = isChallenge else { return }
+        if isChallenge {
             delChallengeHistoryAPI()
         } else {
             delDailyHistoryAPI()
@@ -224,10 +225,9 @@ extension DelRoutineBSViewController {
 extension DelRoutineBSViewController {
     
     func delDailyHistoryAPI() {
-        AchieveService.shared.delChallengeHistory(routineId: routineId ?? 0) { networkResult in
+        AchieveService.shared.delDailyHistory(routineId: routineId ?? 0) { networkResult in
             switch networkResult {
             case .success(let data):
-                print("🐵🐵deldailyhistory🐵🐵")
                 dump(data)
                 NotificationCenter.default.post(name: Notification.Name("delDailyHistory"), object: nil)
                 self.hideBottomSheet()
@@ -251,7 +251,6 @@ extension DelRoutineBSViewController {
         AchieveService.shared.delChallengeHistory(routineId: routineId ?? 0) { networkResult in
             switch networkResult {
             case .success(let data):
-                print("🐵🐵delchallengehistory🐵🐵")
                 dump(data)
                 NotificationCenter.default.post(name: Notification.Name("delChallengeHistory"), object: nil)
                 self.hideBottomSheet()

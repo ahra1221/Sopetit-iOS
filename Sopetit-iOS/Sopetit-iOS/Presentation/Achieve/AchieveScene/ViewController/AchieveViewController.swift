@@ -223,6 +223,8 @@ extension AchieveViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(addMemo), name: Notification.Name("addMemo"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(delMemo), name: Notification.Name("delMemo"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(patchMemo), name: Notification.Name("patchMemo"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(delDailyHistory), name: Notification.Name("delDailyHistory"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(delChallengeHistory), name: Notification.Name("delChallengeHistory"), object: nil)
     }
     
     @objc func addMemo() {
@@ -250,6 +252,28 @@ extension AchieveViewController {
             self.achieveView.editMemoToast.alpha = 1.0
         })
     }
+    
+    @objc func delDailyHistory() {
+        getCalendarAPI(entity: requestEntity)
+        achieveView.delDailyHistoryToast.isHidden = false
+        UIView.animate(withDuration: 0.5, delay: 0.7, options: .curveEaseOut, animations: {
+            self.achieveView.delDailyHistoryToast.alpha = 0.0
+        }, completion: {_ in
+            self.achieveView.delDailyHistoryToast.isHidden = true
+            self.achieveView.delDailyHistoryToast.alpha = 1.0
+        })
+    }
+    
+    @objc func delChallengeHistory() {
+        getCalendarAPI(entity: requestEntity)
+        achieveView.delChallengeHistoryToast.isHidden = false
+        UIView.animate(withDuration: 0.5, delay: 0.7, options: .curveEaseOut, animations: {
+            self.achieveView.editMemoToast.alpha = 0.0
+        }, completion: {_ in
+            self.achieveView.delChallengeHistoryToast.isHidden = true
+            self.achieveView.delChallengeHistoryToast.alpha = 1.0
+        })
+    }
 }
 
 // MARK: - CollectionView
@@ -260,6 +284,8 @@ extension AchieveViewController: CalendarHistoryCellDelegate {
         let nav = DelRoutineBSViewController(isChallenge: cellInfo.isMission,
                                              id: cellInfo.historyID,
                                              content: cellInfo.content)
+        print("🍎🍎cellInfo🍎🍎🍎")
+        print(cellInfo)
         nav.modalPresentationStyle = .overFullScreen
         self.present(nav, animated: false)
     }

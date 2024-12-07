@@ -147,4 +147,52 @@ extension AchieveService {
             }
         }
     }
+    
+    func delDailyHistory(routineId: Int,
+                         completion: @escaping (NetworkResult<Any>) -> Void) {
+        let url = URLConstant.delDailyHistoryURL + "\(routineId)"
+        let header: HTTPHeaders = NetworkConstant.hasTokenHeader
+        let dataRequest = AF.request(url,
+                                     method: .delete,
+                                     encoding: JSONEncoding.default,
+                                     headers: header)
+        
+        dataRequest.responseData { response in
+            switch response.result {
+            case .success:
+                guard let statusCode = response.response?.statusCode else { return }
+                guard let data = response.data else { return }
+                let networkResult = self.judgeStatus(by: statusCode,
+                                                     data,
+                                                     EmptyEntity.self)
+                completion(networkResult)
+            case .failure:
+                completion(.networkFail)
+            }
+        }
+    }
+    
+    func delChallengeHistory(routineId: Int,
+                             completion: @escaping (NetworkResult<Any>) -> Void) {
+        let url = URLConstant.delChallengeHistoryURL + "\(routineId)"
+        let header: HTTPHeaders = NetworkConstant.hasTokenHeader
+        let dataRequest = AF.request(url,
+                                     method: .delete,
+                                     encoding: JSONEncoding.default,
+                                     headers: header)
+        
+        dataRequest.responseData { response in
+            switch response.result {
+            case .success:
+                guard let statusCode = response.response?.statusCode else { return }
+                guard let data = response.data else { return }
+                let networkResult = self.judgeStatus(by: statusCode,
+                                                     data,
+                                                     EmptyEntity.self)
+                completion(networkResult)
+            case .failure:
+                completion(.networkFail)
+            }
+        }
+    }
 }

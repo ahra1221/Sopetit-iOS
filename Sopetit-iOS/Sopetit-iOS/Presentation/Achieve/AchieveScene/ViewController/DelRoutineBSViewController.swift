@@ -211,6 +211,65 @@ extension DelRoutineBSViewController {
     
     @objc
     func tapDelButton() {
-        
+        if isChallenge ?? false {
+            delChallengeHistoryAPI()
+        } else {
+            delDailyHistoryAPI()
+        }
     }
 }
+
+// MARK: - Networks
+
+extension DelRoutineBSViewController {
+    
+    func delDailyHistoryAPI() {
+        AchieveService.shared.delChallengeHistory(routineId: routineId ?? 0) { networkResult in
+            switch networkResult {
+            case .success(let data):
+                print("🐵🐵deldailyhistory🐵🐵")
+                dump(data)
+                NotificationCenter.default.post(name: Notification.Name("delDailyHistory"), object: nil)
+                self.hideBottomSheet()
+            case .reissue:
+                ReissueService.shared.postReissueAPI(refreshToken: UserManager.shared.getRefreshToken) { success in
+                    if success {
+                        self.delDailyHistoryAPI()
+                    } else {
+                        self.makeSessionExpiredAlert()
+                    }
+                }
+            case .requestErr, .serverErr:
+                self.makeServerErrorAlert()
+            default:
+                break
+            }
+        }
+    }
+    
+    func delChallengeHistoryAPI() {
+        AchieveService.shared.delChallengeHistory(routineId: routineId ?? 0) { networkResult in
+            switch networkResult {
+            case .success(let data):
+                print("🐵🐵delchallengehistory🐵🐵")
+                dump(data)
+                NotificationCenter.default.post(name: Notification.Name("delChallengeHistory"), object: nil)
+                self.hideBottomSheet()
+            case .reissue:
+                ReissueService.shared.postReissueAPI(refreshToken: UserManager.shared.getRefreshToken) { success in
+                    if success {
+                        self.delChallengeHistoryAPI()
+                    } else {
+                        self.makeSessionExpiredAlert()
+                    }
+                }
+            case .requestErr, .serverErr:
+                self.makeServerErrorAlert()
+            default:
+                break
+            }
+        }
+    }
+}
+
+

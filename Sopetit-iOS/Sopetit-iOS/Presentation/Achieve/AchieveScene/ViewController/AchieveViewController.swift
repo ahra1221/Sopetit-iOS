@@ -254,6 +254,17 @@ extension AchieveViewController {
 
 // MARK: - CollectionView
 
+extension AchieveViewController: CalendarHistoryCellDelegate {
+    
+    func tapHistoryCell(cellInfo: HistoryHistory) {
+        let nav = DelRoutineBSViewController(isChallenge: cellInfo.isMission,
+                                             id: cellInfo.historyID,
+                                             content: cellInfo.content)
+        nav.modalPresentationStyle = .overFullScreen
+        self.present(nav, animated: false)
+    }
+}
+
 extension AchieveViewController: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -278,6 +289,8 @@ extension AchieveViewController: UICollectionViewDataSource {
         cell.bindHistoryCell(content: value.histories[indexPath.section].histories[indexPath.item].content,
                              isMission: value.histories[indexPath.section].histories[indexPath.item].isMission,
                              themeId: value.histories[indexPath.section].themeID)
+        cell.cellInfo = value.histories[indexPath.section].histories[indexPath.item]
+        cell.delegate = self
         return cell
     }
     

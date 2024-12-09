@@ -22,6 +22,7 @@ final class AchieveViewController: UIViewController {
     private var calendarEntity: CalendarEntity = CalendarEntity(success: false, message: "", data: ["": CalendarDate(memoID: 0, memoContent: "", histories: [])])
     private var selectedDateMemo: String = ""
     private var selectedDateMemoId: Int = 0
+    private var fromDidChange: Bool = false
     
     // MARK: - UI Components
     
@@ -155,6 +156,18 @@ extension AchieveViewController {
         } else {
             calendarHeaderView.setHeaderRightButton(state: true)
         }
+        
+        if fromDidChange {
+            let components = calendar.dateComponents([.year, .month], from: currentPage)
+            if let year = components.year, let month = components.month {
+                getCalendarAPI(entity: CalendarRequestEntity(year: year, month: month))
+                calendarHeaderView.configureHeader(year: year,
+                                                   month: month)
+                print("현재 페이지의 연도: \(year)")
+                print("현재 페이지의 월: \(month)")
+            }
+        }
+        fromDidChange = false
     }
     
     func getDayComponents(date: String) -> (year: Int, month: Int, day: Int) {
@@ -552,6 +565,7 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
     }
     
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
+        fromDidChange = true
         updateCalendarHeaderButton()
         calendar.reloadData()
     }

@@ -17,3 +17,10 @@ func heightForView(text: String, font: UIFont, width: CGFloat) -> CGFloat {
     label.sizeToFit()
     return label.frame.height
 }
+
+func formatDateToString(_ date: Date) -> String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd"
+    dateFormatter.locale = Locale(identifier: "ko_KR")
+    return dateFormatter.string(from: date)
+}

@@ -20,6 +20,9 @@ final class AchieveViewController: UIViewController {
     private var registerDate: String = ""
     private lazy var requestEntity: CalendarRequestEntity = CalendarRequestEntity(year: self.getDayComponents(date: "").year, month: self.getDayComponents(date: "").month)
     private var calendarEntity: CalendarEntity = CalendarEntity(success: false, message: "", data: ["": CalendarDate(memoID: 0, memoContent: "", histories: [])])
+    private var selectedDateMemo: String = ""
+    private var selectedDateMemoId: Int = 0
+    private var fromDidChange: Bool = false
     
     // MARK: - UI Components
     
@@ -35,6 +38,12 @@ final class AchieveViewController: UIViewController {
         self.view = achieveView
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        getCalendarAPI(entity: requestEntity)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -44,6 +53,11 @@ final class AchieveViewController: UIViewController {
         setAddGesture()
         setRegisterCell()
         setDelegate()
+        addObserver()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }
 
@@ -108,14 +122,16 @@ extension AchieveViewController {
     
     @objc
     func memoTapped() {
-        let nav = EditMemoBSViewController(memo: "아아아\n아라라라ㅏ라라아랄ㅇ라ㅏㅇ아아아\ndkdk")
+        let nav = EditMemoBSViewController(memo: selectedDateMemo,
+                                           memoId: selectedDateMemoId)
         nav.modalPresentationStyle = .overFullScreen
         self.present(nav, animated: false)
     }
     
     @objc
     func addMemoButtonTapped() {
-        let nav = AddMemoBSViewController(memo: "")
+        let nav = AddMemoBSViewController(memo: "", memoId: selectedDateMemoId)
+        nav.selectDate = self.selectedDate ?? Date()
         nav.modalPresentationStyle = .overFullScreen
         self.present(nav, animated: false)
     }
@@ -140,6 +156,18 @@ extension AchieveViewController {
         } else {
             calendarHeaderView.setHeaderRightButton(state: true)
         }
+        
+        if fromDidChange {
+            let components = calendar.dateComponents([.year, .month], from: currentPage)
+            if let year = components.year, let month = components.month {
+                getCalendarAPI(entity: CalendarRequestEntity(year: year, month: month))
+                calendarHeaderView.configureHeader(year: year,
+                                                   month: month)
+                print("현재 페이지의 연도: \(year)")
+                print("현재 페이지의 월: \(month)")
+            }
+        }
+        fromDidChange = false
     }
     
     func getDayComponents(date: String) -> (year: Int, month: Int, day: Int) {
@@ -167,13 +195,6 @@ extension AchieveViewController {
         return (selectDay, selectWeekday)
     }
     
-    func formatDateToString(_ date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        dateFormatter.locale = Locale(identifier: "ko_KR")
-        return dateFormatter.string(from: date)
-    }
-    
     func findValue(for key: String) -> CalendarDate {
         if let value = calendarEntity.data[key] {
             return value
@@ -191,15 +212,97 @@ extension AchieveViewController {
         }
     }
     
-    func bindCalendar(bindDate: String) {
-        let bindValue = findValue(for: bindDate)
-        print("🤕🤕binding 해야할 value🤕🤕")
-        print(bindValue)
-        print("🤕🤕🤕🤕")
+    func setSelectDateView() {
+        let today = formatDateToString(selectedDate ?? Date())
+        if hasDateKey(for: today) {
+            let value = findValue(for: today)
+            let memo = value.memoContent
+            let height = heightForContentView(numberOfSection: value.histories.count,
+                                              texts: value.histories)
+            selectedDateMemo = memo
+            selectedDateMemoId = value.memoID
+            if memo == "" { // 메모는 안썼음
+                achieveView.bindIsMemo(isRecord: false, height: height, memo: memo)
+            } else { // 달성도 하고 메모도 씀
+                achieveView.bindIsMemo(isRecord: true, height: height, memo: memo)
+            }
+        } else {
+            achieveView.bindIsEmptyView(isEmpty: true)
+        }
+        achieveCV.reloadData()
+    }
+    
+    func addObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(addMemo), name: Notification.Name("addMemo"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(delMemo), name: Notification.Name("delMemo"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(patchMemo), name: Notification.Name("patchMemo"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(delDailyHistory), name: Notification.Name("delDailyHistory"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(delChallengeHistory), name: Notification.Name("delChallengeHistory"), object: nil)
+    }
+    
+    @objc func addMemo() {
+        getCalendarAPI(entity: requestEntity)
+    }
+    
+    @objc func delMemo() {
+        getCalendarAPI(entity: requestEntity)
+        achieveView.delMemoToast.isHidden = false
+        UIView.animate(withDuration: 0.5, delay: 0.7, options: .curveEaseOut, animations: {
+            self.achieveView.delMemoToast.alpha = 0.0
+        }, completion: {_ in
+            self.achieveView.delMemoToast.isHidden = true
+            self.achieveView.delMemoToast.alpha = 1.0
+        })
+    }
+    
+    @objc func patchMemo() {
+        getCalendarAPI(entity: requestEntity)
+        achieveView.editMemoToast.isHidden = false
+        UIView.animate(withDuration: 0.5, delay: 0.7, options: .curveEaseOut, animations: {
+            self.achieveView.editMemoToast.alpha = 0.0
+        }, completion: {_ in
+            self.achieveView.editMemoToast.isHidden = true
+            self.achieveView.editMemoToast.alpha = 1.0
+        })
+    }
+    
+    @objc func delDailyHistory() {
+        getCalendarAPI(entity: requestEntity)
+        achieveView.delDailyHistoryToast.isHidden = false
+        UIView.animate(withDuration: 0.5, delay: 0.7, options: .curveEaseOut, animations: {
+            self.achieveView.delDailyHistoryToast.alpha = 0.0
+        }, completion: {_ in
+            self.achieveView.delDailyHistoryToast.isHidden = true
+            self.achieveView.delDailyHistoryToast.alpha = 1.0
+        })
+    }
+    
+    @objc func delChallengeHistory() {
+        getCalendarAPI(entity: requestEntity)
+        achieveView.delChallengeHistoryToast.isHidden = false
+        UIView.animate(withDuration: 0.5, delay: 0.7, options: .curveEaseOut, animations: {
+            self.achieveView.editMemoToast.alpha = 0.0
+        }, completion: {_ in
+            self.achieveView.delChallengeHistoryToast.isHidden = true
+            self.achieveView.delChallengeHistoryToast.alpha = 1.0
+        })
     }
 }
 
 // MARK: - CollectionView
+
+extension AchieveViewController: CalendarHistoryCellDelegate {
+    
+    func tapHistoryCell(cellInfo: HistoryHistory) {
+        let nav = DelRoutineBSViewController(isChallenge: cellInfo.isMission,
+                                             id: cellInfo.historyID,
+                                             content: cellInfo.content)
+        print("🍎🍎cellInfo🍎🍎🍎")
+        print(cellInfo)
+        nav.modalPresentationStyle = .overFullScreen
+        self.present(nav, animated: false)
+    }
+}
 
 extension AchieveViewController: UICollectionViewDataSource {
     
@@ -225,6 +328,8 @@ extension AchieveViewController: UICollectionViewDataSource {
         cell.bindHistoryCell(content: value.histories[indexPath.section].histories[indexPath.item].content,
                              isMission: value.histories[indexPath.section].histories[indexPath.item].isMission,
                              themeId: value.histories[indexPath.section].themeID)
+        cell.cellInfo = value.histories[indexPath.section].histories[indexPath.item]
+        cell.delegate = self
         return cell
     }
     
@@ -284,24 +389,6 @@ extension AchieveViewController: UICollectionViewDelegateFlowLayout {
         height += Double(16 * (texts.count - 1) + 30)
         return height
     }
-    
-    func setTodayView() {
-        let today = formatDateToString(Date())
-        if hasDateKey(for: today) {
-            let value = findValue(for: today)
-            let memo = value.memoContent
-            let height = heightForContentView(numberOfSection: value.histories.count,
-                                              texts: value.histories)
-            if memo == "" { // 메모는 안썼음
-                achieveView.bindIsMemo(isRecord: false, height: height)
-            } else { // 달성도 하고 메모도 씀
-                achieveView.bindIsMemo(isRecord: true, height: height)
-            }
-        } else {
-            achieveView.bindIsEmptyView(isEmpty: true)
-        }
-        achieveCV.reloadData()
-    }
 }
 
 // MARK: - CalendarHeaderDelegate
@@ -343,7 +430,7 @@ extension AchieveViewController: CalendarHeaderDelegate {
         let inital = extractDayAndWeekday(selectDate: today)
         achieveView.bindSelectDate(date: inital.extractedDay,
                                    week: inital.extractedWeekday)
-        setTodayView()
+        setSelectDateView()
     }
 }
 
@@ -461,23 +548,9 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
         achieveView.bindSelectDate(date: extractDayAndWeekday(selectDate: date).extractedDay,
                                    week: extractDayAndWeekday(selectDate: date).extractedWeekday)
         selectedDate = date
-        if hasDateKey(for: selectDate) {
-            let value = findValue(for: selectDate)
-            let memo = value.memoContent
-            let height = heightForContentView(numberOfSection: value.histories.count,
-                                              texts: value.histories)
-            if memo == "" { // 메모는 안썼음
-                achieveView.bindIsMemo(isRecord: false, height: height)
-            } else { // 달성도 하고 메모도 씀
-                achieveView.bindIsMemo(isRecord: true, height: height)
-            }
-        } else {
-            achieveView.bindIsEmptyView(isEmpty: true)
-        }
+        setSelectDateView()
         print(selectDate)
-        achieveView.layoutIfNeeded()
         calendar.reloadData()
-        achieveCV.reloadData()
     }
     
     func maximumDate(for calendar: FSCalendar) -> Date {
@@ -492,6 +565,7 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
     }
     
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
+        fromDidChange = true
         updateCalendarHeaderButton()
         calendar.reloadData()
     }
@@ -569,11 +643,7 @@ extension AchieveViewController {
     }
     
     func getCalendarAPI(entity: CalendarRequestEntity) {
-        print("💭💭💭entity💭💭")
-        print(entity)
         AchieveService.shared.getCalendar(requestEntity: entity) { networkResult in
-            print("💭💭💭networkresult💭💭")
-            print(entity)
             switch networkResult {
             case .success(let data):
                 if let data = data as? CalendarEntity {
@@ -581,8 +651,8 @@ extension AchieveViewController {
                     dump(data)
                     print("💭💭💭💭💭")
                     self.calendarEntity = data
-//                    self.bindCalendar(bindDate: self.formatDateToString(Date()))
-                    self.setTodayView()
+                    self.setSelectDateView()
+                    self.calendarView.reloadData()
                 }
             case .reissue:
                 ReissueService.shared.postReissueAPI(refreshToken: UserManager.shared.getRefreshToken) { success in
@@ -593,7 +663,7 @@ extension AchieveViewController {
                     }
                 }
             case .requestErr, .serverErr:
-                break
+                self.makeServerErrorAlert()
             default:
                 break
             }

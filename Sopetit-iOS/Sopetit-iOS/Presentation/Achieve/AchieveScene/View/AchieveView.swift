@@ -85,7 +85,6 @@ final class AchieveView: UIView {
     
     let memoLabel: UILabel = {
         let label = UILabel()
-        label.text = "그냥 집에 가고싶은데요\n아아 집이여\n아아아"
         label.textColor = .Gray500
         label.textAlignment = .left
         label.font = .fontGuide(.body2)
@@ -122,6 +121,11 @@ final class AchieveView: UIView {
         return collectionView
     }()
     
+    let delMemoToast = ToastWithCheckView(toastContent: "메모를 삭제했어요")
+    let editMemoToast = ToastWithCheckView(toastContent: "메모를 수정했어요")
+    let delDailyHistoryToast = ToastWithCheckView(toastContent: "데일리루틴 기록을 삭제했어요")
+    let delChallengeHistoryToast = ToastWithCheckView(toastContent: "도전루틴 기록을 삭제했어요")
+    
     // MARK: - Life Cycles
     
     override init(frame: CGRect) {
@@ -145,11 +149,18 @@ private extension AchieveView {
     
     func setUI() {
         self.backgroundColor = .Gray50
+        [delMemoToast, editMemoToast, delDailyHistoryToast, delChallengeHistoryToast].forEach {
+            $0.isHidden = true
+        }
     }
     
     func setHierarchy() {
         addSubviews(achieveMenuView,
-                    scrollView)
+                    scrollView,  
+                    delMemoToast,
+                    editMemoToast,
+                    delDailyHistoryToast,
+                    delChallengeHistoryToast)
         scrollView.addSubview(contentView)
         contentView.addSubviews(calendarHeaderView,
                                 achieveCalendarView,
@@ -213,6 +224,26 @@ private extension AchieveView {
             $0.centerY.equalTo(selectDateLabel)
             $0.leading.equalTo(selectDateLabel.snp.trailing).offset(4)
         }
+        
+        delMemoToast.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(safeAreaLayoutGuide).offset(-24)
+        }
+        
+        editMemoToast.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(safeAreaLayoutGuide).offset(-24)
+        }
+        
+        delDailyHistoryToast.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(safeAreaLayoutGuide).offset(-24)
+        }
+        
+        delChallengeHistoryToast.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(safeAreaLayoutGuide).offset(-24)
+        }
     }
     
     func setRegisterCell() {
@@ -234,13 +265,13 @@ extension AchieveView {
         selectDateCountLabel.asLineHeight(.body2)
     }
     
-    func bindMemo(memo: String) {
-        if memo == "" {
-            
-        }
-    }
-    
     func bindIsEmptyView(isEmpty: Bool) {
+        [bearFaceImage, memoLabel, selectDateMemoTopDotView, selectDateMemoBottomDotView, achieveCollectionView].forEach {
+            $0.removeFromSuperview()
+            $0.snp.removeConstraints()
+        }
+        
+        addMemoButton.isHidden = true
         contentView.addSubviews(emptyBearImage, emptyLabel)
         emptyBearImage.snp.makeConstraints {
             $0.top.equalTo(selectDateLabel.snp.bottom).offset(SizeLiterals.Screen.screenHeight * 36 / 812)
@@ -254,24 +285,26 @@ extension AchieveView {
             $0.centerX.equalToSuperview()
             $0.bottom.equalToSuperview().inset(20)
         }
-        
-        [bearFaceImage, memoLabel, selectDateMemoTopDotView, selectDateMemoBottomDotView, addMemoButton, achieveCollectionView].forEach {
-            $0.removeFromSuperview()
-        }
     }
     
-    func bindIsMemo(isRecord: Bool, height: Double) {
-        [emptyBearImage, emptyLabel].forEach {
+    func bindIsMemo(isRecord: Bool, height: Double, memo: String) {
+        [emptyBearImage, emptyLabel, bearFaceImage, memoLabel, selectDateMemoTopDotView, selectDateMemoBottomDotView, achieveCollectionView].forEach {
             $0.removeFromSuperview()
+            $0.snp.removeConstraints()
         }
+        let memoHeight = heightForView(text: memo, font: .fontGuide(.body2), width: SizeLiterals.Screen.screenWidth - 110)
+        
         if isRecord {
             contentView.addSubviews(bearFaceImage, memoLabel, selectDateMemoTopDotView, selectDateMemoBottomDotView)
+            
+            memoLabel.text = memo
+            memoLabel.asLineHeight(.body2)
         }
         contentView.addSubview(achieveCollectionView)
         
         if isRecord {
             selectDateMemoTopDotView.snp.makeConstraints {
-                $0.bottom.equalTo(memoLabel.snp.top).offset(-16)
+                $0.bottom.equalTo(memoHeight <= 49 ? bearFaceImage.snp.top : memoLabel.snp.top).offset(-16)
                 $0.leading.trailing.equalToSuperview().inset(20)
                 $0.height.equalTo(1)
             }
@@ -284,13 +317,13 @@ extension AchieveView {
             }
             
             memoLabel.snp.makeConstraints {
-                $0.top.equalTo(selectDateLabel.snp.bottom).offset(28)
+                $0.top.equalTo(selectDateLabel.snp.bottom).offset(36)
                 $0.leading.equalTo(bearFaceImage.snp.trailing).offset(12)
                 $0.trailing.equalToSuperview().inset(24)
             }
             
             selectDateMemoBottomDotView.snp.makeConstraints {
-                $0.top.equalTo(memoLabel.snp.bottom).offset(16)
+                $0.top.equalTo(memoHeight <= 49 ? bearFaceImage.snp.bottom : memoLabel.snp.bottom).offset(16)
                 $0.leading.trailing.equalToSuperview().inset(20)
                 $0.height.equalTo(1)
             }
@@ -303,9 +336,6 @@ extension AchieveView {
                 $0.bottom.equalToSuperview().inset(20)
             }
         } else {
-            [bearFaceImage, memoLabel, selectDateMemoTopDotView, selectDateMemoBottomDotView, addMemoButton].forEach {
-                $0.removeFromSuperview()
-            }
             achieveCollectionView.snp.makeConstraints {
                 $0.top.equalTo(selectDateLabel.snp.bottom).offset(20)
                 $0.centerX.equalToSuperview()
@@ -315,8 +345,6 @@ extension AchieveView {
             }
         }
         
-        [addMemoButton].forEach {
-            $0.isHidden = isRecord
-        }
+        addMemoButton.isHidden = isRecord
     }
 }

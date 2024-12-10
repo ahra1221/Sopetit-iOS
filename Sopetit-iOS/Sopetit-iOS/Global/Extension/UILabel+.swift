@@ -122,4 +122,17 @@ extension UILabel {
         
         self.attributedText = attributedString
     }
+    
+    func calculateLabelWidth(for text: String, with font: UIFont) -> CGFloat {
+        let maxSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
+        
+        let boundingRect = text.boundingRect(
+            with: maxSize,
+            options: .usesLineFragmentOrigin,
+            attributes: [NSAttributedString.Key.font: font],
+            context: nil
+        )
+        
+        return boundingRect.width
+    }
 }

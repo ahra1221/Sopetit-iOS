@@ -9,12 +9,19 @@ import UIKit
 
 import SnapKit
 
+protocol CalendarHistoryCellDelegate: AnyObject {
+    func tapHistoryCell(cellInfo: HistoryHistory)
+}
+
 final class CalendarHistoryCell: UICollectionViewCell,
                                  UICollectionViewRegisterable {
     
     // MARK: - Properties
     
     static var isFromNib: Bool = false
+    weak var delegate: CalendarHistoryCellDelegate?
+    var routineId: Int = 0
+    var cellInfo: HistoryHistory = HistoryHistory(historyID: 0, content: "", isMission: false)
     
     // MARK: - UI Components
     
@@ -40,6 +47,7 @@ final class CalendarHistoryCell: UICollectionViewCell,
         setUI()
         setHierarchy()
         setLayout()
+        setAddTarget()
     }
     
     @available(*, unavailable)
@@ -73,6 +81,15 @@ private extension CalendarHistoryCell {
             $0.size.equalTo(24)
         }
     }
+    
+    func setAddTarget() {
+        historyDetailButton.addTarget(self, action: #selector(tapHistoryCell), for: .touchUpInside)
+    }
+    
+    @objc
+    func tapHistoryCell() {
+        delegate?.tapHistoryCell(cellInfo: cellInfo)
+    }
 }
 
 extension CalendarHistoryCell {
@@ -82,6 +99,10 @@ extension CalendarHistoryCell {
                          themeId: Int) {
         historyTitleLabel.text = content.replacingOccurrences(of: "\n", with: " ")
         historyTitleLabel.asLineHeight(.body2)
-        backgroundColor = isMission ? UIColor(named: "ThemeBack\(themeId)") : .SoftieWhite
+        if themeId > 8 {
+            backgroundColor = UIColor(named: "ThemeBack8")
+        } else {
+            backgroundColor = isMission ? UIColor(named: "ThemeBack\(themeId)") : .SoftieWhite
+        }
     }
 }

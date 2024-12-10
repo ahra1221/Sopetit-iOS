@@ -1,21 +1,22 @@
 //
-//  EditMemoBSViewController.swift
+//  DelRoutineBSViewController.swift
 //  Sopetit-iOS
 //
-//  Created by 고아라 on 12/3/24.
+//  Created by 고아라 on 12/6/24.
 //
 
 import UIKit
 
 import SnapKit
 
-final class EditMemoBSViewController: UIViewController {
+final class DelRoutineBSViewController: UIViewController {
     
     // MARK: - Properties
     
     private var bottomHeight: CGFloat = SizeLiterals.Screen.screenHeight * 280 / 812
-    private var memoContent: String?
-    private var memoId: Int?
+    private var routineContent: String?
+    private var routineId: Int?
+    private var isChallenge: Bool?
     
     // MARK: - UI Components
     
@@ -35,16 +36,16 @@ final class EditMemoBSViewController: UIViewController {
         return view
     }()
     
-    private let memoContentLabel: UILabel = {
+    private let routineContentLabel: UILabel = {
         let label = UILabel()
         label.font = .fontGuide(.body2)
         label.textColor = .Gray700
         label.numberOfLines = 0
-        label.textAlignment = .left
+        label.textAlignment = .center
         return label
     }()
     
-    private let memoBackgroundView: UIView = {
+    private let routineBackgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = .Gray200
         view.clipsToBounds = true
@@ -54,33 +55,28 @@ final class EditMemoBSViewController: UIViewController {
         return view
     }()
     
-    private let titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "메모"
+        label.text = isChallenge ?? false ? "도전 루틴" : "데일리 루틴"
         label.font = .fontGuide(.head4)
         label.textColor = .Gray700
         return label
     }()
     
-    private let editButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(resource: .btnMemoEdit), for: .normal)
-        return button
-    }()
-    
     private let delButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(resource: .btnMemoDel), for: .normal)
+        button.setImage(UIImage(resource: .btnRoutineDel), for: .normal)
         return button
     }()
     
     // MARK: - Life Cycles
     
-    init(memo: String, memoId: Int) {
-        self.memoContent = memo
-        self.memoId = memoId
+    init(isChallenge: Bool, id: Int, content: String) {
+        self.isChallenge = isChallenge
+        self.routineId = id
+        self.routineContent = content
         super.init(nibName: nil, bundle: nil)
-        self.bindUI(memo: memo)
+        self.bindUI(content: content)
     }
     
     required init?(coder: NSCoder) {
@@ -105,13 +101,13 @@ final class EditMemoBSViewController: UIViewController {
     }
 }
 
-extension EditMemoBSViewController {
+extension DelRoutineBSViewController {
     
-    func bindUI(memo: String) {
-        memoContentLabel.text = memo
-        memoContentLabel.asLineHeight(.body2)
-        
-        let backViewHeight = heightForView(text: memo, font: .fontGuide(.body2), width: SizeLiterals.Screen.screenWidth - 40) + 40.0
+    func bindUI(content: String) {
+        routineContentLabel.text = content.replacingOccurrences(of: "\n", with: " ")
+        routineContentLabel.asLineHeight(.body2)
+        routineContentLabel.textAlignment = .center
+        let backViewHeight = heightForView(text: content, font: .fontGuide(.body2), width: SizeLiterals.Screen.screenWidth - 40) + 40.0
         bottomHeight = backViewHeight + 180
     }
     
@@ -121,12 +117,11 @@ extension EditMemoBSViewController {
     
     func setHierarchy() {
         bottomSheet.addSubviews(titleLabel,
-                                memoBackgroundView,
-                                editButton,
+                                routineBackgroundView,
                                 delButton)
         view.addSubviews(backgroundView,
                          bottomSheet)
-        memoBackgroundView.addSubview(memoContentLabel)
+        routineBackgroundView.addSubview(routineContentLabel)
     }
     
     func setLayout() {
@@ -143,35 +138,24 @@ extension EditMemoBSViewController {
             $0.centerX.equalToSuperview()
         }
         
-        memoBackgroundView.snp.makeConstraints {
+        routineBackgroundView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(16)
             $0.leading.trailing.equalToSuperview().inset(20)
         }
         
-        memoContentLabel.snp.makeConstraints {
+        routineContentLabel.snp.makeConstraints {
             $0.top.bottom.equalToSuperview().inset(20)
             $0.leading.trailing.equalToSuperview().inset(27)
         }
         
-        editButton.snp.makeConstraints {
-            if SizeLiterals.Screen.deviceRatio > 0.5 {
-                $0.top.equalTo(memoBackgroundView.snp.bottom).offset(16)
-            } else {
-                $0.top.equalTo(memoBackgroundView.snp.bottom).offset(SizeLiterals.Screen.screenHeight * 32 / 812)
-            }
-            $0.leading.equalToSuperview().inset(20)
-            $0.width.equalTo((SizeLiterals.Screen.screenWidth - 47) / 2)
-            $0.height.equalTo(SizeLiterals.Screen.screenHeight * 56 / 812)
-        }
-        
         delButton.snp.makeConstraints {
             if SizeLiterals.Screen.deviceRatio > 0.5 {
-                $0.top.equalTo(memoBackgroundView.snp.bottom).offset(16)
+                $0.top.equalTo(routineBackgroundView.snp.bottom).offset(16)
             } else {
-                $0.top.equalTo(memoBackgroundView.snp.bottom).offset(SizeLiterals.Screen.screenHeight * 32 / 812)
+                $0.top.equalTo(routineBackgroundView.snp.bottom).offset(SizeLiterals.Screen.screenHeight * 32 / 812)
             }
-            $0.trailing.equalToSuperview().inset(21)
-            $0.width.equalTo((SizeLiterals.Screen.screenWidth - 47) / 2)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(SizeLiterals.Screen.screenWidth - 40)
             $0.height.equalTo(SizeLiterals.Screen.screenHeight * 56 / 812)
         }
     }
@@ -220,44 +204,60 @@ extension EditMemoBSViewController {
     }
     
     func setAddTarget() {
-        editButton.addTarget(self,
-                             action: #selector(tapEditButton),
-                             for: .touchUpInside)
         delButton.addTarget(self,
                             action: #selector(tapDelButton),
                             for: .touchUpInside)
     }
     
     @objc
-    func tapEditButton() {
-        let nav = AddMemoBSViewController(memo: self.memoContent ?? "",
-                                          memoId: self.memoId ?? 0)
-        nav.modalPresentationStyle = .overFullScreen
-        self.present(nav, animated: false)
-    }
-    
-    @objc
     func tapDelButton() {
-        delMemo()
+        guard let isChallenge = isChallenge else { return }
+        if isChallenge {
+            delChallengeHistoryAPI()
+        } else {
+            delDailyHistoryAPI()
+        }
     }
 }
 
 // MARK: - Networks
 
-extension EditMemoBSViewController {
+extension DelRoutineBSViewController {
     
-    func delMemo() {
-        AchieveService.shared.deleteRoutineListAPI(memoId: self.memoId ?? 0) { networkResult in
+    func delDailyHistoryAPI() {
+        AchieveService.shared.delDailyHistory(routineId: routineId ?? 0) { networkResult in
             switch networkResult {
             case .success(let data):
-                if let data = data as? GenericResponse<EmptyEntity> {
-                    NotificationCenter.default.post(name: Notification.Name("delMemo"), object: nil)
-                    self.hideBottomSheet()
-                }
+                dump(data)
+                NotificationCenter.default.post(name: Notification.Name("delDailyHistory"), object: nil)
+                self.hideBottomSheet()
             case .reissue:
                 ReissueService.shared.postReissueAPI(refreshToken: UserManager.shared.getRefreshToken) { success in
                     if success {
-                        self.delMemo()
+                        self.delDailyHistoryAPI()
+                    } else {
+                        self.makeSessionExpiredAlert()
+                    }
+                }
+            case .requestErr, .serverErr:
+                self.makeServerErrorAlert()
+            default:
+                break
+            }
+        }
+    }
+    
+    func delChallengeHistoryAPI() {
+        AchieveService.shared.delChallengeHistory(routineId: routineId ?? 0) { networkResult in
+            switch networkResult {
+            case .success(let data):
+                dump(data)
+                NotificationCenter.default.post(name: Notification.Name("delChallengeHistory"), object: nil)
+                self.hideBottomSheet()
+            case .reissue:
+                ReissueService.shared.postReissueAPI(refreshToken: UserManager.shared.getRefreshToken) { success in
+                    if success {
+                        self.delChallengeHistoryAPI()
                     } else {
                         self.makeSessionExpiredAlert()
                     }
@@ -270,3 +270,5 @@ extension EditMemoBSViewController {
         }
     }
 }
+
+

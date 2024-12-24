@@ -42,11 +42,11 @@ extension AddDailyRoutineService {
         }
     }
     
-    func postAddChallenge(subRoutineId: Int,
+    func postAddChallenge(challengeId: Int,
                           completion: @escaping (NetworkResult<Any>) -> Void) {
-        let url = URLConstant.happinessMemberURL
+        let url = URLConstant.addChallengeMemberURL
         let header: HTTPHeaders = NetworkConstant.hasTokenHeader
-        let body: Parameters = [ "subRoutineId": subRoutineId ]
+        let body: Parameters = [ "challengeId": challengeId ]
         let dataRequest = AF.request(url,
                                      method: .post,
                                      parameters: body,
@@ -59,7 +59,9 @@ extension AddDailyRoutineService {
                 guard let data = response.data else { return }
                 let networkResult = self.judgeStatus(by: statusCode,
                                                      data,
-                                                     EmptyEntity.self)
+                                                     AddChallengeEntity.self)
+                print("🥹🥹addchallenge🥹🥹")
+                dump(networkResult)
                 completion(networkResult)
             case .failure:
                 completion(.networkFail)

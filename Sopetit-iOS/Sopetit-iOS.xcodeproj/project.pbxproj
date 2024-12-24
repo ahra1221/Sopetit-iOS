@@ -171,6 +171,7 @@
 		A49BFE4F2B53CE7700035EB6 /* DollImageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49BFE4E2B53CE7700035EB6 /* DollImageEntity.swift */; };
 		A49BFE5A2B54273E00035EB6 /* SVGKit in Frameworks */ = {isa = PBXBuildFile; productRef = A49BFE592B54273E00035EB6 /* SVGKit */; };
 		A49BFE622B558B2E00035EB6 /* MemberEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49BFE612B558B2E00035EB6 /* MemberEntity.swift */; };
+		A49CB10B2D1A4426007D13D0 /* AddChallengeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49CB10A2D1A4421007D13D0 /* AddChallengeEntity.swift */; };
 		A49E0AED2CFEC62600588087 /* MemberProfileEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E0AEC2CFEC62600588087 /* MemberProfileEntity.swift */; };
 		A49E0AEF2CFEC66800588087 /* AchieveService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E0AEE2CFEC66800588087 /* AchieveService.swift */; };
 		A49E0AF12CFECAE500588087 /* MemosRequestEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E0AF02CFECAE500588087 /* MemosRequestEntity.swift */; };
@@ -346,6 +347,7 @@
 		A49BFE4C2B51275C00035EB6 /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
 		A49BFE4E2B53CE7700035EB6 /* DollImageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DollImageEntity.swift; sourceTree = "<group>"; };
 		A49BFE612B558B2E00035EB6 /* MemberEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberEntity.swift; sourceTree = "<group>"; };
+		A49CB10A2D1A4421007D13D0 /* AddChallengeEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChallengeEntity.swift; sourceTree = "<group>"; };
 		A49E0AEC2CFEC62600588087 /* MemberProfileEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberProfileEntity.swift; sourceTree = "<group>"; };
 		A49E0AEE2CFEC66800588087 /* AchieveService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchieveService.swift; sourceTree = "<group>"; };
 		A49E0AF02CFECAE500588087 /* MemosRequestEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemosRequestEntity.swift; sourceTree = "<group>"; };
@@ -486,6 +488,7 @@
 		A40F9EFF2C67C09B004DD1A1 /* AddRoutine */ = {
 			isa = PBXGroup;
 			children = (
+				A49CB10A2D1A4421007D13D0 /* AddChallengeEntity.swift */,
 				A40F9F172C69F35C004DD1A1 /* DailyThemeEntity.swift */,
 				A40F9F192C6AD943004DD1A1 /* AddRoutineInfoEntity.swift */,
 				A40F9F1B2C6AE42E004DD1A1 /* RoutineChallengeEntity.swift */,
@@ -1504,6 +1507,7 @@
 				A4648BA02C043417001EB031 /* AddRoutineView.swift in Sources */,
 				00CCDCC82B51B5D8007DD0E6 /* SplashFourView.swift in Sources */,
 				A49BFE2A2B4E857300035EB6 /* DollNameView.swift in Sources */,
+				A49CB10B2D1A4426007D13D0 /* AddChallengeEntity.swift in Sources */,
 				A42C32B72B3EAAD800C4B477 /* ImageLiterals.swift in Sources */,
 				0470C2552B57F9B900CE43D6 /* DailyPatchEntity.swift in Sources */,
 				A49E0AEF2CFEC66800588087 /* AchieveService.swift in Sources */,

@@ -305,7 +305,7 @@ extension AddRoutineDetailViewController {
     }
     
     func postAddChallengeAPI(id: Int) {
-        AddDailyRoutineService.shared.postAddChallenge(subRoutineId: id) { networkResult in
+        AddDailyRoutineService.shared.postAddChallenge(challengeId: id) { networkResult in
             switch networkResult {
             case .success:
                 Analytics.logEvent("add_challenge", parameters: nil)

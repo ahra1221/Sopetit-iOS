@@ -13,7 +13,7 @@ import FirebaseAnalytics
 final class AddRoutineDetailViewController: UIViewController {
     
     private var dailyThemeEntity = DailyThemeEntity(routines: [])
-    private var challengeThemeEntity = RoutineChallengeEntity(routines: [])
+    private var challengeThemeEntity = RoutineChallengeEntity(challenges: [])
     var addRoutineInfoEntity = AddRoutineInfoEntity.addRoutineInfoInitial()
     private var hasChallengeRoutine: Bool = false
     private var challengeMemberEntity = ChallengeMemberEntity.challengeMemberInitial()
@@ -105,7 +105,7 @@ extension AddRoutineDetailViewController {
         addRoutineDetailView.setMenuSelected(dailyTapped: false)
         addRoutineDetailView.menuStickyView.setStickyMenuTapped(dailyTapped: false)
         addRoutineDetailView.menuInScroll.setStickyMenuTapped(dailyTapped: false)
-        if challengeThemeEntity.routines.isEmpty {
+        if challengeThemeEntity.challenges.isEmpty {
             getChallengeRoutineAPI(id: addRoutineInfoEntity.id)
         }
     }
@@ -240,8 +240,9 @@ extension AddRoutineDetailViewController {
                         self.challengeThemeEntity = listData
                     }
                 }
-                self.heightForChallengeContentView(numberOfSection: self.challengeThemeEntity.routines.count,
-                                                   texts: self.challengeThemeEntity.routines)
+                self.heightForChallengeContentView(numberOfSection: self.challengeThemeEntity.challenges.count,
+                                                   texts: self.challengeThemeEntity.challenges
+                )
                 self.challengeCV.reloadData()
             case .reissue:
                 ReissueService.shared.postReissueAPI(refreshToken: UserManager.shared.getRefreshToken) { success in
@@ -349,11 +350,9 @@ extension AddRoutineDetailViewController {
 extension AddRoutineDetailViewController: UICollectionViewDelegate {
     
     private func getIndexPathForChallenge(with challengeID: Int) -> IndexPath? {
-        for (sectionIndex, routine) in challengeThemeEntity.routines.enumerated() {
-            for (itemIndex, challenge) in routine.challenges.enumerated() {
-                if challenge.challengeID == challengeID {
-                    return IndexPath(item: itemIndex, section: sectionIndex)
-                }
+        for (itemIndex, challenge) in challengeThemeEntity.challenges.enumerated() {
+            if challenge.challengeID == challengeID {
+                return IndexPath(item: itemIndex, section: 0)
             }
         }
         return nil
@@ -377,7 +376,7 @@ extension AddRoutineDetailViewController: UICollectionViewDelegate {
                 return true
             }
         case challengeCV:
-            let item = challengeThemeEntity.routines[indexPath.section].challenges[indexPath.item]
+            let item = challengeThemeEntity.challenges[indexPath.item]
             if item.hasRoutine { // 추가한 루틴인 경우 toastmessage
                 self.setToastMessage(type: .ExistRoutineAlert)
                 return false
@@ -387,8 +386,8 @@ extension AddRoutineDetailViewController: UICollectionViewDelegate {
                         collectionView.deselectItem(at: previousIndexPath, animated: true)
                     }
                 }
-                selectedChallengeId = challengeThemeEntity.routines[indexPath.section].challenges[indexPath.item].challengeID
-                selectedChallengeContent = challengeThemeEntity.routines[indexPath.section].challenges[indexPath.item].content.replacingOccurrences(of: "\n", with: " ")
+                selectedChallengeId = challengeThemeEntity.challenges[indexPath.item].challengeID
+                selectedChallengeContent = challengeThemeEntity.challenges[indexPath.item].content.replacingOccurrences(of: "\n", with: " ")
                 addRoutineDetailView.menuInScroll.setCountDataBind(cnt: 1,
                                                                    theme: .challenge)
                 addRoutineDetailView.menuStickyView.setCountDataBind(cnt: 1,
@@ -431,15 +430,6 @@ extension AddRoutineDetailViewController: UICollectionViewDelegate {
 
 extension AddRoutineDetailViewController: UICollectionViewDataSource {
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        switch collectionView {
-        case challengeCV:
-            return challengeThemeEntity.routines.count
-        default:
-            return 1
-        }
-    }
-    
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch collectionView {
@@ -450,7 +440,7 @@ extension AddRoutineDetailViewController: UICollectionViewDataSource {
             cell.hasRoutine = dailyRoutines.existedInMember
             return cell
         case challengeCV:
-            let routines: Challenge = challengeThemeEntity.routines[indexPath.section].challenges[indexPath.item]
+            let routines: Challenge = challengeThemeEntity.challenges[indexPath.item]
             let cell = AddChallengeRoutineCollectionViewCell.dequeueReusableCell(collectionView: collectionView, indexPath: indexPath)
             cell.setRoutineChallengeBind(model: routines)
             cell.hasRoutine = routines.hasRoutine
@@ -476,22 +466,9 @@ extension AddRoutineDetailViewController: UICollectionViewDataSource {
         case routineDailyCV:
             return dailyThemeEntity.routines.count
         case challengeCV:
-            return challengeThemeEntity.routines[section].challenges.count
+            return challengeThemeEntity.challenges.count
         default:
             return 0
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        viewForSupplementaryElementOfKind kind: String,
-                        at indexPath: IndexPath) -> UICollectionReusableView {
-        switch collectionView {
-        case challengeCV:
-            let headerView = AddChallengeRoutineHeaderView.dequeueReusableHeaderView(collectionView: challengeCV, indexPath: indexPath)
-            headerView.setChallengeHeaderBind(headerTitle: challengeThemeEntity.routines[indexPath.section].title)
-            return headerView
-        default:
-            return UICollectionReusableView()
         }
     }
 }
@@ -508,7 +485,7 @@ extension AddRoutineDetailViewController: UICollectionViewDelegateFlowLayout {
         case challengeCV:
             let label: UILabel = {
                 let label = UILabel()
-                label.text = challengeThemeEntity.routines[indexPath.section].challenges[indexPath.item].content.replacingOccurrences(of: "\n", with: " ")
+                label.text = challengeThemeEntity.challenges[indexPath.item].content.replacingOccurrences(of: "\n", with: " ")
                 label.font = .fontGuide(.body2)
                 return label
             }()
@@ -536,23 +513,20 @@ extension AddRoutineDetailViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func heightForChallengeContentView(numberOfSection: Int,
-                                       texts: [RoutineChallenge]) {
+                                       texts: [Challenge]) {
         var height = Double(numberOfSection) * 18.0
         
         for i in texts {
-            for j in i.challenges {
-                let textHeight = heightForView(text: j.content,
-                                               font: .fontGuide(.body2),
-                                               width: SizeLiterals.Screen.screenWidth - 80) + 94
-                height += textHeight
-            }
-            height += 44
+            let textHeight = heightForView(text: i.content,
+                                           font: .fontGuide(.body2),
+                                           width: SizeLiterals.Screen.screenWidth - 80) + 94
+            height += textHeight
         }
-        height += 108
+        height += 98
         
         UIView.animate(withDuration: 0.3) {
             self.addRoutineDetailView.challengeCollectionView.snp.makeConstraints {
-                $0.top.equalTo(self.addRoutineDetailView.menuInScroll.snp.bottom)
+                $0.top.equalTo(self.addRoutineDetailView.menuInScroll.snp.bottom).offset(20)
                 $0.centerX.equalToSuperview()
                 $0.bottom.equalToSuperview()
                 $0.width.equalTo(SizeLiterals.Screen.screenWidth - 40)

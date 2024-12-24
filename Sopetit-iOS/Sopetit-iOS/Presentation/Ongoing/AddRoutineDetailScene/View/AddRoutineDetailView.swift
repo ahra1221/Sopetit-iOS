@@ -78,8 +78,6 @@ final class AddRoutineDetailView: UIView {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
         flowLayout.minimumLineSpacing = 4
-        flowLayout.headerReferenceSize = CGSize(width: SizeLiterals.Screen.screenWidth - 55,
-                                                height: 44)
         flowLayout.sectionInset = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.showsVerticalScrollIndicator = false
@@ -270,7 +268,6 @@ private extension AddRoutineDetailView {
     func setRegisterCell() {
         RoutineChoiceCollectionViewCell.register(target: routineDailyCollectionView)
         AddChallengeRoutineCollectionViewCell.register(target: challengeCollectionView)
-        AddChallengeRoutineHeaderView.register(target: challengeCollectionView)
     }
     
     func setGradient() {
@@ -295,7 +292,7 @@ extension AddRoutineDetailView {
             routineDailyCollectionView.removeFromSuperview()
             contentView.addSubview(challengeCollectionView)
             challengeCollectionView.snp.makeConstraints {
-                $0.top.equalTo(menuInScroll.snp.bottom)
+                $0.top.equalTo(menuInScroll.snp.bottom).offset(20)
                 $0.centerX.equalToSuperview()
                 $0.bottom.equalToSuperview()
                 $0.width.equalTo(SizeLiterals.Screen.screenWidth - 40)

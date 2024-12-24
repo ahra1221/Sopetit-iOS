@@ -72,7 +72,6 @@
 		A40F9F182C69F35C004DD1A1 /* DailyThemeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F9F172C69F35C004DD1A1 /* DailyThemeEntity.swift */; };
 		A40F9F1A2C6AD944004DD1A1 /* AddRoutineInfoEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F9F192C6AD943004DD1A1 /* AddRoutineInfoEntity.swift */; };
 		A40F9F1C2C6AE42E004DD1A1 /* RoutineChallengeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F9F1B2C6AE42E004DD1A1 /* RoutineChallengeEntity.swift */; };
-		A40F9F1E2C6AE65C004DD1A1 /* AddChallengeRoutineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F9F1D2C6AE65C004DD1A1 /* AddChallengeRoutineHeaderView.swift */; };
 		A40F9F372C6D9C41004DD1A1 /* AddRoutineBottomSheetEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F9F362C6D9C41004DD1A1 /* AddRoutineBottomSheetEntity.swift */; };
 		A40F9F3B2C6DE9BA004DD1A1 /* ChangeRoutineBottomSheetEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F9F3A2C6DE9BA004DD1A1 /* ChangeRoutineBottomSheetEntity.swift */; };
 		A40F9F3D2C6DEAAF004DD1A1 /* ChallengeMemberEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F9F3C2C6DEAAF004DD1A1 /* ChallengeMemberEntity.swift */; };
@@ -255,7 +254,6 @@
 		A40F9F172C69F35C004DD1A1 /* DailyThemeEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyThemeEntity.swift; sourceTree = "<group>"; };
 		A40F9F192C6AD943004DD1A1 /* AddRoutineInfoEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRoutineInfoEntity.swift; sourceTree = "<group>"; };
 		A40F9F1B2C6AE42E004DD1A1 /* RoutineChallengeEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineChallengeEntity.swift; sourceTree = "<group>"; };
-		A40F9F1D2C6AE65C004DD1A1 /* AddChallengeRoutineHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChallengeRoutineHeaderView.swift; sourceTree = "<group>"; };
 		A40F9F362C6D9C41004DD1A1 /* AddRoutineBottomSheetEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRoutineBottomSheetEntity.swift; sourceTree = "<group>"; };
 		A40F9F3A2C6DE9BA004DD1A1 /* ChangeRoutineBottomSheetEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeRoutineBottomSheetEntity.swift; sourceTree = "<group>"; };
 		A40F9F3C2C6DEAAF004DD1A1 /* ChallengeMemberEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeMemberEntity.swift; sourceTree = "<group>"; };
@@ -530,7 +528,6 @@
 		A40F9F0B2C69D032004DD1A1 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				A40F9F1D2C6AE65C004DD1A1 /* AddChallengeRoutineHeaderView.swift */,
 				A40F9F112C69D0C6004DD1A1 /* AddRoutineDetailView.swift */,
 				A40F9F462C6F1451004DD1A1 /* AddRoutineToastView.swift */,
 				A49706402C820825008D2D57 /* AddRoutineMenuStickyView.swift */,
@@ -1590,7 +1587,6 @@
 				A49BFDE92B4D873400035EB6 /* DollChoiceCollectionViewCell.swift in Sources */,
 				00CCDCC22B51B5AF007DD0E6 /* SplashOneView.swift in Sources */,
 				097E04872C6F24D700A350E8 /* PatchRoutineEntity.swift in Sources */,
-				A40F9F1E2C6AE65C004DD1A1 /* AddChallengeRoutineHeaderView.swift in Sources */,
 				0463F89B2B4ADE4A0089B526 /* TabBarItem.swift in Sources */,
 				A42C32EB2B3EACAC00C4B477 /* URLConstant.swift in Sources */,
 				A4D2EB092B57D07A00493D8C /* HomeCottonEntity.swift in Sources */,

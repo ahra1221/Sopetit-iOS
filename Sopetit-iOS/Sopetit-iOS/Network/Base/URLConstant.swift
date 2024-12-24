@@ -55,7 +55,7 @@ enum URLConstant {
     // MARK: - AddRoutine URL
     
     static let dailyThemeURL = baseURL + "/api/v2/routines/daily/theme/"
-    static let challengeThemeURL = baseURL + "/api/v2/routines/challenge?themeId="
+    static let challengeThemeURL = baseURL + "/api/v2/challenges?themeId="
     static let challengeMemberURL = baseURL + "/api/v2/routines/challenge/member"
     static let addDailyMemberURL = baseURL + "/api/v2/routines/daily/member"
     

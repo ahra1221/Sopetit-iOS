@@ -7,18 +7,12 @@
 
 import Foundation
 
-enum AddRoutineTheme: Codable {
-    case routine
-    case maker
-}
-
 enum RoutineTheme: Codable {
     case daily
     case challenge
 }
 
 struct AddRoutineInfoEntity: Codable {
-    let themeStyle: AddRoutineTheme
     let id: Int
     let name: String
     let img: String
@@ -30,8 +24,7 @@ struct AddRoutineInfoEntity: Codable {
 extension AddRoutineInfoEntity {
     
     static func addRoutineInfoInitial() -> AddRoutineInfoEntity {
-        return AddRoutineInfoEntity(themeStyle: .maker,
-                                    id: 0,
+        return AddRoutineInfoEntity(id: 0,
                                     name: "",
                                     img: "",
                                     title: "",

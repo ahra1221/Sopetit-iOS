@@ -65,9 +65,6 @@
 		09CC26C82C8A836000C3BD3B /* NewDailyRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CC26C72C8A836000C3BD3B /* NewDailyRoutineView.swift */; };
 		09CC26CA2C8A839100C3BD3B /* ChallengeRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CC26C92C8A839100C3BD3B /* ChallengeRoutineView.swift */; };
 		A40F9EFD2C6798A5004DD1A1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A40F9EFC2C6798A5004DD1A1 /* GoogleService-Info.plist */; };
-		A40F9F012C67C28B004DD1A1 /* MakersEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F9F002C67C28B004DD1A1 /* MakersEntity.swift */; };
-		A40F9F042C67C3C6004DD1A1 /* MakersCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F9F032C67C3C6004DD1A1 /* MakersCollectionViewCell.swift */; };
-		A40F9F062C67D1AE004DD1A1 /* MakersChipCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F9F052C67D1AE004DD1A1 /* MakersChipCollectionViewCell.swift */; };
 		A40F9F082C69A06E004DD1A1 /* TotalRoutineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F9F072C69A06E004DD1A1 /* TotalRoutineCollectionViewCell.swift */; };
 		A40F9F102C69D08D004DD1A1 /* AddChallengeRoutineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F9F0F2C69D08D004DD1A1 /* AddChallengeRoutineCollectionViewCell.swift */; };
 		A40F9F122C69D0C6004DD1A1 /* AddRoutineDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F9F112C69D0C6004DD1A1 /* AddRoutineDetailView.swift */; };
@@ -151,8 +148,6 @@
 		A488FE8B2B697BB7000B4809 /* UpdateAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A488FE8A2B697BB7000B4809 /* UpdateAlertView.swift */; };
 		A488FE8E2B697C0E000B4809 /* VersionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A488FE8D2B697C0E000B4809 /* VersionEntity.swift */; };
 		A49706352C80C4BE008D2D57 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A49706342C80C4BD008D2D57 /* WebKit.framework */; };
-		A49706372C815C0F008D2D57 /* MakerDetailWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49706362C815C0F008D2D57 /* MakerDetailWebView.swift */; };
-		A49706392C815C35008D2D57 /* MakerDetailWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49706382C815C35008D2D57 /* MakerDetailWebViewController.swift */; };
 		A497063D2C81E1D1008D2D57 /* LogoutBSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A497063C2C81E1D1008D2D57 /* LogoutBSViewController.swift */; };
 		A49706412C820825008D2D57 /* AddRoutineMenuStickyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49706402C820825008D2D57 /* AddRoutineMenuStickyView.swift */; };
 		A49BFDD52B4D5F0800035EB6 /* StroyTellingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49BFDD42B4D5F0800035EB6 /* StroyTellingViewController.swift */; };
@@ -253,9 +248,6 @@
 		A40F9EF92C679827004DD1A1 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		A40F9EFB2C67985C004DD1A1 /* ReleaseConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ReleaseConfig.xcconfig; sourceTree = "<group>"; };
 		A40F9EFC2C6798A5004DD1A1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		A40F9F002C67C28B004DD1A1 /* MakersEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakersEntity.swift; sourceTree = "<group>"; };
-		A40F9F032C67C3C6004DD1A1 /* MakersCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakersCollectionViewCell.swift; sourceTree = "<group>"; };
-		A40F9F052C67D1AE004DD1A1 /* MakersChipCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakersChipCollectionViewCell.swift; sourceTree = "<group>"; };
 		A40F9F072C69A06E004DD1A1 /* TotalRoutineCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalRoutineCollectionViewCell.swift; sourceTree = "<group>"; };
 		A40F9F0F2C69D08D004DD1A1 /* AddChallengeRoutineCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChallengeRoutineCollectionViewCell.swift; sourceTree = "<group>"; };
 		A40F9F112C69D0C6004DD1A1 /* AddRoutineDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRoutineDetailView.swift; sourceTree = "<group>"; };
@@ -333,8 +325,6 @@
 		A488FE8A2B697BB7000B4809 /* UpdateAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateAlertView.swift; sourceTree = "<group>"; };
 		A488FE8D2B697C0E000B4809 /* VersionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionEntity.swift; sourceTree = "<group>"; };
 		A49706342C80C4BD008D2D57 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		A49706362C815C0F008D2D57 /* MakerDetailWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakerDetailWebView.swift; sourceTree = "<group>"; };
-		A49706382C815C35008D2D57 /* MakerDetailWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakerDetailWebViewController.swift; sourceTree = "<group>"; };
 		A497063C2C81E1D1008D2D57 /* LogoutBSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutBSViewController.swift; sourceTree = "<group>"; };
 		A49706402C820825008D2D57 /* AddRoutineMenuStickyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRoutineMenuStickyView.swift; sourceTree = "<group>"; };
 		A49BFDD42B4D5F0800035EB6 /* StroyTellingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StroyTellingViewController.swift; sourceTree = "<group>"; };
@@ -498,7 +488,6 @@
 		A40F9EFF2C67C09B004DD1A1 /* AddRoutine */ = {
 			isa = PBXGroup;
 			children = (
-				A40F9F002C67C28B004DD1A1 /* MakersEntity.swift */,
 				A40F9F172C69F35C004DD1A1 /* DailyThemeEntity.swift */,
 				A40F9F192C6AD943004DD1A1 /* AddRoutineInfoEntity.swift */,
 				A40F9F1B2C6AE42E004DD1A1 /* RoutineChallengeEntity.swift */,
@@ -513,8 +502,6 @@
 		A40F9F022C67C3B3004DD1A1 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				A40F9F052C67D1AE004DD1A1 /* MakersChipCollectionViewCell.swift */,
-				A40F9F032C67C3C6004DD1A1 /* MakersCollectionViewCell.swift */,
 				A40F9F072C69A06E004DD1A1 /* TotalRoutineCollectionViewCell.swift */,
 			);
 			path = Cell;
@@ -536,7 +523,6 @@
 				A40F9F3E2C6EE7B5004DD1A1 /* AddRoutinDetailBSViewController.swift */,
 				A40F9F402C6EEC4D004DD1A1 /* ChangeChallengeBSViewController.swift */,
 				A40F9F132C69D0CC004DD1A1 /* AddRoutineDetailViewController.swift */,
-				A49706382C815C35008D2D57 /* MakerDetailWebViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -547,7 +533,6 @@
 				A40F9F1D2C6AE65C004DD1A1 /* AddChallengeRoutineHeaderView.swift */,
 				A40F9F112C69D0C6004DD1A1 /* AddRoutineDetailView.swift */,
 				A40F9F462C6F1451004DD1A1 /* AddRoutineToastView.swift */,
-				A49706362C815C0F008D2D57 /* MakerDetailWebView.swift */,
 				A49706402C820825008D2D57 /* AddRoutineMenuStickyView.swift */,
 			);
 			path = View;
@@ -1505,7 +1490,6 @@
 				A40F9F1C2C6AE42E004DD1A1 /* RoutineChallengeEntity.swift in Sources */,
 				09CC26C82C8A836000C3BD3B /* NewDailyRoutineView.swift in Sources */,
 				A42C32D52B3EABAF00C4B477 /* UICollectionViewRegisterable.swift in Sources */,
-				A40F9F062C67D1AE004DD1A1 /* MakersChipCollectionViewCell.swift in Sources */,
 				A42C32BB2B3EAAEA00C4B477 /* FontLiterals.swift in Sources */,
 				A42C32F22B3EADCD00C4B477 /* LoginEntity.swift in Sources */,
 				00CCDCC62B51B5C8007DD0E6 /* SplashThreeView.swift in Sources */,
@@ -1564,7 +1548,6 @@
 				A42C327C2B3DB8F400C4B477 /* AppDelegate.swift in Sources */,
 				0470C2532B57F03100CE43D6 /* DailyDeleteEntity.swift in Sources */,
 				A42C32D32B3EABA300C4B477 /* UITableViewRegisterable.swift in Sources */,
-				A40F9F042C67C3C6004DD1A1 /* MakersCollectionViewCell.swift in Sources */,
 				A46CA1632CE206AF00AB4DCA /* AlarmViewController.swift in Sources */,
 				A40F9F142C69D0CC004DD1A1 /* AddRoutineDetailViewController.swift in Sources */,
 				A475D5252CFE8C1300B5DDC5 /* EditMemoBSViewController.swift in Sources */,
@@ -1610,7 +1593,6 @@
 				A40F9F1E2C6AE65C004DD1A1 /* AddChallengeRoutineHeaderView.swift in Sources */,
 				0463F89B2B4ADE4A0089B526 /* TabBarItem.swift in Sources */,
 				A42C32EB2B3EACAC00C4B477 /* URLConstant.swift in Sources */,
-				A40F9F012C67C28B004DD1A1 /* MakersEntity.swift in Sources */,
 				A4D2EB092B57D07A00493D8C /* HomeCottonEntity.swift in Sources */,
 				A49E0AF92D01558B00588087 /* CalendarHistoryCell.swift in Sources */,
 				A475D5032CF553CE00B5DDC5 /* CalendarHeaderView.swift in Sources */,
@@ -1635,7 +1617,6 @@
 				A49BFE212B4E544400035EB6 /* RoutineChoiceCollectionViewCell.swift in Sources */,
 				091C5F1A2C9BFC7500287AB8 /* TabBarController.swift in Sources */,
 				A42C32C92B3EAB4500C4B477 /* UIStackView+.swift in Sources */,
-				A49706392C815C35008D2D57 /* MakerDetailWebViewController.swift in Sources */,
 				A488FE8E2B697C0E000B4809 /* VersionEntity.swift in Sources */,
 				0016380D2B8FA1A80099A77D /* LoginViewModel.swift in Sources */,
 				045DFE812B515FAE005D69EA /* WithdrawViewController.swift in Sources */,
@@ -1651,7 +1632,6 @@
 				A40F9F182C69F35C004DD1A1 /* DailyThemeEntity.swift in Sources */,
 				A42C327E2B3DB8F400C4B477 /* SceneDelegate.swift in Sources */,
 				A40F9F3F2C6EE7B5004DD1A1 /* AddRoutinDetailBSViewController.swift in Sources */,
-				A49706372C815C0F008D2D57 /* MakerDetailWebView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

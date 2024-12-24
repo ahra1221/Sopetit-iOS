@@ -11,8 +11,6 @@ import SnapKit
 
 final class AddRoutineDetailView: UIView {
     
-    private var theme: AddRoutineTheme
-    
     // MARK: - UI Components
     
     let navigationView: CustomNavigationBarView = {
@@ -41,16 +39,6 @@ final class AddRoutineDetailView: UIView {
     }()
     
     private let cardImageView = UIImageView()
-    private let makerImageView = UIImageView()
-    
-    private let makerNameLabel: UILabel = {
-        let label = UILabel()
-        label.text = "침착맨"
-        label.textColor = .Gray700
-        label.font = .fontGuide(.head3)
-        label.asLineHeight(.head3)
-        return label
-    }()
     
     private let cardDescriptionLabel: UILabel = {
         let label = UILabel()
@@ -63,23 +51,14 @@ final class AddRoutineDetailView: UIView {
         return label
     }()
     
-    let makerButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(resource: .btnMaker), for: .normal)
-        button.imageView?.contentMode = .scaleAspectFit
-        button.backgroundColor = .clear
-        button.layer.cornerRadius = 22
-        return button
-    }()
-    
     let stickyBackView: UIView = {
         let view = UIView()
         view.backgroundColor = .Gray50
         return view
     }()
     
-    lazy var menuInScroll = AddRoutineMenuStickyView(info: theme)
-    lazy var menuStickyView = AddRoutineMenuStickyView(info: theme)
+    lazy var menuInScroll = AddRoutineMenuStickyView()
+    lazy var menuStickyView = AddRoutineMenuStickyView()
     
     lazy var routineDailyCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -143,7 +122,6 @@ final class AddRoutineDetailView: UIView {
     // MARK: - Life Cycles
     
     init(info: AddRoutineInfoEntity) {
-        self.theme = info.themeStyle
         super.init(frame: .zero)
         
         bindUI(info: info)
@@ -173,28 +151,10 @@ final class AddRoutineDetailView: UIView {
 private extension AddRoutineDetailView {
     
     func bindUI(info: AddRoutineInfoEntity) {
-        switch info.themeStyle {
-        case .maker:
-            cardTitleLabel.text = info.title
-            cardDescriptionLabel.text = info.description
-            cardDescriptionLabel.asLineHeight(.body2)
-            makerNameLabel.isHidden = false
-            makerNameLabel.text = info.name
-            cardImageView.image = UIImage(resource: .makerCard)
-            makerImageView.kfSetImage(url: info.img)
-            makerImageView.clipsToBounds = true
-            makerImageView.layer.cornerRadius = 50
-            makerButton.isHidden = false
-        case .routine:
-            cardTitleLabel.text = info.title
-            cardDescriptionLabel.text = info.description
-            cardDescriptionLabel.asLineHeight(.body2)
-            cardImageView.image = UIImage(named: "card_theme\(info.id)") ?? UIImage()
-            makerImageView.isHidden = true
-            makerNameLabel.text = ""
-            makerNameLabel.isHidden = true
-            makerButton.isHidden = true
-        }
+        cardTitleLabel.text = info.title
+        cardDescriptionLabel.text = info.description
+        cardDescriptionLabel.asLineHeight(.body2)
+        cardImageView.image = UIImage(named: "card_theme\(info.id)") ?? UIImage()
     }
     
     func setUI() {
@@ -211,18 +171,15 @@ private extension AddRoutineDetailView {
                     menuStickyView,
                     gradientView,
                     routineAddButton,
-                    challengeCountToast, 
+                    challengeCountToast,
                     existRoutineToast)
         scrollView.addSubview(contentView)
         contentView.addSubviews(cardImageView,
-                                makerNameLabel,
                                 cardDescriptionLabel,
-                                makerButton,
                                 menuInScroll,
                                 routineDailyCollectionView
         )
-        cardImageView.addSubviews(cardTitleLabel,
-                                  makerImageView)
+        cardImageView.addSubview(cardTitleLabel)
     }
     
     func setLayout() {
@@ -292,41 +249,13 @@ private extension AddRoutineDetailView {
             $0.centerX.equalToSuperview()
         }
         
-        makerImageView.snp.makeConstraints {
-            $0.bottom.equalToSuperview().inset(10)
-            $0.centerX.equalToSuperview()
-            $0.size.equalTo(105)
-        }
-        
-        makerNameLabel.snp.makeConstraints {
-            $0.top.equalTo(cardImageView.snp.bottom).offset(16)
-            $0.leading.equalToSuperview().inset(20)
-        }
-        
         cardDescriptionLabel.snp.makeConstraints {
-            switch theme {
-            case .maker:
-                $0.top.equalTo(makerNameLabel.snp.bottom).offset(4)
-            case .routine:
-                $0.top.equalTo(cardImageView.snp.bottom).offset(16)
-            }
+            $0.top.equalTo(cardImageView.snp.bottom).offset(16)
             $0.leading.trailing.equalToSuperview().inset(20)
         }
         
-        makerButton.snp.makeConstraints {
-            $0.top.equalTo(cardDescriptionLabel.snp.bottom).offset(16)
-            $0.centerX.equalToSuperview()
-            $0.width.equalTo(SizeLiterals.Screen.screenWidth - 55)
-            $0.height.equalTo(44)
-        }
-        
         menuInScroll.snp.makeConstraints {
-            switch theme {
-            case .maker:
-                $0.top.equalTo(makerButton.snp.bottom).offset(16)
-            case .routine:
-                $0.top.equalTo(cardDescriptionLabel.snp.bottom).offset(16)
-            }
+            $0.top.equalTo(cardDescriptionLabel.snp.bottom).offset(16)
             $0.leading.trailing.equalToSuperview()
         }
         

@@ -112,7 +112,7 @@ extension AddRoutineDetailViewController {
     
     @objc
     func addButtonTapped() {
-        changeBSVC.entity = ChangeRoutineBottomSheetEntity(existThemeID: challengeMemberEntity.themeID,
+        changeBSVC.entity = ChangeRoutineBottomSheetEntity(existThemeID: challengeMemberEntity.theme.themeID,
                                                            existContent: challengeMemberEntity.content,
                                                            choiceThemeID: addRoutineInfoEntity.id,
                                                            choiceContent: selectedChallengeContent)
@@ -198,7 +198,7 @@ extension AddRoutineDetailViewController: BottomSheetButtonDelegate {
         if selectedDailyId.count > 0 {
             postAddDailyRoutinAPI(ids: selectedDailyId)
         }
-        delChallengeAPI(id: challengeMemberEntity.routineID)
+        delChallengeAPI(id: challengeMemberEntity.memberChallengeID)
     }
 }
 

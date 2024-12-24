@@ -114,8 +114,8 @@ extension OngoingService {
         }
     }
     
-    func patchChallengeAPI(routineId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
-        let url = URLConstant.happinessMemberRoutineURL + "\(routineId)"
+    func patchChallengeAPI(completion: @escaping (NetworkResult<Any>) -> Void) {
+        let url = URLConstant.challengeAchievementURL
         let header: HTTPHeaders = NetworkConstant.hasTokenHeader
         let dataRequest = AF.request(url,
                                      method: .patch,
@@ -129,7 +129,7 @@ extension OngoingService {
                 guard let data = response.data else { return }
                 let networkResult = self.judgeStatus(by: statusCode,
                                                      data,
-                                                     PatchChallengeEntity.self)
+                                                     EmptyEntity.self)
                 completion(networkResult)
             case .failure:
                 completion(.networkFail)

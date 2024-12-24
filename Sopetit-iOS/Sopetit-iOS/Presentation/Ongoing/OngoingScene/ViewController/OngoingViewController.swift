@@ -301,9 +301,8 @@ extension OngoingViewController {
         }
     }
     
-    func patchChallengeRoutine(routineId: Int) {
-        OngoingService.shared.patchChallengeAPI(routineId: routineId) { networkResult in
-            print(networkResult)
+    func patchChallengeRoutine() {
+        OngoingService.shared.patchChallengeAPI { networkResult in
             switch networkResult {
             case .success:
                 self.getRainbowCottonView()
@@ -415,7 +414,7 @@ extension OngoingViewController: AddRoutineProtocol {
 
 extension OngoingViewController: ChallengeCardProtocol {
     func tapCompleteButton() {
-        patchChallengeRoutine(routineId: challengeRoutine.memberChallengeID)
+        patchChallengeRoutine()
     }
     
     func tapEllipsisButton() {

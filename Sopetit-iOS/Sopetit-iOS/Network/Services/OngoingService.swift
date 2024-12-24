@@ -9,16 +9,17 @@ import Foundation
 
 import Alamofire
 
-final class DailyRoutineService: BaseService {
+final class OngoingService: BaseService {
     
-    static let shared = DailyRoutineService()
+    static let shared = OngoingService()
     
     private override init() {}
 }
 
 // MARK: - Extension
 
-extension DailyRoutineService {
+extension OngoingService {
+    
     func getDailyRoutine(completion: @escaping (NetworkResult<Any>) -> Void) {
         let url = URLConstant.v2DailyMemberURL
         let header: HTTPHeaders = NetworkConstant.hasTokenHeader
@@ -91,7 +92,7 @@ extension DailyRoutineService {
     }
     
     func getChallengeRoutine(completion: @escaping (NetworkResult<Any>) -> Void) {
-        let url = URLConstant.v2ChallengeURL
+        let url = URLConstant.challengeMemberURL
         let header: HTTPHeaders = NetworkConstant.hasTokenHeader
         let dataRequest = AF.request(url,
                                      method: .get,
@@ -105,7 +106,7 @@ extension DailyRoutineService {
                 guard let data = response.data else { return }
                 let networkResult = self.judgeStatus(by: statusCode,
                                                      data,
-                                                     ChallengeRoutine.self)
+                                                     ChallengeMemberEntity.self)
                 completion(networkResult)
             case .failure:
                 completion(.networkFail)

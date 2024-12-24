@@ -208,7 +208,7 @@ extension DailyBSViewController {
     }
     
     func deleteRoutineListAPI(routineId: Int) {
-        DailyRoutineService.shared.deleteRoutineListAPI(routineIdList: "\(routineId)") { networkResult in
+        OngoingService.shared.deleteRoutineListAPI(routineIdList: "\(routineId)") { networkResult in
             switch networkResult {
             case .success:
                 self.dismiss(animated: false)

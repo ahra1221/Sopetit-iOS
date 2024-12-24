@@ -44,7 +44,7 @@ extension AddDailyRoutineService {
     
     func postAddChallenge(challengeId: Int,
                           completion: @escaping (NetworkResult<Any>) -> Void) {
-        let url = URLConstant.addChallengeMemberURL
+        let url = URLConstant.challengeMemberURL
         let header: HTTPHeaders = NetworkConstant.hasTokenHeader
         let body: Parameters = [ "challengeId": challengeId ]
         let dataRequest = AF.request(url,

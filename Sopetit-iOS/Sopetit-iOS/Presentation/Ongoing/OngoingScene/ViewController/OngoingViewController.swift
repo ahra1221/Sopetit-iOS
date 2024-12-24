@@ -11,7 +11,7 @@ import SnapKit
 
 class OngoingViewController: UIViewController {
     
-    private var challengeRoutine = ChallengeRoutine(routineId: 0, themeId: 0, themeName: "", title: "", content: "", detailContent: "", place: "", timeTaken: "")
+    private var challengeRoutine = ChallengeMemberEntity.challengeMemberInitial()
     private var dailyRoutineEntity = NewDailyRoutineEntity(routines: [])
     private var patchRoutineEntity = PatchRoutineEntity(routineId: 0, isAchieve: false, achieveCount: 0, hasCotton: false)
     let ongoingView = OngoingView()
@@ -226,7 +226,7 @@ extension OngoingViewController: UICollectionViewDelegateFlowLayout {
 
 extension OngoingViewController {
     func getDailyRoutine(status: Bool) {
-        DailyRoutineService.shared.getDailyRoutine { networkResult in
+        OngoingService.shared.getDailyRoutine { networkResult in
             switch networkResult {
             case .success(let data):
                 if let data = data as? GenericResponse<NewDailyRoutineEntity> {
@@ -254,14 +254,14 @@ extension OngoingViewController {
     }
     
     func getChallengeRoutine() {
-        DailyRoutineService.shared.getChallengeRoutine { networkResult in
+        OngoingService.shared.getChallengeRoutine { networkResult in
             self.ongoingView.isChallenge = false
             switch networkResult {
             case .success(let data):
-                if let data = data as? GenericResponse<ChallengeRoutine> {
+                if let data = data as? GenericResponse<ChallengeMemberEntity> {
                     if let listData = data.data {
                         self.challengeRoutine = listData
-                        if self.challengeRoutine.routineId != 0 {
+                        if self.challengeRoutine.memberChallengeID != 0 {
                             self.ongoingView.isChallenge = true
                             self.ongoingView.challengeRoutineView.challengeRoutineCardView.setDataBind(data: self.challengeRoutine)
                         }
@@ -276,7 +276,7 @@ extension OngoingViewController {
     }
     
     func patchRoutineAPI(routineId: Int) {
-        DailyRoutineService.shared.patchRoutineAPI(routineId: routineId) { networkResult in
+        OngoingService.shared.patchRoutineAPI(routineId: routineId) { networkResult in
             switch networkResult {
             case .success(let data):
                 if let data = data as? GenericResponse<PatchRoutineEntity> {
@@ -302,7 +302,7 @@ extension OngoingViewController {
     }
     
     func patchChallengeRoutine(routineId: Int) {
-        DailyRoutineService.shared.patchChallengeAPI(routineId: routineId) { networkResult in
+        OngoingService.shared.patchChallengeAPI(routineId: routineId) { networkResult in
             print(networkResult)
             switch networkResult {
             case .success:
@@ -415,7 +415,7 @@ extension OngoingViewController: AddRoutineProtocol {
 
 extension OngoingViewController: ChallengeCardProtocol {
     func tapCompleteButton() {
-        patchChallengeRoutine(routineId: challengeRoutine.routineId)
+        patchChallengeRoutine(routineId: challengeRoutine.memberChallengeID)
     }
     
     func tapEllipsisButton() {

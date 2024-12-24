@@ -294,7 +294,7 @@ extension AchieveViewController {
 extension AchieveViewController: CalendarHistoryCellDelegate {
     
     func tapHistoryCell(cellInfo: HistoryHistory) {
-        let nav = DelRoutineBSViewController(isChallenge: cellInfo.isMission,
+        let nav = DelRoutineBSViewController(isChallenge: cellInfo.isChallenge,
                                              id: cellInfo.historyID,
                                              content: cellInfo.content)
         print("🍎🍎cellInfo🍎🍎🍎")
@@ -326,7 +326,7 @@ extension AchieveViewController: UICollectionViewDataSource {
         let cell = CalendarHistoryCell.dequeueReusableCell(collectionView: achieveCV, indexPath: indexPath)
         let value = findValue(for: formatDateToString(selectedDate ?? Date()))
         cell.bindHistoryCell(content: value.histories[indexPath.section].histories[indexPath.item].content,
-                             isMission: value.histories[indexPath.section].histories[indexPath.item].isMission,
+                             isChallenge: value.histories[indexPath.section].histories[indexPath.item].isChallenge,
                              themeId: value.histories[indexPath.section].themeID)
         cell.cellInfo = value.histories[indexPath.section].histories[indexPath.item]
         cell.delegate = self

@@ -21,7 +21,7 @@ final class CalendarHistoryCell: UICollectionViewCell,
     static var isFromNib: Bool = false
     weak var delegate: CalendarHistoryCellDelegate?
     var routineId: Int = 0
-    var cellInfo: HistoryHistory = HistoryHistory(historyID: 0, content: "", isMission: false)
+    var cellInfo: HistoryHistory = HistoryHistory(historyID: 0, content: "", isChallenge: false)
     
     // MARK: - UI Components
     
@@ -95,14 +95,14 @@ private extension CalendarHistoryCell {
 extension CalendarHistoryCell {
     
     func bindHistoryCell(content: String,
-                         isMission: Bool,
+                         isChallenge: Bool,
                          themeId: Int) {
         historyTitleLabel.text = content.replacingOccurrences(of: "\n", with: " ")
         historyTitleLabel.asLineHeight(.body2)
         if themeId > 8 {
             backgroundColor = UIColor(named: "ThemeBack8")
         } else {
-            backgroundColor = isMission ? UIColor(named: "ThemeBack\(themeId)") : .SoftieWhite
+            backgroundColor = isChallenge ? UIColor(named: "ThemeBack\(themeId)") : .SoftieWhite
         }
     }
 }

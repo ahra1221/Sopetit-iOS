@@ -83,7 +83,7 @@ extension OngoingService {
                 guard let data = response.data else { return }
                 let networkResult = self.judgeStatus(by: statusCode,
                                                      data,
-                                                     DeleteDailyEntity.self)
+                                                     EmptyEntity.self)
                 completion(networkResult)
             case .failure:
                 completion(.networkFail)

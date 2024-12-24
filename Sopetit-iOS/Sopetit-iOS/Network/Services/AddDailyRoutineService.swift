@@ -34,7 +34,7 @@ extension AddDailyRoutineService {
                 guard let data = response.data else { return }
                 let networkResult = self.judgeStatus(by: statusCode,
                                                      data,
-                                                     DailyRoutinesEntity.self)
+                                                     EmptyEntity.self)
                 completion(networkResult)
             case .failure:
                 completion(.networkFail)

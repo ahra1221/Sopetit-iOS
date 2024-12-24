@@ -13,7 +13,3 @@ struct PatchRoutineEntity: Codable {
     let achieveCount: Int?
     let hasCotton: Bool?
 }
-
-struct DeleteDailyEntity: Codable {}
-struct DeleteChallengeEntity: Codable {}
-struct PatchChallengeEntity: Codable {}

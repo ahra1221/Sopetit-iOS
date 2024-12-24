@@ -68,6 +68,6 @@ enum URLConstant {
     static let memosWithIdURL = baseURL + "/api/v3/memos/"
     static let calendarURL = baseURL + "/api/v3/calendar"
     static let delDailyHistoryURL = baseURL + "/api/v1/routines/daily/member/history/"
-    static let delChallengeHistoryURL = baseURL + "/api/v1/routines/happiness/member/history/"
+    static let delChallengeHistoryURL = baseURL + "/api/v2/members/challenges/history/"
     
 }

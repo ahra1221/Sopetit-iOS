@@ -69,9 +69,8 @@ extension AddDailyRoutineService {
         }
     }
     
-    func delChallenge(routineId: Int,
-                      completion: @escaping (NetworkResult<Any>) -> Void) {
-        let url = URLConstant.happinessMemberRoutineURL + "\(routineId)"
+    func delChallenge(completion: @escaping (NetworkResult<Any>) -> Void) {
+        let url = URLConstant.challengeMemberURL
         let header: HTTPHeaders = NetworkConstant.hasTokenHeader
         let dataRequest = AF.request(url,
                                      method: .delete,
@@ -85,8 +84,6 @@ extension AddDailyRoutineService {
                 let networkResult = self.judgeStatus(by: statusCode,
                                                      data,
                                                      EmptyEntity.self)
-                print(networkResult)
-                print("🔥🔥🔥🔥")
                 completion(networkResult)
             case .failure:
                 completion(.networkFail)

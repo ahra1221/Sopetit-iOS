@@ -198,7 +198,7 @@ extension AddRoutineDetailViewController: BottomSheetButtonDelegate {
         if selectedDailyId.count > 0 {
             postAddDailyRoutinAPI(ids: selectedDailyId)
         }
-        delChallengeAPI(id: challengeMemberEntity.memberChallengeID)
+        delChallengeAPI()
     }
 }
 
@@ -325,15 +325,15 @@ extension AddRoutineDetailViewController {
         }
     }
     
-    func delChallengeAPI(id: Int) {
-        AddDailyRoutineService.shared.delChallenge(routineId: id) { networkResult in
+    func delChallengeAPI() {
+        AddDailyRoutineService.shared.delChallenge { networkResult in
             switch networkResult {
             case .success:
                 self.postAddChallengeAPI(id: self.selectedChallengeId)
             case .reissue:
                 ReissueService.shared.postReissueAPI(refreshToken: UserManager.shared.getRefreshToken) { success in
                     if success {
-                        self.delChallengeAPI(id: id)
+                        self.delChallengeAPI()
                     } else {
                         self.makeSessionExpiredAlert()
                     }

@@ -266,12 +266,11 @@ extension ChallengeBSViewController {
     
     @objc
     func tapDeleteButton() {
-        deleteChallengeAPI(routineId: entity.memberChallengeID)
+        deleteChallengeAPI()
     }
     
-    func deleteChallengeAPI(routineId: Int) {
-        OngoingService.shared.deleteChallengeAPI(routineId: routineId) { networkResult in
-            print(networkResult)
+    func deleteChallengeAPI() {
+        OngoingService.shared.deleteChallengeAPI { networkResult in
             switch networkResult {
             case .success:
                 self.dismiss(animated: false)

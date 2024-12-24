@@ -137,8 +137,8 @@ extension OngoingService {
         }
     }
     
-    func deleteChallengeAPI(routineId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
-        let url = URLConstant.happinessMemberRoutineURL + "\(routineId)"
+    func deleteChallengeAPI(completion: @escaping (NetworkResult<Any>) -> Void) {
+        let url = URLConstant.challengeMemberURL
         let header: HTTPHeaders = NetworkConstant.hasTokenHeader
         let dataRequest = AF.request(url,
                                      method: .delete,
@@ -152,7 +152,7 @@ extension OngoingService {
                 guard let data = response.data else { return }
                 let networkResult = self.judgeStatus(by: statusCode,
                                                      data,
-                                                     DeleteChallengeEntity.self)
+                                                     EmptyEntity.self)
                 completion(networkResult)
             case .failure:
                 completion(.networkFail)

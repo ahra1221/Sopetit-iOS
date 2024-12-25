@@ -12,8 +12,6 @@ import FirebaseAnalytics
 
 final class AddRoutineMenuStickyView: UIView {
     
-    private var info: AddRoutineTheme = .routine
-    
     // MARK: - UI Components
     
     let dailyMenuView: UIView = {
@@ -103,11 +101,9 @@ final class AddRoutineMenuStickyView: UIView {
         return view
     }()
     
-    init(info: AddRoutineTheme) {
-        self.info = info
+    init() {
         super.init(frame: .zero)
         
-        bindUI(info: info)
         setUI()
         setHierarchy()
         setLayout()
@@ -120,10 +116,6 @@ final class AddRoutineMenuStickyView: UIView {
 }
 
 extension AddRoutineMenuStickyView {
-    
-    func bindUI(info: AddRoutineTheme) {
-        dailyMenuView.isHidden = (info == .maker)
-    }
     
     func setUI() {
         backgroundColor = .Gray50
@@ -174,12 +166,7 @@ extension AddRoutineMenuStickyView {
         }
         
         challengeMenuView.snp.makeConstraints {
-            switch info {
-            case .maker:
-                $0.leading.equalToSuperview().inset(27)
-            case .routine:
-                $0.leading.equalTo(dailyMenuView.snp.trailing)
-            }
+            $0.leading.equalTo(dailyMenuView.snp.trailing)
             $0.bottom.equalTo(menuUnderlineView.snp.bottom)
             $0.width.equalTo((SizeLiterals.Screen.screenWidth - 40) / 2)
             $0.height.equalTo(39)

@@ -18,7 +18,7 @@ struct CalendarDate: Codable {
     let memoID: Int
     let memoContent: String
     let histories: [CalendarHistory]
-
+    
     enum CodingKeys: String, CodingKey {
         case memoID = "memoId"
         case memoContent, histories
@@ -30,7 +30,7 @@ struct CalendarHistory: Codable {
     let themeID: Int
     let themeName: String
     let histories: [HistoryHistory]
-
+    
     enum CodingKeys: String, CodingKey {
         case themeID = "themeId"
         case themeName, histories
@@ -41,10 +41,10 @@ struct CalendarHistory: Codable {
 struct HistoryHistory: Codable {
     let historyID: Int
     let content: String
-    let isMission: Bool
-
+    let isChallenge: Bool
+    
     enum CodingKeys: String, CodingKey {
         case historyID = "historyId"
-        case content, isMission
+        case content, isChallenge
     }
 }

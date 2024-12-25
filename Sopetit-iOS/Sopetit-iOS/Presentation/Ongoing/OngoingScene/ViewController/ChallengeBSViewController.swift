@@ -21,7 +21,7 @@ final class ChallengeBSViewController: UIViewController {
     
     var bottomHeight: CGFloat = 430
     var height: CGFloat = 0
-    var entity: ChallengeRoutine = ChallengeRoutine(routineId: 0, themeId: 0, themeName: "", title: "", content: "", detailContent: "", place: "", timeTaken: "")
+    var entity: ChallengeMemberEntity = ChallengeMemberEntity.challengeMemberInitial()
     
     // MARK: - UI Components
     
@@ -130,11 +130,11 @@ extension ChallengeBSViewController {
         view.backgroundColor = .clear
     }
     
-    func bindUI(model: ChallengeRoutine) {
+    func bindUI(model: ChallengeMemberEntity) {
         detailContentLabel.text = model.content
         detailContentLabel.asLineHeight(.body1)
         detailContentLabel.textAlignment = .center
-        detailDescriptionLabel.text = model.detailContent
+        detailDescriptionLabel.text = model.description
         detailDescriptionLabel.asLineHeight(.body2)
         detailTimeLabel.text = model.timeTaken
         detailPlaceLabel.text = model.place
@@ -266,12 +266,11 @@ extension ChallengeBSViewController {
     
     @objc
     func tapDeleteButton() {
-        deleteChallengeAPI(routineId: entity.routineId)
+        deleteChallengeAPI()
     }
     
-    func deleteChallengeAPI(routineId: Int) {
-        DailyRoutineService.shared.deleteChallengeAPI(routineId: routineId) { networkResult in
-            print(networkResult)
+    func deleteChallengeAPI() {
+        OngoingService.shared.deleteChallengeAPI { networkResult in
             switch networkResult {
             case .success:
                 self.dismiss(animated: false)

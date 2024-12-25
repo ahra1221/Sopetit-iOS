@@ -8,27 +8,30 @@
 import Foundation
 
 struct ChallengeMemberEntity: Codable {
-    let routineID, themeID: Int
-    let themeName, title, content, detailContent: String
-    let place, timeTaken: String
-
+    let memberChallengeID: Int
+    let theme: ChallengeMemberTheme
+    let content, description, place, timeTaken: String
+    
     enum CodingKeys: String, CodingKey {
-        case routineID = "routineId"
+        case memberChallengeID = "memberChallengeId"
+        case theme, content, description, place, timeTaken
+    }
+}
+
+// MARK: - ChallengeMemberTheme
+struct ChallengeMemberTheme: Codable {
+    let themeID: Int
+    let themeName: String
+    
+    enum CodingKeys: String, CodingKey {
         case themeID = "themeId"
-        case themeName, title, content, detailContent, place, timeTaken
+        case themeName
     }
 }
 
 extension ChallengeMemberEntity {
     
     static func challengeMemberInitial() -> ChallengeMemberEntity {
-        return ChallengeMemberEntity(routineID: 0,
-                                        themeID: 0,
-                                     themeName: "",
-                                     title: "",
-                                     content: "",
-                                     detailContent: "",
-                                     place: "",
-                                     timeTaken: "")
+        return ChallengeMemberEntity(memberChallengeID: 0, theme: ChallengeMemberTheme(themeID: 0, themeName: ""), content: "", description: "", place: "", timeTaken: "")
     }
 }

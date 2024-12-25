@@ -172,9 +172,9 @@ extension AchieveService {
         }
     }
     
-    func delChallengeHistory(routineId: Int,
+    func delChallengeHistory(historyId: Int,
                              completion: @escaping (NetworkResult<Any>) -> Void) {
-        let url = URLConstant.delChallengeHistoryURL + "\(routineId)"
+        let url = URLConstant.delChallengeHistoryURL + "\(historyId)"
         let header: HTTPHeaders = NetworkConstant.hasTokenHeader
         let dataRequest = AF.request(url,
                                      method: .delete,

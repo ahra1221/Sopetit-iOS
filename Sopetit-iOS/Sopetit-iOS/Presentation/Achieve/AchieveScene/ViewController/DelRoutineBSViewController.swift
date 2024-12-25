@@ -15,7 +15,7 @@ final class DelRoutineBSViewController: UIViewController {
     
     private var bottomHeight: CGFloat = SizeLiterals.Screen.screenHeight * 280 / 812
     private var routineContent: String?
-    private var routineId: Int?
+    private var historyId: Int?
     private var isChallenge: Bool?
     
     // MARK: - UI Components
@@ -73,7 +73,7 @@ final class DelRoutineBSViewController: UIViewController {
     
     init(isChallenge: Bool, id: Int, content: String) {
         self.isChallenge = isChallenge
-        self.routineId = id
+        self.historyId = id
         self.routineContent = content
         super.init(nibName: nil, bundle: nil)
         self.bindUI(content: content)
@@ -225,7 +225,7 @@ extension DelRoutineBSViewController {
 extension DelRoutineBSViewController {
     
     func delDailyHistoryAPI() {
-        AchieveService.shared.delDailyHistory(routineId: routineId ?? 0) { networkResult in
+        AchieveService.shared.delDailyHistory(routineId: historyId ?? 0) { networkResult in
             switch networkResult {
             case .success(let data):
                 dump(data)
@@ -248,7 +248,7 @@ extension DelRoutineBSViewController {
     }
     
     func delChallengeHistoryAPI() {
-        AchieveService.shared.delChallengeHistory(routineId: routineId ?? 0) { networkResult in
+        AchieveService.shared.delChallengeHistory(historyId: historyId ?? 0) { networkResult in
             switch networkResult {
             case .success(let data):
                 dump(data)

@@ -13,7 +13,7 @@ import FirebaseAnalytics
 final class AddRoutineDetailViewController: UIViewController {
     
     private var dailyThemeEntity = DailyThemeEntity(routines: [])
-    private var challengeThemeEntity = RoutineChallengeEntity(routines: [])
+    private var challengeThemeEntity = RoutineChallengeEntity(challenges: [])
     var addRoutineInfoEntity = AddRoutineInfoEntity.addRoutineInfoInitial()
     private var hasChallengeRoutine: Bool = false
     private var challengeMemberEntity = ChallengeMemberEntity.challengeMemberInitial()
@@ -61,14 +61,7 @@ extension AddRoutineDetailViewController {
     func setUI() {
         self.navigationController?.navigationBar.isHidden = true
         
-        if addRoutineInfoEntity.themeStyle == .routine {
-            getDailyThemeAPI(id: addRoutineInfoEntity.id)
-        } else {
-            addRoutineDetailView.setMenuSelected(dailyTapped: false)
-            addRoutineDetailView.menuInScroll.setStickyMenuTapped(dailyTapped: false)
-            addRoutineDetailView.menuStickyView.setStickyMenuTapped(dailyTapped: false)
-            getChallengeRoutineAPI(id: addRoutineInfoEntity.id)
-        }
+        getDailyThemeAPI(id: addRoutineInfoEntity.id)
     }
     
     func setDelegate() {
@@ -82,13 +75,13 @@ extension AddRoutineDetailViewController {
     }
     
     func setAddGesture() {
-        let tapDailyMenuForSticky = UITapGestureRecognizer(target: self, 
+        let tapDailyMenuForSticky = UITapGestureRecognizer(target: self,
                                                            action: #selector(dailyMenuTapped))
-        let tapDailyMenuForScroll = UITapGestureRecognizer(target: self, 
+        let tapDailyMenuForScroll = UITapGestureRecognizer(target: self,
                                                            action: #selector(dailyMenuTapped))
-        let tapChallengeMenuForSticky = UITapGestureRecognizer(target: self, 
+        let tapChallengeMenuForSticky = UITapGestureRecognizer(target: self,
                                                                action: #selector(challengeMenuTapped))
-        let tapChallengeMenuForScroll = UITapGestureRecognizer(target: self, 
+        let tapChallengeMenuForScroll = UITapGestureRecognizer(target: self,
                                                                action: #selector(challengeMenuTapped))
         addRoutineDetailView.menuStickyView.dailyMenuView.addGestureRecognizer(tapDailyMenuForSticky)
         addRoutineDetailView.menuStickyView.challengeMenuView.addGestureRecognizer(tapChallengeMenuForSticky)
@@ -98,9 +91,6 @@ extension AddRoutineDetailViewController {
         addRoutineDetailView.routineAddButton.addTarget(self,
                                                         action: #selector(addButtonTapped),
                                                         for: .touchUpInside)
-        addRoutineDetailView.makerButton.addTarget(self,
-                                                   action: #selector(makerButtonTapped),
-                                                   for: .touchUpInside)
     }
     
     @objc
@@ -115,47 +105,31 @@ extension AddRoutineDetailViewController {
         addRoutineDetailView.setMenuSelected(dailyTapped: false)
         addRoutineDetailView.menuStickyView.setStickyMenuTapped(dailyTapped: false)
         addRoutineDetailView.menuInScroll.setStickyMenuTapped(dailyTapped: false)
-        if challengeThemeEntity.routines.isEmpty {
+        if challengeThemeEntity.challenges.isEmpty {
             getChallengeRoutineAPI(id: addRoutineInfoEntity.id)
         }
     }
     
     @objc
     func addButtonTapped() {
-        changeBSVC.entity = ChangeRoutineBottomSheetEntity(existThemeID: challengeMemberEntity.themeID,
+        changeBSVC.entity = ChangeRoutineBottomSheetEntity(existThemeID: challengeMemberEntity.theme.themeID,
                                                            existContent: challengeMemberEntity.content,
                                                            choiceThemeID: addRoutineInfoEntity.id,
                                                            choiceContent: selectedChallengeContent)
         changeBSVC.modalPresentationStyle = .overFullScreen
         
-        switch addRoutineInfoEntity.themeStyle {
-        case .maker: // 무조건 도전루틴
+        if selectedChallengeId > -1 { // 도전 루틴 선택
             if hasChallengeRoutine {
                 self.present(changeBSVC, animated: false)
             } else {
                 self.postAddChallengeAPI(id: self.selectedChallengeId)
-            }
-        case .routine:
-            if selectedChallengeId > -1 { // 도전 루틴 선택
-                if hasChallengeRoutine {
-                    self.present(changeBSVC, animated: false)
-                } else {
-                    self.postAddChallengeAPI(id: self.selectedChallengeId)
-                    if selectedDailyId.count > 0 { // 데일리루틴 + 도전루틴(새로운)
-                        postAddDailyRoutinAPI(ids: selectedDailyId)
-                    }
+                if selectedDailyId.count > 0 { // 데일리루틴 + 도전루틴(새로운)
+                    postAddDailyRoutinAPI(ids: selectedDailyId)
                 }
-            } else { // 데일리루틴만 선택
-                postAddDailyRoutinAPI(ids: selectedDailyId)
             }
+        } else { // 데일리루틴만 선택
+            postAddDailyRoutinAPI(ids: selectedDailyId)
         }
-    }
-    
-    @objc
-    func makerButtonTapped() {
-        let nav = MakerDetailWebViewController()
-        nav.webUrl = addRoutineInfoEntity.makerUrl
-        self.navigationController?.pushViewController(nav, animated: true)
     }
     
     func setToastMessage(type: ToastType) {
@@ -196,15 +170,15 @@ extension AddRoutineDetailViewController: UIScrollViewDelegate {
         
         let threshold = menuInScrollPosition - navigationHeight - view.safeAreaInsets.top
         let alpha: CGFloat
-            if offsetY >= threshold {
-                alpha = 1
-                addRoutineDetailView.menuStickyView.isHidden = false
-                addRoutineDetailView.stickyBackView.isHidden = false
-            } else {
-                alpha = 0
-                addRoutineDetailView.menuStickyView.isHidden = true
-                addRoutineDetailView.stickyBackView.isHidden = true
-            }
+        if offsetY >= threshold {
+            alpha = 1
+            addRoutineDetailView.menuStickyView.isHidden = false
+            addRoutineDetailView.stickyBackView.isHidden = false
+        } else {
+            alpha = 0
+            addRoutineDetailView.menuStickyView.isHidden = true
+            addRoutineDetailView.stickyBackView.isHidden = true
+        }
         
         addRoutineDetailView.menuStickyView.alpha = alpha
         addRoutineDetailView.stickyBackView.alpha = alpha
@@ -224,7 +198,7 @@ extension AddRoutineDetailViewController: BottomSheetButtonDelegate {
         if selectedDailyId.count > 0 {
             postAddDailyRoutinAPI(ids: selectedDailyId)
         }
-        delChallengeAPI(id: challengeMemberEntity.routineID)
+        delChallengeAPI()
     }
 }
 
@@ -266,8 +240,9 @@ extension AddRoutineDetailViewController {
                         self.challengeThemeEntity = listData
                     }
                 }
-                self.heightForChallengeContentView(numberOfSection: self.challengeThemeEntity.routines.count,
-                                                   texts: self.challengeThemeEntity.routines)
+                self.heightForChallengeContentView(numberOfSection: self.challengeThemeEntity.challenges.count,
+                                                   texts: self.challengeThemeEntity.challenges
+                )
                 self.challengeCV.reloadData()
             case .reissue:
                 ReissueService.shared.postReissueAPI(refreshToken: UserManager.shared.getRefreshToken) { success in
@@ -330,7 +305,7 @@ extension AddRoutineDetailViewController {
     }
     
     func postAddChallengeAPI(id: Int) {
-        AddDailyRoutineService.shared.postAddChallenge(subRoutineId: id) { networkResult in
+        AddDailyRoutineService.shared.postAddChallenge(challengeId: id) { networkResult in
             switch networkResult {
             case .success:
                 Analytics.logEvent("add_challenge", parameters: nil)
@@ -350,15 +325,15 @@ extension AddRoutineDetailViewController {
         }
     }
     
-    func delChallengeAPI(id: Int) {
-        AddDailyRoutineService.shared.delChallenge(routineId: id) { networkResult in
+    func delChallengeAPI() {
+        AddDailyRoutineService.shared.delChallenge { networkResult in
             switch networkResult {
             case .success:
                 self.postAddChallengeAPI(id: self.selectedChallengeId)
             case .reissue:
                 ReissueService.shared.postReissueAPI(refreshToken: UserManager.shared.getRefreshToken) { success in
                     if success {
-                        self.delChallengeAPI(id: id)
+                        self.delChallengeAPI()
                     } else {
                         self.makeSessionExpiredAlert()
                     }
@@ -375,11 +350,9 @@ extension AddRoutineDetailViewController {
 extension AddRoutineDetailViewController: UICollectionViewDelegate {
     
     private func getIndexPathForChallenge(with challengeID: Int) -> IndexPath? {
-        for (sectionIndex, routine) in challengeThemeEntity.routines.enumerated() {
-            for (itemIndex, challenge) in routine.challenges.enumerated() {
-                if challenge.challengeID == challengeID {
-                    return IndexPath(item: itemIndex, section: sectionIndex)
-                }
+        for (itemIndex, challenge) in challengeThemeEntity.challenges.enumerated() {
+            if challenge.challengeID == challengeID {
+                return IndexPath(item: itemIndex, section: 0)
             }
         }
         return nil
@@ -403,7 +376,7 @@ extension AddRoutineDetailViewController: UICollectionViewDelegate {
                 return true
             }
         case challengeCV:
-            let item = challengeThemeEntity.routines[indexPath.section].challenges[indexPath.item]
+            let item = challengeThemeEntity.challenges[indexPath.item]
             if item.hasRoutine { // 추가한 루틴인 경우 toastmessage
                 self.setToastMessage(type: .ExistRoutineAlert)
                 return false
@@ -413,8 +386,8 @@ extension AddRoutineDetailViewController: UICollectionViewDelegate {
                         collectionView.deselectItem(at: previousIndexPath, animated: true)
                     }
                 }
-                selectedChallengeId = challengeThemeEntity.routines[indexPath.section].challenges[indexPath.item].challengeID
-                selectedChallengeContent = challengeThemeEntity.routines[indexPath.section].challenges[indexPath.item].content.replacingOccurrences(of: "\n", with: " ")
+                selectedChallengeId = challengeThemeEntity.challenges[indexPath.item].challengeID
+                selectedChallengeContent = challengeThemeEntity.challenges[indexPath.item].content.replacingOccurrences(of: "\n", with: " ")
                 addRoutineDetailView.menuInScroll.setCountDataBind(cnt: 1,
                                                                    theme: .challenge)
                 addRoutineDetailView.menuStickyView.setCountDataBind(cnt: 1,
@@ -457,15 +430,6 @@ extension AddRoutineDetailViewController: UICollectionViewDelegate {
 
 extension AddRoutineDetailViewController: UICollectionViewDataSource {
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        switch collectionView {
-        case challengeCV:
-            return challengeThemeEntity.routines.count
-        default:
-            return 1
-        }
-    }
-    
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch collectionView {
@@ -476,7 +440,7 @@ extension AddRoutineDetailViewController: UICollectionViewDataSource {
             cell.hasRoutine = dailyRoutines.existedInMember
             return cell
         case challengeCV:
-            let routines: Challenge = challengeThemeEntity.routines[indexPath.section].challenges[indexPath.item]
+            let routines: Challenge = challengeThemeEntity.challenges[indexPath.item]
             let cell = AddChallengeRoutineCollectionViewCell.dequeueReusableCell(collectionView: collectionView, indexPath: indexPath)
             cell.setRoutineChallengeBind(model: routines)
             cell.hasRoutine = routines.hasRoutine
@@ -502,22 +466,9 @@ extension AddRoutineDetailViewController: UICollectionViewDataSource {
         case routineDailyCV:
             return dailyThemeEntity.routines.count
         case challengeCV:
-            return challengeThemeEntity.routines[section].challenges.count
+            return challengeThemeEntity.challenges.count
         default:
             return 0
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        viewForSupplementaryElementOfKind kind: String,
-                        at indexPath: IndexPath) -> UICollectionReusableView {
-        switch collectionView {
-        case challengeCV:
-            let headerView = AddChallengeRoutineHeaderView.dequeueReusableHeaderView(collectionView: challengeCV, indexPath: indexPath)
-            headerView.setChallengeHeaderBind(headerTitle: challengeThemeEntity.routines[indexPath.section].title)
-            return headerView
-        default:
-            return UICollectionReusableView()
         }
     }
 }
@@ -534,7 +485,7 @@ extension AddRoutineDetailViewController: UICollectionViewDelegateFlowLayout {
         case challengeCV:
             let label: UILabel = {
                 let label = UILabel()
-                label.text = challengeThemeEntity.routines[indexPath.section].challenges[indexPath.item].content.replacingOccurrences(of: "\n", with: " ")
+                label.text = challengeThemeEntity.challenges[indexPath.item].content.replacingOccurrences(of: "\n", with: " ")
                 label.font = .fontGuide(.body2)
                 return label
             }()
@@ -562,23 +513,20 @@ extension AddRoutineDetailViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func heightForChallengeContentView(numberOfSection: Int,
-                                       texts: [RoutineChallenge]) {
+                                       texts: [Challenge]) {
         var height = Double(numberOfSection) * 18.0
         
         for i in texts {
-            for j in i.challenges {
-                let textHeight = heightForView(text: j.content,
-                                               font: .fontGuide(.body2),
-                                               width: SizeLiterals.Screen.screenWidth - 80) + 94
-                height += textHeight
-            }
-            height += 44
+            let textHeight = heightForView(text: i.content,
+                                           font: .fontGuide(.body2),
+                                           width: SizeLiterals.Screen.screenWidth - 80) + 94
+            height += textHeight
         }
-        height += 108
+        height += 98
         
         UIView.animate(withDuration: 0.3) {
             self.addRoutineDetailView.challengeCollectionView.snp.makeConstraints {
-                $0.top.equalTo(self.addRoutineDetailView.menuInScroll.snp.bottom)
+                $0.top.equalTo(self.addRoutineDetailView.menuInScroll.snp.bottom).offset(20)
                 $0.centerX.equalToSuperview()
                 $0.bottom.equalToSuperview()
                 $0.width.equalTo(SizeLiterals.Screen.screenWidth - 40)

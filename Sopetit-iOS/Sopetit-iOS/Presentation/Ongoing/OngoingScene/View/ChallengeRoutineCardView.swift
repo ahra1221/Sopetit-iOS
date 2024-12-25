@@ -162,15 +162,15 @@ private extension ChallengeRoutineCardView {
 }
 
 extension ChallengeRoutineCardView {
-    func setDataBind(data: ChallengeRoutine) {
-        if data.themeId >= 8 {
+    func setDataBind(data: ChallengeMemberEntity) {
+        if data.theme.themeID >= 8 {
             self.themeImageView.image = UIImage(named: "theme8") ?? UIImage()
             self.cardImageView.image = UIImage(named: "challenge-8") ?? UIImage()
         } else {
-            self.themeImageView.image = UIImage(named: "theme\(data.themeId)") ?? UIImage()
-            self.cardImageView.image = UIImage(named: "challenge-\(data.themeId)") ?? UIImage()
+            self.themeImageView.image = UIImage(named: "theme\(data.theme.themeID)") ?? UIImage()
+            self.cardImageView.image = UIImage(named: "challenge-\(data.theme.themeID)") ?? UIImage()
         }
-        self.themeLabel.text = data.themeName
+        self.themeLabel.text = data.theme.themeName
         self.routineLabel.text = data.content.replacingOccurrences(of: "\n", with: " ")
         self.routineLabel.asLineHeight(.body2)
         var height = heightForView(text: data.content, font: .fontGuide(.body2), width: SizeLiterals.Screen.screenWidth - 95) - 20

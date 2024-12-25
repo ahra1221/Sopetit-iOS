@@ -54,11 +54,12 @@ enum URLConstant {
     
     // MARK: - AddRoutine URL
     
-    static let makersURL = baseURL + "/api/v2/makers"
     static let dailyThemeURL = baseURL + "/api/v2/routines/daily/theme/"
-    static let challengeThemeURL = baseURL + "/api/v2/routines/challenge?themeId="
-    static let challengeMemberURL = baseURL + "/api/v2/routines/challenge/member"
+    static let challengeThemeURL = baseURL + "/api/v2/challenges?themeId="
+//    static let challengeMemberURL = baseURL + "/api/v2/routines/challenge/member"
     static let addDailyMemberURL = baseURL + "/api/v2/routines/daily/member"
+    static let challengeMemberURL = baseURL + "/api/v2/members/challenges"
+    static let challengeAchievementURL = baseURL + "/api/v2/members/challenges/achievement"
     
     // MARK: - Achieve URL
     
@@ -67,6 +68,6 @@ enum URLConstant {
     static let memosWithIdURL = baseURL + "/api/v3/memos/"
     static let calendarURL = baseURL + "/api/v3/calendar"
     static let delDailyHistoryURL = baseURL + "/api/v1/routines/daily/member/history/"
-    static let delChallengeHistoryURL = baseURL + "/api/v1/routines/happiness/member/history/"
+    static let delChallengeHistoryURL = baseURL + "/api/v2/members/challenges/history/"
     
 }

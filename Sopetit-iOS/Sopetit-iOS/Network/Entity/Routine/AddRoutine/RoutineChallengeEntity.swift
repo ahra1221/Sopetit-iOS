@@ -8,12 +8,6 @@
 import Foundation
 
 struct RoutineChallengeEntity: Codable {
-    let routines: [RoutineChallenge]
-}
-
-// MARK: - RoutineChallenge
-struct RoutineChallenge: Codable {
-    let title: String
     let challenges: [Challenge]
 }
 

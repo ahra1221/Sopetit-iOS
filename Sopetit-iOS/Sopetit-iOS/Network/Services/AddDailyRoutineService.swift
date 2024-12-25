@@ -34,7 +34,7 @@ extension AddDailyRoutineService {
                 guard let data = response.data else { return }
                 let networkResult = self.judgeStatus(by: statusCode,
                                                      data,
-                                                     DailyRoutinesEntity.self)
+                                                     EmptyEntity.self)
                 completion(networkResult)
             case .failure:
                 completion(.networkFail)
@@ -42,11 +42,11 @@ extension AddDailyRoutineService {
         }
     }
     
-    func postAddChallenge(subRoutineId: Int,
+    func postAddChallenge(challengeId: Int,
                           completion: @escaping (NetworkResult<Any>) -> Void) {
-        let url = URLConstant.happinessMemberURL
+        let url = URLConstant.challengeMemberURL
         let header: HTTPHeaders = NetworkConstant.hasTokenHeader
-        let body: Parameters = [ "subRoutineId": subRoutineId ]
+        let body: Parameters = [ "challengeId": challengeId ]
         let dataRequest = AF.request(url,
                                      method: .post,
                                      parameters: body,
@@ -59,7 +59,9 @@ extension AddDailyRoutineService {
                 guard let data = response.data else { return }
                 let networkResult = self.judgeStatus(by: statusCode,
                                                      data,
-                                                     EmptyEntity.self)
+                                                     AddChallengeEntity.self)
+                print("🥹🥹addchallenge🥹🥹")
+                dump(networkResult)
                 completion(networkResult)
             case .failure:
                 completion(.networkFail)
@@ -67,9 +69,8 @@ extension AddDailyRoutineService {
         }
     }
     
-    func delChallenge(routineId: Int,
-                      completion: @escaping (NetworkResult<Any>) -> Void) {
-        let url = URLConstant.happinessMemberRoutineURL + "\(routineId)"
+    func delChallenge(completion: @escaping (NetworkResult<Any>) -> Void) {
+        let url = URLConstant.challengeMemberURL
         let header: HTTPHeaders = NetworkConstant.hasTokenHeader
         let dataRequest = AF.request(url,
                                      method: .delete,
@@ -83,8 +84,6 @@ extension AddDailyRoutineService {
                 let networkResult = self.judgeStatus(by: statusCode,
                                                      data,
                                                      EmptyEntity.self)
-                print(networkResult)
-                print("🔥🔥🔥🔥")
                 completion(networkResult)
             case .failure:
                 completion(.networkFail)
@@ -93,29 +92,6 @@ extension AddDailyRoutineService {
     }
     
     // AddRoutineService
-    
-    func getMakers(completion: @escaping (NetworkResult<Any>) -> Void) {
-        let url = URLConstant.makersURL
-        let header: HTTPHeaders = NetworkConstant.hasTokenHeader
-        let dataRequest = AF.request(url,
-                                     method: .get,
-                                     encoding: JSONEncoding.default,
-                                     headers: header)
-        
-        dataRequest.responseData { response in
-            switch response.result {
-            case .success:
-                guard let statusCode = response.response?.statusCode else { return }
-                guard let data = response.data else { return }
-                let networkResult = self.judgeStatus(by: statusCode,
-                                                     data,
-                                                     MakersEntity.self)
-                completion(networkResult)
-            case .failure:
-                completion(.networkFail)
-            }
-        }
-    }
     
     func getDailyRoutine(id: Int,
                          completion: @escaping (NetworkResult<Any>) -> Void) {

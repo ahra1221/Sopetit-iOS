@@ -23,6 +23,7 @@ final class AchieveViewController: UIViewController {
     private var selectedDateMemo: String = ""
     private var selectedDateMemoId: Int = 0
     private var fromDidChange: Bool = false
+    private var previousPage: Date?
     
     // MARK: - UI Components
     
@@ -74,8 +75,11 @@ extension AchieveViewController {
         achieveView.calendarHeaderView.calendarHeaderRightButton.isEnabled = false
         
         let inital = extractDayAndWeekday(selectDate: today)
+        let headerInitial = getDayComponents(date: formatDateToString(today))
         achieveView.bindSelectDate(date: inital.extractedDay,
                                    week: inital.extractedWeekday)
+        calendarHeaderView.configureHeader(year: headerInitial.year,
+                                           month: headerInitial.month)
     }
     
     func setAddGesture() {
@@ -163,8 +167,6 @@ extension AchieveViewController {
                 getCalendarAPI(entity: CalendarRequestEntity(year: year, month: month))
                 calendarHeaderView.configureHeader(year: year,
                                                    month: month)
-                print("현재 페이지의 연도: \(year)")
-                print("현재 페이지의 월: \(month)")
             }
         }
         fromDidChange = false
@@ -512,8 +514,6 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
         cell.configureCalendar(iconType: bindIconType,
                                dateType: bindDataType,
                                date: dayString)
-        calendarHeaderView.configureHeader(year: bindYear,
-                                           month: bindMonth)
         return cell
     }
     
@@ -564,7 +564,6 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
     
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         fromDidChange = true
-        updateCalendarHeaderButton()
         
         let currentPageDate = calendar.currentPage
         let today = Date()
@@ -572,6 +571,11 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
         let calendarComponent = Calendar.current
         let currentPageComponents = calendarComponent.dateComponents([.year, .month], from: currentPageDate)
         let todayComponents = calendarComponent.dateComponents([.year, .month], from: today)
+        
+        if previousPage == nil || !Calendar.current.isDate(previousPage!, equalTo: currentPageDate, toGranularity: .month) {
+            previousPage = currentPageDate
+            updateCalendarHeaderButton()
+        }
         
         if currentPageComponents.year != todayComponents.year || currentPageComponents.month != todayComponents.month {
             selectedDate = calendarComponent.date(from: currentPageComponents)

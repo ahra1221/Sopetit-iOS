@@ -214,6 +214,7 @@ extension AchieveViewController {
     
     func setSelectDateView() {
         let today = formatDateToString(selectedDate ?? Date())
+        achieveView.bindSelectDate(date: extractDayAndWeekday(selectDate: selectedDate ?? Date()).extractedDay, week: extractDayAndWeekday(selectDate: selectedDate ?? Date()).extractedWeekday)
         if hasDateKey(for: today) {
             let value = findValue(for: today)
             let memo = value.memoContent
@@ -544,9 +545,6 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
         } else {
             goTodayButton.isHidden = true
         }
-        
-        achieveView.bindSelectDate(date: extractDayAndWeekday(selectDate: date).extractedDay,
-                                   week: extractDayAndWeekday(selectDate: date).extractedWeekday)
         selectedDate = date
         setSelectDateView()
         print(selectDate)
@@ -567,6 +565,22 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         fromDidChange = true
         updateCalendarHeaderButton()
+        
+        let currentPageDate = calendar.currentPage
+        let today = Date()
+        
+        let calendarComponent = Calendar.current
+        let currentPageComponents = calendarComponent.dateComponents([.year, .month], from: currentPageDate)
+        let todayComponents = calendarComponent.dateComponents([.year, .month], from: today)
+        
+        if currentPageComponents.year != todayComponents.year || currentPageComponents.month != todayComponents.month {
+            selectedDate = calendarComponent.date(from: currentPageComponents)
+            goTodayButton.isHidden = false
+        } else {
+            selectedDate = Date()
+            goTodayButton.isHidden = true
+        }
+        setSelectDateView()
         calendar.reloadData()
     }
     

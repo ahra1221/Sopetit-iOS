@@ -163,6 +163,7 @@
 		A49BFE5A2B54273E00035EB6 /* SVGKit in Frameworks */ = {isa = PBXBuildFile; productRef = A49BFE592B54273E00035EB6 /* SVGKit */; };
 		A49BFE622B558B2E00035EB6 /* MemberEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49BFE612B558B2E00035EB6 /* MemberEntity.swift */; };
 		A49CB10B2D1A4426007D13D0 /* AddChallengeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49CB10A2D1A4421007D13D0 /* AddChallengeEntity.swift */; };
+		A49CB10F2D1D0A64007D13D0 /* AchieveCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49CB10E2D1D0A5E007D13D0 /* AchieveCalendarView.swift */; };
 		A49E0AED2CFEC62600588087 /* MemberProfileEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E0AEC2CFEC62600588087 /* MemberProfileEntity.swift */; };
 		A49E0AEF2CFEC66800588087 /* AchieveService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E0AEE2CFEC66800588087 /* AchieveService.swift */; };
 		A49E0AF12CFECAE500588087 /* MemosRequestEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E0AF02CFECAE500588087 /* MemosRequestEntity.swift */; };
@@ -330,6 +331,7 @@
 		A49BFE4E2B53CE7700035EB6 /* DollImageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DollImageEntity.swift; sourceTree = "<group>"; };
 		A49BFE612B558B2E00035EB6 /* MemberEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberEntity.swift; sourceTree = "<group>"; };
 		A49CB10A2D1A4421007D13D0 /* AddChallengeEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChallengeEntity.swift; sourceTree = "<group>"; };
+		A49CB10E2D1D0A5E007D13D0 /* AchieveCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchieveCalendarView.swift; sourceTree = "<group>"; };
 		A49E0AEC2CFEC62600588087 /* MemberProfileEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberProfileEntity.swift; sourceTree = "<group>"; };
 		A49E0AEE2CFEC66800588087 /* AchieveService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchieveService.swift; sourceTree = "<group>"; };
 		A49E0AF02CFECAE500588087 /* MemosRequestEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemosRequestEntity.swift; sourceTree = "<group>"; };
@@ -989,6 +991,7 @@
 		A4648B922C043327001EB031 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A49CB10E2D1D0A5E007D13D0 /* AchieveCalendarView.swift */,
 				A46CA1692CE70A2100AB4DCA /* AchieveMenuView.swift */,
 				A4648B992C04337B001EB031 /* AchieveView.swift */,
 				A475D5022CF553CE00B5DDC5 /* CalendarHeaderView.swift */,
@@ -1439,6 +1442,7 @@
 				00CCDCD22B53CB40007DD0E6 /* SplashViewController.swift in Sources */,
 				A49E0AFE2D02D9F700588087 /* ToastWithCheckView.swift in Sources */,
 				A40F9F122C69D0C6004DD1A1 /* AddRoutineDetailView.swift in Sources */,
+				A49CB10F2D1D0A64007D13D0 /* AchieveCalendarView.swift in Sources */,
 				09CC26CA2C8A839100C3BD3B /* ChallengeRoutineView.swift in Sources */,
 				A4D9F6E32C5D2D7700A9F719 /* HomeTutorialEntity.swift in Sources */,
 				09CC26C62C8A80BD00C3BD3B /* DailyRoutineEmptyView.swift in Sources */,

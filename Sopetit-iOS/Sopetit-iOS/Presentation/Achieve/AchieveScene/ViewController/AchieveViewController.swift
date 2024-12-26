@@ -28,10 +28,11 @@ final class AchieveViewController: UIViewController {
     // MARK: - UI Components
     
     private var achieveView = AchieveView()
-    private lazy var calendarView = achieveView.achieveCalendarView
-    private lazy var calendarHeaderView = achieveView.calendarHeaderView
-    private lazy var goTodayButton = achieveView.calendarHeaderView.goTodayButton
-    private lazy var achieveCV = achieveView.achieveCollectionView
+    private lazy var achieveCalendarView = achieveView.achieveCalendarView
+    private lazy var calendarView = achieveCalendarView.achieveCalendarView
+    private lazy var calendarHeaderView = achieveCalendarView.calendarHeaderView
+    private lazy var goTodayButton = achieveCalendarView.calendarHeaderView.goTodayButton
+    private lazy var achieveCV = achieveCalendarView.achieveCollectionView
     
     // MARK: - Life Cycles
     
@@ -72,12 +73,12 @@ extension AchieveViewController {
         let today = Date()
         selectedDate = today
         calendarView.select(today)
-        achieveView.calendarHeaderView.calendarHeaderRightButton.isEnabled = false
+        achieveCalendarView.calendarHeaderView.calendarHeaderRightButton.isEnabled = false
         
         let inital = extractDayAndWeekday(selectDate: today)
         let headerInitial = getDayComponents(date: formatDateToString(today))
-        achieveView.bindSelectDate(date: inital.extractedDay,
-                                   week: inital.extractedWeekday)
+        achieveCalendarView.bindSelectDate(date: inital.extractedDay,
+                                           week: inital.extractedWeekday)
         calendarHeaderView.configureHeader(year: headerInitial.year,
                                            month: headerInitial.month)
     }
@@ -93,12 +94,12 @@ extension AchieveViewController {
                                               action: #selector(memoTapped))
         achieveView.achieveMenuView.statsMenuView.addGestureRecognizer(tapStatsMenu)
         achieveView.achieveMenuView.calendarMenuView.addGestureRecognizer(tapCalendarMenu)
-        achieveView.memoLabel.addGestureRecognizer(tapMemo)
-        achieveView.bearFaceImage.addGestureRecognizer(tapBear)
+        achieveCalendarView.memoLabel.addGestureRecognizer(tapMemo)
+        achieveCalendarView.bearFaceImage.addGestureRecognizer(tapBear)
         
-        achieveView.addMemoButton.addTarget(self,
-                                            action: #selector(addMemoButtonTapped),
-                                            for: .touchUpInside)
+        achieveCalendarView.addMemoButton.addTarget(self,
+                                                    action: #selector(addMemoButtonTapped),
+                                                    for: .touchUpInside)
     }
     
     func setRegisterCell() {
@@ -117,11 +118,13 @@ extension AchieveViewController {
     @objc
     func statsMenuTapped() {
         achieveView.achieveMenuView.setAchieveMenuTapped(statsTapped: true)
+        achieveCalendarView.isHidden = true
     }
     
     @objc
     func calendarMenuTapped() {
         achieveView.achieveMenuView.setAchieveMenuTapped(statsTapped: false)
+        achieveCalendarView.isHidden = false
     }
     
     @objc
@@ -216,7 +219,7 @@ extension AchieveViewController {
     
     func setSelectDateView() {
         let today = formatDateToString(selectedDate ?? Date())
-        achieveView.bindSelectDate(date: extractDayAndWeekday(selectDate: selectedDate ?? Date()).extractedDay, week: extractDayAndWeekday(selectDate: selectedDate ?? Date()).extractedWeekday)
+        achieveCalendarView.bindSelectDate(date: extractDayAndWeekday(selectDate: selectedDate ?? Date()).extractedDay, week: extractDayAndWeekday(selectDate: selectedDate ?? Date()).extractedWeekday)
         if hasDateKey(for: today) {
             let value = findValue(for: today)
             let memo = value.memoContent
@@ -225,12 +228,12 @@ extension AchieveViewController {
             selectedDateMemo = memo
             selectedDateMemoId = value.memoID
             if memo == "" { // 메모는 안썼음
-                achieveView.bindIsMemo(isRecord: false, height: height, memo: memo)
+                achieveCalendarView.bindIsMemo(isRecord: false, height: height, memo: memo)
             } else { // 달성도 하고 메모도 씀
-                achieveView.bindIsMemo(isRecord: true, height: height, memo: memo)
+                achieveCalendarView.bindIsMemo(isRecord: true, height: height, memo: memo)
             }
         } else {
-            achieveView.bindIsEmptyView(isEmpty: true)
+            achieveCalendarView.bindIsEmptyView(isEmpty: true)
         }
         achieveCV.reloadData()
     }
@@ -315,7 +318,7 @@ extension AchieveViewController: UICollectionViewDataSource {
             return value.histories.count
         } else {
             print("emptyview")
-            achieveView.bindIsEmptyView(isEmpty: true)
+            achieveCalendarView.bindIsEmptyView(isEmpty: true)
         }
         return 0
     }
@@ -431,8 +434,8 @@ extension AchieveViewController: CalendarHeaderDelegate {
         updateCalendarHeaderButton()
         goTodayButton.isHidden = true
         let inital = extractDayAndWeekday(selectDate: today)
-        achieveView.bindSelectDate(date: inital.extractedDay,
-                                   week: inital.extractedWeekday)
+        achieveCalendarView.bindSelectDate(date: inital.extractedDay,
+                                           week: inital.extractedWeekday)
         setSelectDateView()
     }
 }

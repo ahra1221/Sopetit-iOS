@@ -43,7 +43,7 @@ final class ChallengeBSViewController: UIViewController {
     
     private let challengeTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "도전 루틴"
+        label.text = "챌린지"
         label.textColor = .Gray700
         label.font = .fontGuide(.head4)
         label.asLineHeight(.head4)

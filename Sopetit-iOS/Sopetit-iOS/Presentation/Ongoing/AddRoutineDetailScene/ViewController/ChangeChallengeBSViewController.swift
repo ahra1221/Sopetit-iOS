@@ -42,7 +42,7 @@ final class ChangeChallengeBSViewController: UIViewController {
     
     private let changeTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "도전 루틴을 변경할까요?"
+        label.text = "챌린지를 변경할까요?"
         label.textColor = .Gray700
         label.font = .fontGuide(.head3)
         label.asLineHeight(.head3)
@@ -51,7 +51,7 @@ final class ChangeChallengeBSViewController: UIViewController {
     
     private let changeSubTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "이미 진행 중인 도전 루틴이 있어요"
+        label.text = "이미 진행 중인 챌린지가 있어요"
         label.textColor = .Red200
         label.font = .fontGuide(.body2)
         label.asLineHeight(.body2)

@@ -70,7 +70,7 @@ final class AddRoutineMenuStickyView: UIView {
     
     private let challengeRoutineTitle: UILabel = {
         let label = UILabel()
-        label.text = "도전 루틴"
+        label.text = "챌린지"
         label.textColor = .Gray400
         label.font = .fontGuide(.body2)
         label.asLineHeight(.body2)

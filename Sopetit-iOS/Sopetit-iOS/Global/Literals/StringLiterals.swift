@@ -138,7 +138,7 @@ enum I18N {
         static let challengeTitle = "하루에 한 번, 오늘의 도전!"
         static let dailyTitle = "매일 매일, 데일리 루틴"
         static let complete = "완료하기"
-        static let addChallenge = "도전 루틴을 추가해 볼까요?"
+        static let addChallenge = "챌린지를 추가해 볼까요?"
         static let addChallengeButton = "루틴 추가하기"
         static let emptyRoutine = "진행 중인 루틴이 없어요"
         static let emptyDaily = "데일리 루틴을 추가해 볼까요?"

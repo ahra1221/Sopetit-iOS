@@ -57,7 +57,7 @@ final class DelRoutineBSViewController: UIViewController {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = isChallenge ?? false ? "도전 루틴" : "데일리 루틴"
+        label.text = isChallenge ?? false ? "챌린지" : "데일리 루틴"
         label.font = .fontGuide(.head4)
         label.textColor = .Gray700
         return label

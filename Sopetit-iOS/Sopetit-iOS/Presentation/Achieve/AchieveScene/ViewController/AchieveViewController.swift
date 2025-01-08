@@ -29,6 +29,7 @@ final class AchieveViewController: UIViewController {
     
     private var achieveView = AchieveView()
     private lazy var achieveCalendarView = achieveView.achieveCalendarView
+    private lazy var achieveStatsView = achieveView.achieveStatsView
     private lazy var calendarView = achieveCalendarView.achieveCalendarView
     private lazy var calendarHeaderView = achieveCalendarView.calendarHeaderView
     private lazy var goTodayButton = achieveCalendarView.calendarHeaderView.goTodayButton
@@ -118,12 +119,14 @@ extension AchieveViewController {
     @objc
     func statsMenuTapped() {
         achieveView.achieveMenuView.setAchieveMenuTapped(statsTapped: true)
+        achieveStatsView.isHidden = false
         achieveCalendarView.isHidden = true
     }
     
     @objc
     func calendarMenuTapped() {
         achieveView.achieveMenuView.setAchieveMenuTapped(statsTapped: false)
+        achieveStatsView.isHidden = true
         achieveCalendarView.isHidden = false
     }
     

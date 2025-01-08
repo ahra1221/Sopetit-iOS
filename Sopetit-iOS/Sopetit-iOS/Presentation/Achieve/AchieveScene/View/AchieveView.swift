@@ -15,6 +15,7 @@ final class AchieveView: UIView {
     
     let achieveMenuView = AchieveMenuView()
     let achieveCalendarView = AchieveCalendarView()
+    let achieveStatsView = AchieveStatsView()
     
     let delMemoToast = ToastWithCheckView(toastContent: "메모를 삭제했어요")
     let editMemoToast = ToastWithCheckView(toastContent: "메모를 수정했어요")
@@ -43,7 +44,7 @@ private extension AchieveView {
     
     func setUI() {
         self.backgroundColor = .Gray50
-        [delMemoToast, editMemoToast, delDailyHistoryToast, delChallengeHistoryToast].forEach {
+        [delMemoToast, editMemoToast, delDailyHistoryToast, delChallengeHistoryToast, achieveCalendarView].forEach {
             $0.isHidden = true
         }
     }
@@ -51,6 +52,7 @@ private extension AchieveView {
     func setHierarchy() {
         addSubviews(achieveMenuView,
                     achieveCalendarView,
+                    achieveStatsView,
                     delMemoToast,
                     editMemoToast,
                     delDailyHistoryToast,
@@ -64,6 +66,11 @@ private extension AchieveView {
         }
         
         achieveCalendarView.snp.makeConstraints {
+            $0.top.equalTo(achieveMenuView.snp.bottom)
+            $0.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        achieveStatsView.snp.makeConstraints {
             $0.top.equalTo(achieveMenuView.snp.bottom)
             $0.leading.trailing.bottom.equalToSuperview()
         }

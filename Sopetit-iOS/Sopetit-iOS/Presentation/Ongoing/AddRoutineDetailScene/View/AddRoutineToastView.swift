@@ -52,7 +52,7 @@ extension AddRoutineToastView {
         
         switch type {
         case .ChallengeCountAlert:
-            toastTitle.text = "도전 루틴은 1개만 선택 가능해요"
+            toastTitle.text = "챌린지는 1개만 선택 가능해요"
         case .ExistRoutineAlert:
             toastTitle.text = "이미 진행중인 루틴이에요"
         default: 

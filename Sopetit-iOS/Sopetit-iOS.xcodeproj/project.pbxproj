@@ -57,6 +57,7 @@
 		09CC26C62C8A80BD00C3BD3B /* DailyRoutineEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CC26C52C8A80BD00C3BD3B /* DailyRoutineEmptyView.swift */; };
 		09CC26C82C8A836000C3BD3B /* NewDailyRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CC26C72C8A836000C3BD3B /* NewDailyRoutineView.swift */; };
 		09CC26CA2C8A839100C3BD3B /* ChallengeRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CC26C92C8A839100C3BD3B /* ChallengeRoutineView.swift */; };
+		A40C7A592D2E396B00427BAA /* AchieveStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40C7A582D2E396200427BAA /* AchieveStatsView.swift */; };
 		A40F9EFD2C6798A5004DD1A1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A40F9EFC2C6798A5004DD1A1 /* GoogleService-Info.plist */; };
 		A40F9F082C69A06E004DD1A1 /* TotalRoutineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F9F072C69A06E004DD1A1 /* TotalRoutineCollectionViewCell.swift */; };
 		A40F9F102C69D08D004DD1A1 /* AddChallengeRoutineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F9F0F2C69D08D004DD1A1 /* AddChallengeRoutineCollectionViewCell.swift */; };
@@ -163,6 +164,7 @@
 		A49BFE5A2B54273E00035EB6 /* SVGKit in Frameworks */ = {isa = PBXBuildFile; productRef = A49BFE592B54273E00035EB6 /* SVGKit */; };
 		A49BFE622B558B2E00035EB6 /* MemberEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49BFE612B558B2E00035EB6 /* MemberEntity.swift */; };
 		A49CB10B2D1A4426007D13D0 /* AddChallengeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49CB10A2D1A4421007D13D0 /* AddChallengeEntity.swift */; };
+		A49CB10F2D1D0A64007D13D0 /* AchieveCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49CB10E2D1D0A5E007D13D0 /* AchieveCalendarView.swift */; };
 		A49E0AED2CFEC62600588087 /* MemberProfileEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E0AEC2CFEC62600588087 /* MemberProfileEntity.swift */; };
 		A49E0AEF2CFEC66800588087 /* AchieveService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E0AEE2CFEC66800588087 /* AchieveService.swift */; };
 		A49E0AF12CFECAE500588087 /* MemosRequestEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E0AF02CFECAE500588087 /* MemosRequestEntity.swift */; };
@@ -229,6 +231,7 @@
 		09CC26C52C8A80BD00C3BD3B /* DailyRoutineEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRoutineEmptyView.swift; sourceTree = "<group>"; };
 		09CC26C72C8A836000C3BD3B /* NewDailyRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewDailyRoutineView.swift; sourceTree = "<group>"; };
 		09CC26C92C8A839100C3BD3B /* ChallengeRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeRoutineView.swift; sourceTree = "<group>"; };
+		A40C7A582D2E396200427BAA /* AchieveStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchieveStatsView.swift; sourceTree = "<group>"; };
 		A40F9EF92C679827004DD1A1 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		A40F9EFB2C67985C004DD1A1 /* ReleaseConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ReleaseConfig.xcconfig; sourceTree = "<group>"; };
 		A40F9EFC2C6798A5004DD1A1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -330,6 +333,7 @@
 		A49BFE4E2B53CE7700035EB6 /* DollImageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DollImageEntity.swift; sourceTree = "<group>"; };
 		A49BFE612B558B2E00035EB6 /* MemberEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberEntity.swift; sourceTree = "<group>"; };
 		A49CB10A2D1A4421007D13D0 /* AddChallengeEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChallengeEntity.swift; sourceTree = "<group>"; };
+		A49CB10E2D1D0A5E007D13D0 /* AchieveCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchieveCalendarView.swift; sourceTree = "<group>"; };
 		A49E0AEC2CFEC62600588087 /* MemberProfileEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberProfileEntity.swift; sourceTree = "<group>"; };
 		A49E0AEE2CFEC66800588087 /* AchieveService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchieveService.swift; sourceTree = "<group>"; };
 		A49E0AF02CFECAE500588087 /* MemosRequestEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemosRequestEntity.swift; sourceTree = "<group>"; };
@@ -989,6 +993,8 @@
 		A4648B922C043327001EB031 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A40C7A582D2E396200427BAA /* AchieveStatsView.swift */,
+				A49CB10E2D1D0A5E007D13D0 /* AchieveCalendarView.swift */,
 				A46CA1692CE70A2100AB4DCA /* AchieveMenuView.swift */,
 				A4648B992C04337B001EB031 /* AchieveView.swift */,
 				A475D5022CF553CE00B5DDC5 /* CalendarHeaderView.swift */,
@@ -1439,6 +1445,7 @@
 				00CCDCD22B53CB40007DD0E6 /* SplashViewController.swift in Sources */,
 				A49E0AFE2D02D9F700588087 /* ToastWithCheckView.swift in Sources */,
 				A40F9F122C69D0C6004DD1A1 /* AddRoutineDetailView.swift in Sources */,
+				A49CB10F2D1D0A64007D13D0 /* AchieveCalendarView.swift in Sources */,
 				09CC26CA2C8A839100C3BD3B /* ChallengeRoutineView.swift in Sources */,
 				A4D9F6E32C5D2D7700A9F719 /* HomeTutorialEntity.swift in Sources */,
 				09CC26C62C8A80BD00C3BD3B /* DailyRoutineEmptyView.swift in Sources */,
@@ -1571,6 +1578,7 @@
 				A475D52B2CFEABA700B5DDC5 /* AddMemoBSViewController.swift in Sources */,
 				A42C32D12B3EAB7F00C4B477 /* String+.swift in Sources */,
 				A475D5292CFEA27000B5DDC5 /* HeightForView.swift in Sources */,
+				A40C7A592D2E396B00427BAA /* AchieveStatsView.swift in Sources */,
 				A49BFDF02B4DA48200035EB6 /* ThemeSelectView.swift in Sources */,
 				A49BFE622B558B2E00035EB6 /* MemberEntity.swift in Sources */,
 				A46CA16F2CE7102D00AB4DCA /* CalendarDateCell.swift in Sources */,
@@ -1738,7 +1746,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.softie.Softie-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1776,7 +1784,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.softie.Softie-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

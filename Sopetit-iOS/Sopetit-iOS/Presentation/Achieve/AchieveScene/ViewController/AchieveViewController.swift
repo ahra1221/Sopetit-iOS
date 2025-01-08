@@ -23,14 +23,17 @@ final class AchieveViewController: UIViewController {
     private var selectedDateMemo: String = ""
     private var selectedDateMemoId: Int = 0
     private var fromDidChange: Bool = false
+    private var previousPage: Date?
     
     // MARK: - UI Components
     
     private var achieveView = AchieveView()
-    private lazy var calendarView = achieveView.achieveCalendarView
-    private lazy var calendarHeaderView = achieveView.calendarHeaderView
-    private lazy var goTodayButton = achieveView.calendarHeaderView.goTodayButton
-    private lazy var achieveCV = achieveView.achieveCollectionView
+    private lazy var achieveCalendarView = achieveView.achieveCalendarView
+    private lazy var achieveStatsView = achieveView.achieveStatsView
+    private lazy var calendarView = achieveCalendarView.achieveCalendarView
+    private lazy var calendarHeaderView = achieveCalendarView.calendarHeaderView
+    private lazy var goTodayButton = achieveCalendarView.calendarHeaderView.goTodayButton
+    private lazy var achieveCV = achieveCalendarView.achieveCollectionView
     
     // MARK: - Life Cycles
     
@@ -71,11 +74,14 @@ extension AchieveViewController {
         let today = Date()
         selectedDate = today
         calendarView.select(today)
-        achieveView.calendarHeaderView.calendarHeaderRightButton.isEnabled = false
+        achieveCalendarView.calendarHeaderView.calendarHeaderRightButton.isEnabled = false
         
         let inital = extractDayAndWeekday(selectDate: today)
-        achieveView.bindSelectDate(date: inital.extractedDay,
-                                   week: inital.extractedWeekday)
+        let headerInitial = getDayComponents(date: formatDateToString(today))
+        achieveCalendarView.bindSelectDate(date: inital.extractedDay,
+                                           week: inital.extractedWeekday)
+        calendarHeaderView.configureHeader(year: headerInitial.year,
+                                           month: headerInitial.month)
     }
     
     func setAddGesture() {
@@ -89,12 +95,12 @@ extension AchieveViewController {
                                               action: #selector(memoTapped))
         achieveView.achieveMenuView.statsMenuView.addGestureRecognizer(tapStatsMenu)
         achieveView.achieveMenuView.calendarMenuView.addGestureRecognizer(tapCalendarMenu)
-        achieveView.memoLabel.addGestureRecognizer(tapMemo)
-        achieveView.bearFaceImage.addGestureRecognizer(tapBear)
+        achieveCalendarView.memoLabel.addGestureRecognizer(tapMemo)
+        achieveCalendarView.bearFaceImage.addGestureRecognizer(tapBear)
         
-        achieveView.addMemoButton.addTarget(self,
-                                            action: #selector(addMemoButtonTapped),
-                                            for: .touchUpInside)
+        achieveCalendarView.addMemoButton.addTarget(self,
+                                                    action: #selector(addMemoButtonTapped),
+                                                    for: .touchUpInside)
     }
     
     func setRegisterCell() {
@@ -113,11 +119,15 @@ extension AchieveViewController {
     @objc
     func statsMenuTapped() {
         achieveView.achieveMenuView.setAchieveMenuTapped(statsTapped: true)
+        achieveStatsView.isHidden = false
+        achieveCalendarView.isHidden = true
     }
     
     @objc
     func calendarMenuTapped() {
         achieveView.achieveMenuView.setAchieveMenuTapped(statsTapped: false)
+        achieveStatsView.isHidden = true
+        achieveCalendarView.isHidden = false
     }
     
     @objc
@@ -163,8 +173,6 @@ extension AchieveViewController {
                 getCalendarAPI(entity: CalendarRequestEntity(year: year, month: month))
                 calendarHeaderView.configureHeader(year: year,
                                                    month: month)
-                print("현재 페이지의 연도: \(year)")
-                print("현재 페이지의 월: \(month)")
             }
         }
         fromDidChange = false
@@ -214,6 +222,7 @@ extension AchieveViewController {
     
     func setSelectDateView() {
         let today = formatDateToString(selectedDate ?? Date())
+        achieveCalendarView.bindSelectDate(date: extractDayAndWeekday(selectDate: selectedDate ?? Date()).extractedDay, week: extractDayAndWeekday(selectDate: selectedDate ?? Date()).extractedWeekday)
         if hasDateKey(for: today) {
             let value = findValue(for: today)
             let memo = value.memoContent
@@ -222,12 +231,12 @@ extension AchieveViewController {
             selectedDateMemo = memo
             selectedDateMemoId = value.memoID
             if memo == "" { // 메모는 안썼음
-                achieveView.bindIsMemo(isRecord: false, height: height, memo: memo)
+                achieveCalendarView.bindIsMemo(isRecord: false, height: height, memo: memo)
             } else { // 달성도 하고 메모도 씀
-                achieveView.bindIsMemo(isRecord: true, height: height, memo: memo)
+                achieveCalendarView.bindIsMemo(isRecord: true, height: height, memo: memo)
             }
         } else {
-            achieveView.bindIsEmptyView(isEmpty: true)
+            achieveCalendarView.bindIsEmptyView(isEmpty: true)
         }
         achieveCV.reloadData()
     }
@@ -312,7 +321,7 @@ extension AchieveViewController: UICollectionViewDataSource {
             return value.histories.count
         } else {
             print("emptyview")
-            achieveView.bindIsEmptyView(isEmpty: true)
+            achieveCalendarView.bindIsEmptyView(isEmpty: true)
         }
         return 0
     }
@@ -428,8 +437,8 @@ extension AchieveViewController: CalendarHeaderDelegate {
         updateCalendarHeaderButton()
         goTodayButton.isHidden = true
         let inital = extractDayAndWeekday(selectDate: today)
-        achieveView.bindSelectDate(date: inital.extractedDay,
-                                   week: inital.extractedWeekday)
+        achieveCalendarView.bindSelectDate(date: inital.extractedDay,
+                                           week: inital.extractedWeekday)
         setSelectDateView()
     }
 }
@@ -511,8 +520,6 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
         cell.configureCalendar(iconType: bindIconType,
                                dateType: bindDataType,
                                date: dayString)
-        calendarHeaderView.configureHeader(year: bindYear,
-                                           month: bindMonth)
         return cell
     }
     
@@ -544,9 +551,6 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
         } else {
             goTodayButton.isHidden = true
         }
-        
-        achieveView.bindSelectDate(date: extractDayAndWeekday(selectDate: date).extractedDay,
-                                   week: extractDayAndWeekday(selectDate: date).extractedWeekday)
         selectedDate = date
         setSelectDateView()
         print(selectDate)
@@ -566,7 +570,27 @@ extension AchieveViewController: FSCalendarDelegate, FSCalendarDataSource {
     
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         fromDidChange = true
-        updateCalendarHeaderButton()
+        
+        let currentPageDate = calendar.currentPage
+        let today = Date()
+        
+        let calendarComponent = Calendar.current
+        let currentPageComponents = calendarComponent.dateComponents([.year, .month], from: currentPageDate)
+        let todayComponents = calendarComponent.dateComponents([.year, .month], from: today)
+        
+        if previousPage == nil || !Calendar.current.isDate(previousPage!, equalTo: currentPageDate, toGranularity: .month) {
+            previousPage = currentPageDate
+            updateCalendarHeaderButton()
+        }
+        
+        if currentPageComponents.year != todayComponents.year || currentPageComponents.month != todayComponents.month {
+            selectedDate = calendarComponent.date(from: currentPageComponents)
+            goTodayButton.isHidden = false
+        } else {
+            selectedDate = Date()
+            goTodayButton.isHidden = true
+        }
+        setSelectDateView()
         calendar.reloadData()
     }
     

@@ -209,3 +209,12 @@ private extension AchieveStatsView {
         StatsRoutineCell.register(target: themeStatsCollectionView)
     }
 }
+
+extension AchieveStatsView {
+    
+    func bindStatsImage(entity: AchieveCharacterEntity) {
+        statsImageView.image = entity.characterImage
+        statsTitleLabel.text = entity.characterTitle
+        statsSubLabel.text = "\(UserManager.shared.getDollName)는" + entity.characterSub
+    }
+}

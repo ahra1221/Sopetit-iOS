@@ -14,6 +14,8 @@ final class AchieveViewController: UIViewController {
     
     // MARK: - Properties
     
+    private var isStats: Bool = true
+    
     private var selectedDate: Date?
     private var selectedMonth: Int?
     private var formatter = DateFormatter()
@@ -43,17 +45,9 @@ final class AchieveViewController: UIViewController {
         self.view = achieveView
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        getCalendarAPI(entity: requestEntity)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getMemberProfileAPI()
-        getCalendarAPI(entity: requestEntity)
         getAchievementThemesAPI()
         setUI()
         setAddGesture()
@@ -126,6 +120,8 @@ extension AchieveViewController {
         achieveView.achieveMenuView.setAchieveMenuTapped(statsTapped: true)
         achieveStatsView.isHidden = false
         achieveCalendarView.isHidden = true
+        isStats = true
+        getAchievementThemesAPI()
     }
     
     @objc
@@ -133,6 +129,9 @@ extension AchieveViewController {
         achieveView.achieveMenuView.setAchieveMenuTapped(statsTapped: false)
         achieveStatsView.isHidden = true
         achieveCalendarView.isHidden = false
+        isStats = false
+        getMemberProfileAPI()
+        getCalendarAPI(entity: requestEntity)
     }
     
     @objc
@@ -759,6 +758,9 @@ extension AchieveViewController {
                 if let data = data as? GenericResponse<AchieveThemeEntity> {
                     if let achieveThemeData = data.data {
                         self.chartView.achieveTheme = self.setChartData(achieveThemeData: achieveThemeData)
+                        if achieveThemeData.themes.count > 0 {
+                            self.achieveStatsView.bindStatsImage(entity: AchieveCharacterEntity(themeId: achieveThemeData.themes[0].id))
+                        }
                     }
                 }
             case .reissue:

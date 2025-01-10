@@ -61,6 +61,7 @@
 		A40C7A5B2D2E4B2500427BAA /* StatsRoutineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40C7A5A2D2E4B1B00427BAA /* StatsRoutineCell.swift */; };
 		A40C7A5F2D30A38900427BAA /* StatsChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40C7A5E2D30A38300427BAA /* StatsChartView.swift */; };
 		A40C7A612D30A6B300427BAA /* AchieveThemeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40C7A602D30A6A200427BAA /* AchieveThemeEntity.swift */; };
+		A40C7A652D30B82200427BAA /* AchieveCharacterEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40C7A642D30B81900427BAA /* AchieveCharacterEntity.swift */; };
 		A40F9EFD2C6798A5004DD1A1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A40F9EFC2C6798A5004DD1A1 /* GoogleService-Info.plist */; };
 		A40F9F082C69A06E004DD1A1 /* TotalRoutineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F9F072C69A06E004DD1A1 /* TotalRoutineCollectionViewCell.swift */; };
 		A40F9F102C69D08D004DD1A1 /* AddChallengeRoutineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F9F0F2C69D08D004DD1A1 /* AddChallengeRoutineCollectionViewCell.swift */; };
@@ -238,6 +239,7 @@
 		A40C7A5A2D2E4B1B00427BAA /* StatsRoutineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsRoutineCell.swift; sourceTree = "<group>"; };
 		A40C7A5E2D30A38300427BAA /* StatsChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsChartView.swift; sourceTree = "<group>"; };
 		A40C7A602D30A6A200427BAA /* AchieveThemeEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchieveThemeEntity.swift; sourceTree = "<group>"; };
+		A40C7A642D30B81900427BAA /* AchieveCharacterEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchieveCharacterEntity.swift; sourceTree = "<group>"; };
 		A40F9EF92C679827004DD1A1 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		A40F9EFB2C67985C004DD1A1 /* ReleaseConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ReleaseConfig.xcconfig; sourceTree = "<group>"; };
 		A40F9EFC2C6798A5004DD1A1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -1276,6 +1278,7 @@
 		A49E0AEB2CFEC61C00588087 /* Achieve */ = {
 			isa = PBXGroup;
 			children = (
+				A40C7A642D30B81900427BAA /* AchieveCharacterEntity.swift */,
 				A40C7A602D30A6A200427BAA /* AchieveThemeEntity.swift */,
 				A49E0AEC2CFEC62600588087 /* MemberProfileEntity.swift */,
 				A49E0AF02CFECAE500588087 /* MemosRequestEntity.swift */,
@@ -1481,6 +1484,7 @@
 				A49BFE2A2B4E857300035EB6 /* DollNameView.swift in Sources */,
 				A49CB10B2D1A4426007D13D0 /* AddChallengeEntity.swift in Sources */,
 				A42C32B72B3EAAD800C4B477 /* ImageLiterals.swift in Sources */,
+				A40C7A652D30B82200427BAA /* AchieveCharacterEntity.swift in Sources */,
 				A49E0AEF2CFEC66800588087 /* AchieveService.swift in Sources */,
 				045DFE7B2B504E38005D69EA /* SettingViewController.swift in Sources */,
 				09BCAA022C2A7C79006E876D /* GetCottonViewController.swift in Sources */,

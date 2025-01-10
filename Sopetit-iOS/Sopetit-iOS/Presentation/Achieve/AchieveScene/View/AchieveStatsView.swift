@@ -76,6 +76,8 @@ final class AchieveStatsView: UIView {
         return label
     }()
     
+    private let chartView = StatsChartView()
+    
     // 달성한루틴뷰
     
     private let routineStatsTitle: UILabel = {
@@ -122,6 +124,7 @@ private extension AchieveStatsView {
     
     func setUI() {
         self.backgroundColor = .Gray50
+        chartView.backgroundColor = .SoftieWhite
     }
     
     func setHierarchy() {
@@ -134,7 +137,8 @@ private extension AchieveStatsView {
         statsImageView.addSubviews(statsTitleLabel,
                                    statsSubLabel)
         chartBackView.addSubviews(chartTitleLabel,
-                                  chartSubLabel)
+                                  chartSubLabel,
+                                  chartView)
     }
     
     func setLayout() {
@@ -180,6 +184,12 @@ private extension AchieveStatsView {
         chartSubLabel.snp.makeConstraints {
             $0.top.equalTo(chartTitleLabel.snp.bottom).offset(4)
             $0.leading.equalTo(chartTitleLabel.snp.leading)
+        }
+        
+        chartView.snp.makeConstraints {
+            $0.top.equalTo(chartSubLabel.snp.bottom).offset(24)
+            $0.leading.equalToSuperview().inset(28)
+            $0.size.equalTo(142)
         }
         
         routineStatsTitle.snp.makeConstraints {

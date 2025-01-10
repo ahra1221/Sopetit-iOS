@@ -59,6 +59,7 @@
 		09CC26CA2C8A839100C3BD3B /* ChallengeRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CC26C92C8A839100C3BD3B /* ChallengeRoutineView.swift */; };
 		A40C7A592D2E396B00427BAA /* AchieveStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40C7A582D2E396200427BAA /* AchieveStatsView.swift */; };
 		A40C7A5B2D2E4B2500427BAA /* StatsRoutineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40C7A5A2D2E4B1B00427BAA /* StatsRoutineCell.swift */; };
+		A40C7A5F2D30A38900427BAA /* StatsChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40C7A5E2D30A38300427BAA /* StatsChartView.swift */; };
 		A40F9EFD2C6798A5004DD1A1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A40F9EFC2C6798A5004DD1A1 /* GoogleService-Info.plist */; };
 		A40F9F082C69A06E004DD1A1 /* TotalRoutineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F9F072C69A06E004DD1A1 /* TotalRoutineCollectionViewCell.swift */; };
 		A40F9F102C69D08D004DD1A1 /* AddChallengeRoutineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F9F0F2C69D08D004DD1A1 /* AddChallengeRoutineCollectionViewCell.swift */; };
@@ -234,6 +235,7 @@
 		09CC26C92C8A839100C3BD3B /* ChallengeRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeRoutineView.swift; sourceTree = "<group>"; };
 		A40C7A582D2E396200427BAA /* AchieveStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchieveStatsView.swift; sourceTree = "<group>"; };
 		A40C7A5A2D2E4B1B00427BAA /* StatsRoutineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsRoutineCell.swift; sourceTree = "<group>"; };
+		A40C7A5E2D30A38300427BAA /* StatsChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsChartView.swift; sourceTree = "<group>"; };
 		A40F9EF92C679827004DD1A1 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		A40F9EFB2C67985C004DD1A1 /* ReleaseConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ReleaseConfig.xcconfig; sourceTree = "<group>"; };
 		A40F9EFC2C6798A5004DD1A1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -995,6 +997,7 @@
 		A4648B922C043327001EB031 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A40C7A5E2D30A38300427BAA /* StatsChartView.swift */,
 				A40C7A582D2E396200427BAA /* AchieveStatsView.swift */,
 				A49CB10E2D1D0A5E007D13D0 /* AchieveCalendarView.swift */,
 				A46CA1692CE70A2100AB4DCA /* AchieveMenuView.swift */,
@@ -1588,6 +1591,7 @@
 				A46CA16F2CE7102D00AB4DCA /* CalendarDateCell.swift in Sources */,
 				A4A516D12C36C46E00ED9CC1 /* RoutineThemeCollectionViewCell.swift in Sources */,
 				A49BFDD52B4D5F0800035EB6 /* StroyTellingViewController.swift in Sources */,
+				A40C7A5F2D30A38900427BAA /* StatsChartView.swift in Sources */,
 				A4648B9E2C043406001EB031 /* OngoingView.swift in Sources */,
 				A40F9F182C69F35C004DD1A1 /* DailyThemeEntity.swift in Sources */,
 				A42C327E2B3DB8F400C4B477 /* SceneDelegate.swift in Sources */,
@@ -1746,6 +1750,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1784,6 +1789,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

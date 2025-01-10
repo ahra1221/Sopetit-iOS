@@ -12,8 +12,6 @@ final class StatsChartView: UIView {
     
      var achieveTheme: AchieveThemeEntity = AchieveThemeEntity.initalEntity(){
         didSet {
-            print("😬😬😬😬")
-            print(achieveTheme)
             self.setNeedsDisplay()
         }
     }
@@ -35,14 +33,21 @@ final class StatsChartView: UIView {
         var colors: [UIColor] = []
         var values: [CGFloat] = []
         
-        for theme in achieveTheme.themes {
+        for (index, theme) in achieveTheme.themes.enumerated() {
             values.append(CGFloat(theme.achievedCount))
-            colors.append(UIColor(named: "ThemeChart\(theme.id)") ?? UIColor())
+            
+            let baseColor = UIColor(named: "ThemeChart\(theme.id)") ?? UIColor()
+            if index == 0 || theme.id == 0 {
+                colors.append(baseColor)
+            } else if index < 3 && theme.id == 1 {
+                colors.append(baseColor.withAlphaComponent(0.4))
+            } else {
+                colors.append(baseColor.withAlphaComponent(0.7))
+            }
         }
         
         let total = CGFloat(achieveTheme.achievedCount)
         
-        //x degree = x * π / 180 radian
         var startAngle: CGFloat = (-(.pi) / 2)
         var endAngle: CGFloat = 0.0
         
@@ -61,9 +66,6 @@ final class StatsChartView: UIView {
             path.fill()
             startAngle += endAngle
             path.close()
-            
-            // slice space
-            UIColor.white.set()
         }
         
         let semiCircle = UIBezierPath(arcCenter: center,

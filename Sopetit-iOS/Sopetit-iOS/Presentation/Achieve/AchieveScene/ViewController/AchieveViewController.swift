@@ -301,6 +301,20 @@ extension AchieveViewController {
             self.achieveView.delChallengeHistoryToast.alpha = 1.0
         })
     }
+    
+    func setChartData(achieveThemeData: AchieveThemeEntity) -> AchieveThemeEntity {
+        var adjustedThemes = achieveThemeData.themes
+        if adjustedThemes.count > 3 {
+            // 기타항목
+            let otherThemeCount = adjustedThemes.dropFirst(3).reduce(0) { $0 + $1.achievedCount }
+            let otherTheme = AchieveTheme(id: 0,
+                                          name: "기타",
+                                          achievedCount: otherThemeCount)
+            adjustedThemes = Array(adjustedThemes.prefix(3)) + [otherTheme]
+        }
+        return AchieveThemeEntity(achievedCount: achieveThemeData.achievedCount,
+                                  themes: adjustedThemes)
+    }
 }
 
 // MARK: - CollectionView
@@ -744,8 +758,7 @@ extension AchieveViewController {
             case .success(let data):
                 if let data = data as? GenericResponse<AchieveThemeEntity> {
                     if let achieveThemeData = data.data {
-                        self.chartView.achieveTheme = achieveThemeData
-                        self.chartView.setNeedsDisplay()
+                        self.chartView.achieveTheme = self.setChartData(achieveThemeData: achieveThemeData)
                     }
                 }
             case .reissue:

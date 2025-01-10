@@ -22,6 +22,7 @@ final class AchieveViewController: UIViewController {
     private var registerDate: String = ""
     private lazy var requestEntity: CalendarRequestEntity = CalendarRequestEntity(year: self.getDayComponents(date: "").year, month: self.getDayComponents(date: "").month)
     private var calendarEntity: CalendarEntity = CalendarEntity(success: false, message: "", data: ["": CalendarDate(memoID: 0, memoContent: "", histories: [])])
+    private var achieveThemeEntity = AchieveThemeEntity.initalEntity()
     private var selectedDateMemo: String = ""
     private var selectedDateMemoId: Int = 0
     private var fromDidChange: Bool = false
@@ -314,6 +315,26 @@ extension AchieveViewController {
         return AchieveThemeEntity(achievedCount: achieveThemeData.achievedCount,
                                   themes: adjustedThemes)
     }
+    
+    func setThemeData(for entity: AchieveThemeEntity) -> AchieveThemeEntity {
+
+        let sortedThemes = entity.themes.sorted { $0.id < $1.id }
+        var adjustedThemes = [AchieveTheme]()
+        
+        let themesDict = Dictionary(uniqueKeysWithValues: sortedThemes.map { ($0.id, $0) })
+        
+        for i in 1...7 {
+            if let theme = themesDict[i] {
+                adjustedThemes.append(theme)
+            } else {
+                adjustedThemes.append(AchieveTheme(id: i, name: ThemeDetailEntity.getFullTheme(id: i).themeTitle, achievedCount: 0))
+            }
+        }
+        print(adjustedThemes)
+        return AchieveThemeEntity(achievedCount: entity.achievedCount,
+                                  themes: adjustedThemes)
+    }
+
 }
 
 // MARK: - CollectionView
@@ -376,6 +397,9 @@ extension AchieveViewController: UICollectionViewDataSource {
             return cell
         case themeStatsCV:
             let cell = StatsRoutineCell.dequeueReusableCell(collectionView: themeStatsCV, indexPath: indexPath)
+            if achieveThemeEntity.themes.count > 6 {
+                cell.bindStatsRoutine(entity: self.achieveThemeEntity.themes[indexPath.item])
+            }
             return cell
         default:
             return UICollectionViewCell()
@@ -758,6 +782,8 @@ extension AchieveViewController {
                 if let data = data as? GenericResponse<AchieveThemeEntity> {
                     if let achieveThemeData = data.data {
                         self.chartView.achieveTheme = self.setChartData(achieveThemeData: achieveThemeData)
+                        self.achieveThemeEntity = self.setThemeData(for: achieveThemeData)
+                        self.themeStatsCV.reloadData()
                         if achieveThemeData.themes.count > 0 {
                             self.achieveStatsView.bindStatsImage(entity: AchieveCharacterEntity(themeId: achieveThemeData.themes[0].id))
                         }

@@ -69,7 +69,7 @@ final class AchieveStatsView: UIView {
     
     private let chartSubLabel: UILabel = {
         let label = UILabel()
-        label.text = "애착이와 관계쌓기하며 가장 많은 시간을 보냈어요"
+        label.text = "\(UserManager.shared.getDollName)와 관계쌓기하며 가장 많은 시간을 보냈어요"
         label.textColor = .Gray500
         label.font = .fontGuide(.body2)
         label.asLineHeight(.body2)

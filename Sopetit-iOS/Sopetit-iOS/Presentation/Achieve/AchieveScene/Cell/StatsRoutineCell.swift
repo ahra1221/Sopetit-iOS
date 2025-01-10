@@ -82,3 +82,14 @@ private extension StatsRoutineCell {
         }
     }
 }
+
+extension StatsRoutineCell {
+    
+    func bindStatsRoutine(entity: AchieveTheme) {
+        themeIconImageView.image = UIImage(named: "theme_full_\(entity.id)")
+        themeTitleLabel.text = entity.name
+        themeCountLabel.text = "\(entity.achievedCount)번"
+        themeTitleLabel.asLineHeight(.body2)
+        themeCountLabel.asLineHeight(.head2)
+    }
+}

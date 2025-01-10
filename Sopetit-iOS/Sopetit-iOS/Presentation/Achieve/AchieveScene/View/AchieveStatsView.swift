@@ -87,6 +87,20 @@ final class AchieveStatsView: UIView {
         return label
     }()
     
+    let themeStatsCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = 11
+        layout.minimumLineSpacing = 8
+        collectionView.isScrollEnabled = false
+        collectionView.scrollsToTop = false
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.collectionViewLayout = layout
+        collectionView.backgroundColor = .clear
+        layout.itemSize = CGSize(width: (SizeLiterals.Screen.screenWidth - 45) / 2, height: 79)
+        return collectionView
+    }()
+    
     // MARK: - Life Cycles
     
     override init(frame: CGRect) {
@@ -95,6 +109,7 @@ final class AchieveStatsView: UIView {
         setUI()
         setHierarchy()
         setLayout()
+        setRegisterCell()
     }
     
     @available(*, unavailable)
@@ -114,7 +129,8 @@ private extension AchieveStatsView {
         scrollView.addSubview(contentView)
         contentView.addSubviews(statsImageView,
                                 chartBackView,
-                                routineStatsTitle)
+                                routineStatsTitle,
+                                themeStatsCollectionView)
         statsImageView.addSubviews(statsTitleLabel,
                                    statsSubLabel)
         chartBackView.addSubviews(chartTitleLabel,
@@ -129,8 +145,7 @@ private extension AchieveStatsView {
         }
         
         contentView.snp.makeConstraints {
-            $0.top.equalTo(scrollView)
-            $0.horizontalEdges.bottom.equalToSuperview()
+            $0.edges.equalTo(scrollView)
             $0.width.equalTo(scrollView.snp.width)
             $0.height.equalTo(scrollView.snp.height).priority(.low)
         }
@@ -171,5 +186,17 @@ private extension AchieveStatsView {
             $0.top.equalTo(chartBackView.snp.bottom).offset(20)
             $0.leading.equalTo(chartBackView.snp.leading)
         }
+        
+        themeStatsCollectionView.snp.makeConstraints {
+            $0.top.equalTo(routineStatsTitle.snp.bottom).offset(8)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(SizeLiterals.Screen.screenWidth - 34)
+            $0.height.equalTo(340)
+            $0.bottom.equalToSuperview().inset(31)
+        }
+    }
+    
+    func setRegisterCell() {
+        StatsRoutineCell.register(target: themeStatsCollectionView)
     }
 }

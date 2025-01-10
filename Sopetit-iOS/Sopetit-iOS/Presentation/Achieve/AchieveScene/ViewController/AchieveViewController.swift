@@ -34,6 +34,7 @@ final class AchieveViewController: UIViewController {
     private lazy var calendarHeaderView = achieveCalendarView.calendarHeaderView
     private lazy var goTodayButton = achieveCalendarView.calendarHeaderView.goTodayButton
     private lazy var achieveCV = achieveCalendarView.achieveCollectionView
+    private lazy var themeStatsCV = achieveStatsView.themeStatsCollectionView
     
     // MARK: - Life Cycles
     
@@ -114,6 +115,8 @@ extension AchieveViewController {
         calendarHeaderView.delegate = self
         achieveCV.delegate = self
         achieveCV.dataSource = self
+        themeStatsCV.delegate = self
+        themeStatsCV.dataSource = self
     }
     
     @objc
@@ -316,43 +319,75 @@ extension AchieveViewController: CalendarHistoryCellDelegate {
 extension AchieveViewController: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        if hasDateKey(for: formatDateToString(selectedDate ?? Date())) {
-            let value = findValue(for: formatDateToString(selectedDate ?? Date()))
-            return value.histories.count
-        } else {
-            print("emptyview")
-            achieveCalendarView.bindIsEmptyView(isEmpty: true)
+        switch collectionView {
+        case achieveCV:
+            if hasDateKey(for: formatDateToString(selectedDate ?? Date())) {
+                let value = findValue(for: formatDateToString(selectedDate ?? Date()))
+                return value.histories.count
+            } else {
+                print("emptyview")
+                achieveCalendarView.bindIsEmptyView(isEmpty: true)
+            }
+        case themeStatsCV:
+            return 1
+        default:
+            return 0
         }
         return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let value = findValue(for: formatDateToString(selectedDate ?? Date()))
-        return value.histories[section].histories.count
+        switch collectionView {
+        case achieveCV:
+            let value = findValue(for: formatDateToString(selectedDate ?? Date()))
+            return value.histories[section].histories.count
+        case themeStatsCV:
+            return 7
+        default:
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = CalendarHistoryCell.dequeueReusableCell(collectionView: achieveCV, indexPath: indexPath)
-        let value = findValue(for: formatDateToString(selectedDate ?? Date()))
-        cell.bindHistoryCell(content: value.histories[indexPath.section].histories[indexPath.item].content,
-                             isChallenge: value.histories[indexPath.section].histories[indexPath.item].isChallenge,
-                             themeId: value.histories[indexPath.section].themeID)
-        cell.cellInfo = value.histories[indexPath.section].histories[indexPath.item]
-        cell.delegate = self
-        return cell
+        switch collectionView {
+        case achieveCV:
+            let cell = CalendarHistoryCell.dequeueReusableCell(collectionView: achieveCV, indexPath: indexPath)
+            let value = findValue(for: formatDateToString(selectedDate ?? Date()))
+            cell.bindHistoryCell(content: value.histories[indexPath.section].histories[indexPath.item].content,
+                                 isChallenge: value.histories[indexPath.section].histories[indexPath.item].isChallenge,
+                                 themeId: value.histories[indexPath.section].themeID)
+            cell.cellInfo = value.histories[indexPath.section].histories[indexPath.item]
+            cell.delegate = self
+            return cell
+        case themeStatsCV:
+            let cell = StatsRoutineCell.dequeueReusableCell(collectionView: themeStatsCV, indexPath: indexPath)
+            return cell
+        default:
+            return UICollectionViewCell()
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: SizeLiterals.Screen.screenWidth - 40, height: 22)
+        switch collectionView {
+        case achieveCV:
+            return CGSize(width: SizeLiterals.Screen.screenWidth - 40, height: 22)
+        default:
+            return CGSize()
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if kind == UICollectionView.elementKindSectionHeader {
-            let headerView = NewDailyRoutineHeaderView.dequeueReusableHeaderView(collectionView: achieveCV, indexPath: indexPath)
-            let value = findValue(for: formatDateToString(selectedDate ?? Date()))
-            headerView.setDataBind(text: value.histories[indexPath.section].themeName,
-                                   image: value.histories[indexPath.section].themeID)
-            return headerView
+        switch collectionView {
+        case achieveCV:
+            if kind == UICollectionView.elementKindSectionHeader {
+                let headerView = NewDailyRoutineHeaderView.dequeueReusableHeaderView(collectionView: achieveCV, indexPath: indexPath)
+                let value = findValue(for: formatDateToString(selectedDate ?? Date()))
+                headerView.setDataBind(text: value.histories[indexPath.section].themeName,
+                                       image: value.histories[indexPath.section].themeID)
+                return headerView
+            }
+        default:
+            return UICollectionReusableView()
         }
         return UICollectionReusableView()
     }
@@ -361,17 +396,24 @@ extension AchieveViewController: UICollectionViewDataSource {
 extension AchieveViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let label: UILabel = {
-            let label = UILabel()
-            let value = findValue(for: formatDateToString(selectedDate ?? Date()))
-            label.text = value.histories[indexPath.section].histories[indexPath.item].content.replacingOccurrences(of: "\n", with: " ")
-            label.font = .fontGuide(.body2)
-            return label
-        }()
-        
-        let height = max(heightForView(text: label.text ?? "", font: label.font, width: SizeLiterals.Screen.screenWidth - 119), 24) + 32
-        
-        return CGSize(width: SizeLiterals.Screen.screenWidth - 40, height: height)
+        switch collectionView {
+        case achieveCV:
+            let label: UILabel = {
+                let label = UILabel()
+                let value = findValue(for: formatDateToString(selectedDate ?? Date()))
+                label.text = value.histories[indexPath.section].histories[indexPath.item].content.replacingOccurrences(of: "\n", with: " ")
+                label.font = .fontGuide(.body2)
+                return label
+            }()
+            
+            let height = max(heightForView(text: label.text ?? "", font: label.font, width: SizeLiterals.Screen.screenWidth - 119), 24) + 32
+            
+            return CGSize(width: SizeLiterals.Screen.screenWidth - 40, height: height)
+        case themeStatsCV:
+            return CGSize(width: (SizeLiterals.Screen.screenWidth - 45) / 2, height: 79)
+        default:
+            return CGSize()
+        }
     }
     
     func heightForView(text: String, font: UIFont, width: CGFloat) -> CGFloat {

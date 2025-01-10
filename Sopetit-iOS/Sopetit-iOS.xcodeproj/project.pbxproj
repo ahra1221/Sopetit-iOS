@@ -58,6 +58,7 @@
 		09CC26C82C8A836000C3BD3B /* NewDailyRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CC26C72C8A836000C3BD3B /* NewDailyRoutineView.swift */; };
 		09CC26CA2C8A839100C3BD3B /* ChallengeRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CC26C92C8A839100C3BD3B /* ChallengeRoutineView.swift */; };
 		A40C7A592D2E396B00427BAA /* AchieveStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40C7A582D2E396200427BAA /* AchieveStatsView.swift */; };
+		A40C7A5B2D2E4B2500427BAA /* StatsRoutineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40C7A5A2D2E4B1B00427BAA /* StatsRoutineCell.swift */; };
 		A40F9EFD2C6798A5004DD1A1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A40F9EFC2C6798A5004DD1A1 /* GoogleService-Info.plist */; };
 		A40F9F082C69A06E004DD1A1 /* TotalRoutineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F9F072C69A06E004DD1A1 /* TotalRoutineCollectionViewCell.swift */; };
 		A40F9F102C69D08D004DD1A1 /* AddChallengeRoutineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F9F0F2C69D08D004DD1A1 /* AddChallengeRoutineCollectionViewCell.swift */; };
@@ -232,6 +233,7 @@
 		09CC26C72C8A836000C3BD3B /* NewDailyRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewDailyRoutineView.swift; sourceTree = "<group>"; };
 		09CC26C92C8A839100C3BD3B /* ChallengeRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeRoutineView.swift; sourceTree = "<group>"; };
 		A40C7A582D2E396200427BAA /* AchieveStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchieveStatsView.swift; sourceTree = "<group>"; };
+		A40C7A5A2D2E4B1B00427BAA /* StatsRoutineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsRoutineCell.swift; sourceTree = "<group>"; };
 		A40F9EF92C679827004DD1A1 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		A40F9EFB2C67985C004DD1A1 /* ReleaseConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ReleaseConfig.xcconfig; sourceTree = "<group>"; };
 		A40F9EFC2C6798A5004DD1A1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -1072,6 +1074,7 @@
 		A46CA16D2CE70FEB00AB4DCA /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				A40C7A5A2D2E4B1B00427BAA /* StatsRoutineCell.swift */,
 				A46CA16E2CE7102100AB4DCA /* CalendarDateCell.swift */,
 				A49E0AF82D01558B00588087 /* CalendarHistoryCell.swift */,
 			);
@@ -1530,6 +1533,7 @@
 				A4648BA22C04348E001EB031 /* OngoingViewController.swift in Sources */,
 				A488FE8B2B697BB7000B4809 /* UpdateAlertView.swift in Sources */,
 				A49BFE4F2B53CE7700035EB6 /* DollImageEntity.swift in Sources */,
+				A40C7A5B2D2E4B2500427BAA /* StatsRoutineCell.swift in Sources */,
 				006AD5BA2B6AAAD100070178 /* ReissueService.swift in Sources */,
 				00CCDCC42B51B5BD007DD0E6 /* SplashTwoView.swift in Sources */,
 				093C1E072B4CFDDF00EF84AB /* CustomNavigationBarView.swift in Sources */,

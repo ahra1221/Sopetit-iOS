@@ -9,6 +9,7 @@ import UIKit
 
 import SnapKit
 import FSCalendar
+import Foundation
 
 final class AchieveViewController: UIViewController {
     
@@ -23,6 +24,7 @@ final class AchieveViewController: UIViewController {
     private lazy var requestEntity: CalendarRequestEntity = CalendarRequestEntity(year: self.getDayComponents(date: "").year, month: self.getDayComponents(date: "").month)
     private var calendarEntity: CalendarEntity = CalendarEntity(success: false, message: "", data: ["": CalendarDate(memoID: 0, memoContent: "", histories: [])])
     private var achieveThemeEntity = AchieveThemeEntity.initalEntity()
+    private var ahcieveRankEntity: [AchieveRankEntity] = AchieveRankEntity.initalEntity()
     private var selectedDateMemo: String = ""
     private var selectedDateMemoId: Int = 0
     private var fromDidChange: Bool = false
@@ -38,6 +40,7 @@ final class AchieveViewController: UIViewController {
     private lazy var goTodayButton = achieveCalendarView.calendarHeaderView.goTodayButton
     private lazy var achieveCV = achieveCalendarView.achieveCollectionView
     private lazy var themeStatsCV = achieveStatsView.themeStatsCollectionView
+    private lazy var chartRankCV = achieveStatsView.chartRankCollectionView
     private lazy var chartView = achieveStatsView.chartView
     
     // MARK: - Life Cycles
@@ -114,6 +117,8 @@ extension AchieveViewController {
         achieveCV.dataSource = self
         themeStatsCV.delegate = self
         themeStatsCV.dataSource = self
+        chartRankCV.delegate = self
+        chartRankCV.dataSource = self
     }
     
     @objc
@@ -334,7 +339,18 @@ extension AchieveViewController {
         return AchieveThemeEntity(achievedCount: entity.achievedCount,
                                   themes: adjustedThemes)
     }
-
+    
+    func setRankData(for entity: AchieveThemeEntity) -> [AchieveRankEntity] {
+        let total = entity.achievedCount
+        var rankWithPercent: [AchieveRankEntity] = []
+        for i in entity.themes {
+            let entity = AchieveRankEntity(themeId: i.id, percent: Int(Double(i.achievedCount) / Double(total) * 100))
+            rankWithPercent.append(entity)
+        }
+        print("rankwithpercent")
+        print(rankWithPercent)
+        return rankWithPercent
+    }
 }
 
 // MARK: - CollectionView
@@ -364,10 +380,8 @@ extension AchieveViewController: UICollectionViewDataSource {
                 print("emptyview")
                 achieveCalendarView.bindIsEmptyView(isEmpty: true)
             }
-        case themeStatsCV:
-            return 1
         default:
-            return 0
+            return 1
         }
         return 0
     }
@@ -379,6 +393,8 @@ extension AchieveViewController: UICollectionViewDataSource {
             return value.histories[section].histories.count
         case themeStatsCV:
             return 7
+        case chartRankCV:
+            return ahcieveRankEntity.count
         default:
             return 0
         }
@@ -399,6 +415,12 @@ extension AchieveViewController: UICollectionViewDataSource {
             let cell = StatsRoutineCell.dequeueReusableCell(collectionView: themeStatsCV, indexPath: indexPath)
             if achieveThemeEntity.themes.count > 6 {
                 cell.bindStatsRoutine(entity: self.achieveThemeEntity.themes[indexPath.item])
+            }
+            return cell
+        case chartRankCV:
+            let cell = ChartRankCell.dequeueReusableCell(collectionView: chartRankCV, indexPath: indexPath)
+            if ahcieveRankEntity.count > 0 {
+                cell.bindChartRankCell(entity: self.ahcieveRankEntity[indexPath.item])
             }
             return cell
         default:
@@ -450,6 +472,8 @@ extension AchieveViewController: UICollectionViewDelegateFlowLayout {
             return CGSize(width: SizeLiterals.Screen.screenWidth - 40, height: height)
         case themeStatsCV:
             return CGSize(width: (SizeLiterals.Screen.screenWidth - 45) / 2, height: 79)
+        case chartRankCV:
+            return CGSize(width: 117, height: 20)
         default:
             return CGSize()
         }
@@ -783,7 +807,9 @@ extension AchieveViewController {
                     if let achieveThemeData = data.data {
                         self.chartView.achieveTheme = self.setChartData(achieveThemeData: achieveThemeData)
                         self.achieveThemeEntity = self.setThemeData(for: achieveThemeData)
+                        self.ahcieveRankEntity = self.setRankData(for: self.setChartData(achieveThemeData: achieveThemeData))
                         self.themeStatsCV.reloadData()
+                        self.chartRankCV.reloadData()
                         if achieveThemeData.themes.count > 0 {
                             self.achieveStatsView.bindStatsImage(entity: AchieveCharacterEntity(themeId: achieveThemeData.themes[0].id))
                         }

@@ -34,7 +34,12 @@ extension ThemeDetailEntity {
                          "한 걸음 성장",
                          "건강한 몸",
                          "나와 친해지기"]
-        return ThemeDetailEntity(themeTitle: titleList[id-1],
-                                 themeImage: UIImage(named: "theme_full_\(id)") ?? UIImage())
+        if id == 0 {
+            return ThemeDetailEntity(themeTitle: "기타",
+                                     themeImage: UIImage(named: "theme_full_\(id)") ?? UIImage())
+        } else {
+            return ThemeDetailEntity(themeTitle: titleList[id-1],
+                                     themeImage: UIImage(named: "theme_full_\(id)") ?? UIImage())
+        }
     }
 }

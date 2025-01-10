@@ -62,6 +62,8 @@
 		A40C7A5F2D30A38900427BAA /* StatsChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40C7A5E2D30A38300427BAA /* StatsChartView.swift */; };
 		A40C7A612D30A6B300427BAA /* AchieveThemeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40C7A602D30A6A200427BAA /* AchieveThemeEntity.swift */; };
 		A40C7A652D30B82200427BAA /* AchieveCharacterEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40C7A642D30B81900427BAA /* AchieveCharacterEntity.swift */; };
+		A40C7A672D30D6B100427BAA /* ChartRankCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40C7A662D30D6AB00427BAA /* ChartRankCell.swift */; };
+		A40C7A692D30D9F600427BAA /* AchieveRankEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40C7A682D30D9F200427BAA /* AchieveRankEntity.swift */; };
 		A40F9EFD2C6798A5004DD1A1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A40F9EFC2C6798A5004DD1A1 /* GoogleService-Info.plist */; };
 		A40F9F082C69A06E004DD1A1 /* TotalRoutineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F9F072C69A06E004DD1A1 /* TotalRoutineCollectionViewCell.swift */; };
 		A40F9F102C69D08D004DD1A1 /* AddChallengeRoutineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F9F0F2C69D08D004DD1A1 /* AddChallengeRoutineCollectionViewCell.swift */; };
@@ -240,6 +242,8 @@
 		A40C7A5E2D30A38300427BAA /* StatsChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsChartView.swift; sourceTree = "<group>"; };
 		A40C7A602D30A6A200427BAA /* AchieveThemeEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchieveThemeEntity.swift; sourceTree = "<group>"; };
 		A40C7A642D30B81900427BAA /* AchieveCharacterEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchieveCharacterEntity.swift; sourceTree = "<group>"; };
+		A40C7A662D30D6AB00427BAA /* ChartRankCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartRankCell.swift; sourceTree = "<group>"; };
+		A40C7A682D30D9F200427BAA /* AchieveRankEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchieveRankEntity.swift; sourceTree = "<group>"; };
 		A40F9EF92C679827004DD1A1 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		A40F9EFB2C67985C004DD1A1 /* ReleaseConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ReleaseConfig.xcconfig; sourceTree = "<group>"; };
 		A40F9EFC2C6798A5004DD1A1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -1081,6 +1085,7 @@
 		A46CA16D2CE70FEB00AB4DCA /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				A40C7A662D30D6AB00427BAA /* ChartRankCell.swift */,
 				A40C7A5A2D2E4B1B00427BAA /* StatsRoutineCell.swift */,
 				A46CA16E2CE7102100AB4DCA /* CalendarDateCell.swift */,
 				A49E0AF82D01558B00588087 /* CalendarHistoryCell.swift */,
@@ -1278,6 +1283,7 @@
 		A49E0AEB2CFEC61C00588087 /* Achieve */ = {
 			isa = PBXGroup;
 			children = (
+				A40C7A682D30D9F200427BAA /* AchieveRankEntity.swift */,
 				A40C7A642D30B81900427BAA /* AchieveCharacterEntity.swift */,
 				A40C7A602D30A6A200427BAA /* AchieveThemeEntity.swift */,
 				A49E0AEC2CFEC62600588087 /* MemberProfileEntity.swift */,
@@ -1468,6 +1474,7 @@
 				A42C32BB2B3EAAEA00C4B477 /* FontLiterals.swift in Sources */,
 				A42C32F22B3EADCD00C4B477 /* LoginEntity.swift in Sources */,
 				00CCDCC62B51B5C8007DD0E6 /* SplashThreeView.swift in Sources */,
+				A40C7A672D30D6B100427BAA /* ChartRankCell.swift in Sources */,
 				09BCA9FA2C2A7773006E876D /* ChallengeRoutineCardView.swift in Sources */,
 				A4D9F6E92C5D2F8600A9F719 /* TutorialViewController.swift in Sources */,
 				A40F9F412C6EEC4D004DD1A1 /* ChangeChallengeBSViewController.swift in Sources */,
@@ -1477,6 +1484,7 @@
 				A49BFE1F2B4E542B00035EB6 /* RoutineChoiceView.swift in Sources */,
 				A49BFDE12B4D7A5400035EB6 /* DollChoiceViewController.swift in Sources */,
 				A49E0AF52D0123BC00588087 /* CalendarEntity.swift in Sources */,
+				A40C7A692D30D9F600427BAA /* AchieveRankEntity.swift in Sources */,
 				A40F9F1A2C6AD944004DD1A1 /* AddRoutineInfoEntity.swift in Sources */,
 				A42C33042B3EAE4F00C4B477 /* AuthService.swift in Sources */,
 				A4648BA02C043417001EB031 /* AddRoutineView.swift in Sources */,

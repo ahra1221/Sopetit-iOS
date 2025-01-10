@@ -78,6 +78,17 @@ final class AchieveStatsView: UIView {
     
     lazy var chartView = StatsChartView(entity: AchieveThemeEntity.initalEntity())
     
+    let chartRankCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 8
+        collectionView.isScrollEnabled = false
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.collectionViewLayout = layout
+        collectionView.backgroundColor = .clear
+        return collectionView
+    }()
+    
     // 달성한루틴뷰
     
     private let routineStatsTitle: UILabel = {
@@ -137,7 +148,8 @@ private extension AchieveStatsView {
                                    statsSubLabel)
         chartBackView.addSubviews(chartTitleLabel,
                                   chartSubLabel,
-                                  chartView)
+                                  chartView,
+                                  chartRankCollectionView)
     }
     
     func setLayout() {
@@ -187,8 +199,15 @@ private extension AchieveStatsView {
         
         chartView.snp.makeConstraints {
             $0.top.equalTo(chartSubLabel.snp.bottom).offset(24)
-            $0.leading.equalToSuperview().inset(28)
+            $0.leading.equalToSuperview().inset(29)
             $0.size.equalTo(142)
+        }
+        
+        chartRankCollectionView.snp.makeConstraints {
+            $0.centerY.equalTo(chartView)
+            $0.trailing.equalToSuperview().inset(29)
+            $0.width.equalTo(118)
+            $0.height.equalTo(104)
         }
         
         routineStatsTitle.snp.makeConstraints {
@@ -207,6 +226,7 @@ private extension AchieveStatsView {
     
     func setRegisterCell() {
         StatsRoutineCell.register(target: themeStatsCollectionView)
+        ChartRankCell.register(target: chartRankCollectionView)
     }
 }
 
@@ -216,5 +236,9 @@ extension AchieveStatsView {
         statsImageView.image = entity.characterImage
         statsTitleLabel.text = entity.characterTitle
         statsSubLabel.text = "\(UserManager.shared.getDollName)는" + entity.characterSub
+        chartSubLabel.text =  "\(UserManager.shared.getDollName)와 '\(ThemeDetailEntity.getFullTheme(id: entity.themeId).themeTitle)'하며 가장 많은 시간을 보냈어요"
+        statsTitleLabel.asLineHeight(.head2)
+        statsSubLabel.asLineHeight(.body2)
+        chartSubLabel.asLineHeight(.body2)
     }
 }

@@ -76,7 +76,7 @@ final class AchieveStatsView: UIView {
         return label
     }()
     
-    private let chartView = StatsChartView()
+    lazy var chartView = StatsChartView(entity: AchieveThemeEntity.initalEntity())
     
     // 달성한루틴뷰
     
@@ -124,7 +124,6 @@ private extension AchieveStatsView {
     
     func setUI() {
         self.backgroundColor = .Gray50
-        chartView.backgroundColor = .SoftieWhite
     }
     
     func setHierarchy() {

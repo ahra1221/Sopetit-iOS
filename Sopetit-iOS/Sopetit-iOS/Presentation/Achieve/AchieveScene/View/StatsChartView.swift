@@ -10,20 +10,43 @@ import UIKit
 
 final class StatsChartView: UIView {
     
+     var achieveTheme: AchieveThemeEntity = AchieveThemeEntity.initalEntity(){
+        didSet {
+            print("😬😬😬😬")
+            print(achieveTheme)
+            self.setNeedsDisplay()
+        }
+    }
+    
+    init(entity: AchieveThemeEntity) {
+        self.achieveTheme = entity
+        super.init(frame: .zero)
+        self.backgroundColor = .clear
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
     override func draw(_ rect: CGRect) {
         
         let center = CGPoint(x: rect.midX, y: rect.midY)
         
-        let colors = [UIColor.orange, UIColor.black, UIColor.systemGreen, UIColor.systemPink, UIColor.cyan, UIColor.systemTeal]
+        var colors: [UIColor] = []
+        var values: [CGFloat] = []
         
-        let values: [CGFloat] = [10, 20, 70]
-        let total = values.reduce(0, +)
+        for theme in achieveTheme.themes {
+            values.append(CGFloat(theme.achievedCount))
+            colors.append(UIColor(named: "ThemeChart\(theme.id)") ?? UIColor())
+        }
+        
+        let total = CGFloat(achieveTheme.achievedCount)
         
         //x degree = x * π / 180 radian
         var startAngle: CGFloat = (-(.pi) / 2)
         var endAngle: CGFloat = 0.0
         
-        values.forEach { (value) in
+        values.enumerated().forEach { (index, value) in
             endAngle = (value / total) * (.pi * 2)
             
             let path = UIBezierPath()
@@ -34,7 +57,7 @@ final class StatsChartView: UIView {
                         endAngle: startAngle + endAngle,
                         clockwise: true)
             
-            colors.randomElement()?.set()
+            colors[index].setFill()
             path.fill()
             startAngle += endAngle
             path.close()

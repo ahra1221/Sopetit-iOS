@@ -35,6 +35,7 @@ final class AchieveViewController: UIViewController {
     private lazy var goTodayButton = achieveCalendarView.calendarHeaderView.goTodayButton
     private lazy var achieveCV = achieveCalendarView.achieveCollectionView
     private lazy var themeStatsCV = achieveStatsView.themeStatsCollectionView
+    private lazy var chartView = achieveStatsView.chartView
     
     // MARK: - Life Cycles
     
@@ -53,6 +54,7 @@ final class AchieveViewController: UIViewController {
         
         getMemberProfileAPI()
         getCalendarAPI(entity: requestEntity)
+        getAchievementThemesAPI()
         setUI()
         setAddGesture()
         setRegisterCell()
@@ -724,6 +726,32 @@ extension AchieveViewController {
                 ReissueService.shared.postReissueAPI(refreshToken: UserManager.shared.getRefreshToken) { success in
                     if success {
                         self.getCalendarAPI(entity: entity)
+                    } else {
+                        self.makeSessionExpiredAlert()
+                    }
+                }
+            case .requestErr, .serverErr:
+                self.makeServerErrorAlert()
+            default:
+                break
+            }
+        }
+    }
+    
+    func getAchievementThemesAPI() {
+        AchieveService.shared.getAchievementThemesAPI { networkResult in
+            switch networkResult {
+            case .success(let data):
+                if let data = data as? GenericResponse<AchieveThemeEntity> {
+                    if let achieveThemeData = data.data {
+                        self.chartView.achieveTheme = achieveThemeData
+                        self.chartView.setNeedsDisplay()
+                    }
+                }
+            case .reissue:
+                ReissueService.shared.postReissueAPI(refreshToken: UserManager.shared.getRefreshToken) { success in
+                    if success {
+                        self.getAchievementThemesAPI()
                     } else {
                         self.makeSessionExpiredAlert()
                     }

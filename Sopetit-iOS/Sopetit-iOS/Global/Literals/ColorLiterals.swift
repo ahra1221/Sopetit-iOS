@@ -135,4 +135,33 @@ extension UIColor {
     static var ThemeBack8: UIColor {
         return UIColor(hex: "#E5E1FF")
     }
+    
+    static var ThemeChart1: UIColor {
+        return UIColor(hex: "#FFAAB2")
+    }
+    
+    static var ThemeChart2: UIColor {
+        return UIColor(hex: "#FFAAB2")
+    }
+    
+    static var ThemeChart3: UIColor {
+        return UIColor(hex: "#FFB74B")
+    }
+    
+    static var ThemeChart4: UIColor {
+        return UIColor(hex: "#FFDC43")
+    }
+    
+    static var ThemeChart5: UIColor {
+        return UIColor(hex: "#84E0A3")
+    }
+    
+    static var ThemeChart6: UIColor {
+        return UIColor(hex: "#80CAFF")
+    }
+    
+    static var ThemeChart7: UIColor {
+        return UIColor(hex: "#7797EA")
+    }
+    
 }

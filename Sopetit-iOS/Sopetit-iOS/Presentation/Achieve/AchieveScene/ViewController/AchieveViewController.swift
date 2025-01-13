@@ -347,8 +347,6 @@ extension AchieveViewController {
             let entity = AchieveRankEntity(themeId: i.id, percent: Int(Double(i.achievedCount) / Double(total) * 100))
             rankWithPercent.append(entity)
         }
-        print("rankwithpercent")
-        print(rankWithPercent)
         return rankWithPercent
     }
 }
@@ -365,6 +363,15 @@ extension AchieveViewController: CalendarHistoryCellDelegate {
         print(cellInfo)
         nav.modalPresentationStyle = .overFullScreen
         self.present(nav, animated: false)
+    }
+}
+
+extension AchieveViewController: StatsRoutineDelegate {
+    
+    func selectedCell(_ cellInfo: StatsRoutineInfo) {
+        let nav = AchieveDetailViewController()
+        nav.cellInfo = cellInfo
+        self.navigationController?.pushViewController(nav, animated: true)
     }
 }
 
@@ -416,6 +423,7 @@ extension AchieveViewController: UICollectionViewDataSource {
             if achieveThemeEntity.themes.count > 6 {
                 cell.bindStatsRoutine(entity: self.achieveThemeEntity.themes[indexPath.item])
             }
+            cell.delegate = self
             return cell
         case chartRankCV:
             let cell = ChartRankCell.dequeueReusableCell(collectionView: chartRankCV, indexPath: indexPath)

@@ -9,12 +9,23 @@ import UIKit
 
 import SnapKit
 
+struct StatsRoutineInfo {
+    let themeId: Int
+    let totalCount: Int
+}
+
+protocol StatsRoutineDelegate: AnyObject {
+    func selectedCell(_ cellInfo: StatsRoutineInfo)
+}
+
 final class StatsRoutineCell: UICollectionViewCell,
                               UICollectionViewRegisterable {
     
     // MARK: - Properties
     
     static var isFromNib: Bool = false
+    weak var delegate: StatsRoutineDelegate?
+    private var cellInfo: StatsRoutineInfo?
     
     // MARK: - UI Components
     
@@ -43,6 +54,7 @@ final class StatsRoutineCell: UICollectionViewCell,
         setUI()
         setHierarchy()
         setLayout()
+        setAddGesture()
     }
     
     @available(*, unavailable)
@@ -81,6 +93,17 @@ private extension StatsRoutineCell {
             $0.bottom.equalToSuperview().inset(9)
         }
     }
+    
+    func setAddGesture() {
+        let cellTapGesture = UITapGestureRecognizer(target: self, action: #selector(cellTapped))
+        self.addGestureRecognizer(cellTapGesture)
+    }
+    
+    @objc
+    func cellTapped() {
+        delegate?.selectedCell(self.cellInfo ?? StatsRoutineInfo(themeId: 0,
+                                                                 totalCount: 0))
+    }
 }
 
 extension StatsRoutineCell {
@@ -91,5 +114,7 @@ extension StatsRoutineCell {
         themeCountLabel.text = "\(entity.achievedCount)번"
         themeTitleLabel.asLineHeight(.body2)
         themeCountLabel.asLineHeight(.head2)
+        self.cellInfo = StatsRoutineInfo(themeId: entity.id,
+                                         totalCount: entity.achievedCount)
     }
 }

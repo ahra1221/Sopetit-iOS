@@ -64,6 +64,9 @@
 		A40C7A652D30B82200427BAA /* AchieveCharacterEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40C7A642D30B81900427BAA /* AchieveCharacterEntity.swift */; };
 		A40C7A672D30D6B100427BAA /* ChartRankCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40C7A662D30D6AB00427BAA /* ChartRankCell.swift */; };
 		A40C7A692D30D9F600427BAA /* AchieveRankEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40C7A682D30D9F200427BAA /* AchieveRankEntity.swift */; };
+		A40C7A6B2D34915900427BAA /* AchieveDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40C7A6A2D34914000427BAA /* AchieveDetailViewController.swift */; };
+		A40C7A6D2D3491A200427BAA /* AchieveStatsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40C7A6C2D34919D00427BAA /* AchieveStatsDetailView.swift */; };
+		A40C7A6F2D3494AA00427BAA /* StatsDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40C7A6E2D3494A200427BAA /* StatsDetailCell.swift */; };
 		A40F9EFD2C6798A5004DD1A1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A40F9EFC2C6798A5004DD1A1 /* GoogleService-Info.plist */; };
 		A40F9F082C69A06E004DD1A1 /* TotalRoutineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F9F072C69A06E004DD1A1 /* TotalRoutineCollectionViewCell.swift */; };
 		A40F9F102C69D08D004DD1A1 /* AddChallengeRoutineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F9F0F2C69D08D004DD1A1 /* AddChallengeRoutineCollectionViewCell.swift */; };
@@ -244,6 +247,9 @@
 		A40C7A642D30B81900427BAA /* AchieveCharacterEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchieveCharacterEntity.swift; sourceTree = "<group>"; };
 		A40C7A662D30D6AB00427BAA /* ChartRankCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartRankCell.swift; sourceTree = "<group>"; };
 		A40C7A682D30D9F200427BAA /* AchieveRankEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchieveRankEntity.swift; sourceTree = "<group>"; };
+		A40C7A6A2D34914000427BAA /* AchieveDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchieveDetailViewController.swift; sourceTree = "<group>"; };
+		A40C7A6C2D34919D00427BAA /* AchieveStatsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchieveStatsDetailView.swift; sourceTree = "<group>"; };
+		A40C7A6E2D3494A200427BAA /* StatsDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsDetailCell.swift; sourceTree = "<group>"; };
 		A40F9EF92C679827004DD1A1 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		A40F9EFB2C67985C004DD1A1 /* ReleaseConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ReleaseConfig.xcconfig; sourceTree = "<group>"; };
 		A40F9EFC2C6798A5004DD1A1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -994,6 +1000,7 @@
 		A4648B912C043322001EB031 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				A40C7A6A2D34914000427BAA /* AchieveDetailViewController.swift */,
 				A4648B9B2C043387001EB031 /* AchieveViewController.swift */,
 				A475D5242CFE8C1300B5DDC5 /* EditMemoBSViewController.swift */,
 				A475D52A2CFEABA700B5DDC5 /* AddMemoBSViewController.swift */,
@@ -1005,6 +1012,7 @@
 		A4648B922C043327001EB031 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A40C7A6C2D34919D00427BAA /* AchieveStatsDetailView.swift */,
 				A40C7A5E2D30A38300427BAA /* StatsChartView.swift */,
 				A40C7A582D2E396200427BAA /* AchieveStatsView.swift */,
 				A49CB10E2D1D0A5E007D13D0 /* AchieveCalendarView.swift */,
@@ -1085,6 +1093,7 @@
 		A46CA16D2CE70FEB00AB4DCA /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				A40C7A6E2D3494A200427BAA /* StatsDetailCell.swift */,
 				A40C7A662D30D6AB00427BAA /* ChartRankCell.swift */,
 				A40C7A5A2D2E4B1B00427BAA /* StatsRoutineCell.swift */,
 				A46CA16E2CE7102100AB4DCA /* CalendarDateCell.swift */,
@@ -1475,6 +1484,7 @@
 				A42C32F22B3EADCD00C4B477 /* LoginEntity.swift in Sources */,
 				00CCDCC62B51B5C8007DD0E6 /* SplashThreeView.swift in Sources */,
 				A40C7A672D30D6B100427BAA /* ChartRankCell.swift in Sources */,
+				A40C7A6B2D34915900427BAA /* AchieveDetailViewController.swift in Sources */,
 				09BCA9FA2C2A7773006E876D /* ChallengeRoutineCardView.swift in Sources */,
 				A4D9F6E92C5D2F8600A9F719 /* TutorialViewController.swift in Sources */,
 				A40F9F412C6EEC4D004DD1A1 /* ChangeChallengeBSViewController.swift in Sources */,
@@ -1525,6 +1535,7 @@
 				A42C32CF2B3EAB7700C4B477 /* UIColor+.swift in Sources */,
 				A49E0B002D02E30000588087 /* DelRoutineBSViewController.swift in Sources */,
 				A49BFDDA2B4D5F4600035EB6 /* StoryTellingSecondView.swift in Sources */,
+				A40C7A6F2D3494AA00427BAA /* StatsDetailCell.swift in Sources */,
 				A497063D2C81E1D1008D2D57 /* LogoutBSViewController.swift in Sources */,
 				A42C32F62B3EADE300C4B477 /* HomeEntity.swift in Sources */,
 				09BCA9F82C2A7761006E876D /* NewDailyRoutineHeaderView.swift in Sources */,
@@ -1604,6 +1615,7 @@
 				A40C7A592D2E396B00427BAA /* AchieveStatsView.swift in Sources */,
 				A49BFDF02B4DA48200035EB6 /* ThemeSelectView.swift in Sources */,
 				A49BFE622B558B2E00035EB6 /* MemberEntity.swift in Sources */,
+				A40C7A6D2D3491A200427BAA /* AchieveStatsDetailView.swift in Sources */,
 				A46CA16F2CE7102D00AB4DCA /* CalendarDateCell.swift in Sources */,
 				A4A516D12C36C46E00ED9CC1 /* RoutineThemeCollectionViewCell.swift in Sources */,
 				A49BFDD52B4D5F0800035EB6 /* StroyTellingViewController.swift in Sources */,

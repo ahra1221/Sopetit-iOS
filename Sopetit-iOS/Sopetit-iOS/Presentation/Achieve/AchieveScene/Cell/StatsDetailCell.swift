@@ -8,6 +8,7 @@
 import UIKit
 
 import SnapKit
+import Foundation
 
 final class StatsDetailCell: UICollectionViewCell,
                              UICollectionViewRegisterable {
@@ -123,6 +124,24 @@ private extension StatsDetailCell {
 
 extension StatsDetailCell {
     
-    func bindStatsDetail() {
+    func bindStatsDetail(entity: ThemeChallenge,
+                         themeId: Int,
+                         isChallenge: Bool) {
+        themeTitleLabel.text = entity.content.replacingOccurrences(of: "\n", with: " ")
+        themeCountLabel.text = "\(entity.achievedCount)번 달성"
+        
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = "yyyy-MM-dd"
+
+        if let date = inputFormatter.date(from: entity.startedAt) {
+            let outputFormatter = DateFormatter()
+            outputFormatter.dateFormat = "yyyy년 MM월 dd일"
+            let formattedDate = outputFormatter.string(from: date)
+            themeTimeLabel.text = isChallenge ? "\(formattedDate) 마지막 달성" : "\(formattedDate)부터 지금까지"
+        }
+        
+        themeBackImageView.isHidden = !isChallenge
+        themeBackImageView.image = UIImage(named: "theme_half_\(themeId)")
+        self.backgroundColor = isChallenge ? UIColor(named: "ThemeBack\(themeId)") : .SoftieWhite
     }
 }

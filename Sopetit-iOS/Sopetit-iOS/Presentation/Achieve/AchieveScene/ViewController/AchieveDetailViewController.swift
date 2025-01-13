@@ -14,6 +14,8 @@ final class AchieveDetailViewController: UIViewController {
     // MARK: - Properties
     
     var cellInfo: StatsRoutineInfo = StatsRoutineInfo(themeId: 0, totalCount: 0)
+    private var dailyRoutines: [ThemeChallenge] = []
+    private var challengeRoutines: [ThemeChallenge] = []
     
     // MARK: - UI Components
     
@@ -46,10 +48,18 @@ extension AchieveDetailViewController {
     }
     
     func setDelegate() {
+        achieveDetailView.navigationBar.delegate = self
         detailChallengeCV.delegate = self
         detailChallengeCV.dataSource = self
         detailDailyCV.delegate = self
         detailDailyCV.dataSource = self
+    }
+}
+
+extension AchieveDetailViewController: BackButtonProtocol {
+    
+    func tapBackButton() {
+        self.navigationController?.popViewController(animated: true)
     }
 }
 
@@ -82,9 +92,9 @@ extension AchieveDetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
         case detailChallengeCV:
-            return 1
+            return challengeRoutines.count
         case detailDailyCV:
-            return 1
+            return dailyRoutines.count
         default:
             return 0
         }
@@ -94,9 +104,15 @@ extension AchieveDetailViewController: UICollectionViewDataSource {
         switch collectionView {
         case detailChallengeCV:
             let cell = StatsDetailCell.dequeueReusableCell(collectionView: detailChallengeCV, indexPath: indexPath)
+            cell.bindStatsDetail(entity: self.challengeRoutines[indexPath.item],
+                                 themeId: cellInfo.themeId,
+                                 isChallenge: true)
             return cell
         case detailDailyCV:
             let cell = StatsDetailCell.dequeueReusableCell(collectionView: detailDailyCV, indexPath: indexPath)
+            cell.bindStatsDetail(entity: self.dailyRoutines[indexPath.item],
+                                 themeId: cellInfo.themeId,
+                                 isChallenge: false)
             return cell
         default:
             return UICollectionViewCell()
@@ -112,9 +128,12 @@ extension AchieveDetailViewController {
             case .success(let data):
                 if let data = data as? GenericResponse<AchieveThemeRoutineEntity> {
                     if let achieveThemeRoutineData = data.data {
-                        print("😳😳😳😳😳")
-                        dump(achieveThemeRoutineData)
-                        print("😳😳😳😳😳")
+                        self.dailyRoutines = achieveThemeRoutineData.routines
+                        self.challengeRoutines = achieveThemeRoutineData.challenges
+                        self.achieveDetailView.bindTotalDetail(total: self.dailyRoutines.count, isChallenge: false)
+                        self.achieveDetailView.bindTotalDetail(total: self.challengeRoutines.count, isChallenge: true)
+                        self.detailDailyCV.reloadData()
+                        self.detailChallengeCV.reloadData()
                     }
                 }
             case .reissue:

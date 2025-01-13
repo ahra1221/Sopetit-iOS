@@ -149,6 +149,7 @@ private extension AchieveStatsDetailView {
         navigationBar.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide)
             $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(56)
         }
         
         divideView.snp.makeConstraints {
@@ -191,7 +192,7 @@ private extension AchieveStatsDetailView {
         }
         
         challengeCountLabel.snp.makeConstraints {
-            $0.top.equalTo(challengeTitleLabel.snp.top).offset(3)
+            $0.centerY.equalTo(challengeTitleLabel.snp.centerY)
             $0.leading.equalTo(challengeTitleLabel.snp.trailing).offset(6)
         }
         
@@ -206,7 +207,7 @@ private extension AchieveStatsDetailView {
         }
         
         dailyCountLabel.snp.makeConstraints {
-            $0.top.equalTo(dailyTitleLabel.snp.top).offset(3)
+            $0.centerY.equalTo(dailyTitleLabel.snp.centerY)
             $0.leading.equalTo(dailyTitleLabel.snp.trailing).offset(6)
         }
         
@@ -230,7 +231,19 @@ extension AchieveStatsDetailView {
         themeImageView.image = UIImage(named: "theme\(model.themeId)")
         themeTitleLabel.text = ThemeDetailEntity.getTheme(id: model.themeId).themeTitle
         themeCountLabel.text = "\(model.totalCount)번"
+        themeTitleLabel.textColor = UIColor(named: "ThemeTitle\(model.themeId)")
         themeTitleLabel.asLineHeight(.body2)
         themeCountLabel.asLineHeight(.head2)
+    }
+    
+    func bindTotalDetail(total: Int,
+                         isChallenge: Bool) {
+        if isChallenge {
+            challengeCountLabel.text = "\(total)번"
+            challengeCountLabel.asLineHeight(.body2)
+        } else {
+            dailyCountLabel.text = "\(total)번"
+            dailyCountLabel.asLineHeight(.body2)
+        }
     }
 }

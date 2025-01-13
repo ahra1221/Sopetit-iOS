@@ -30,6 +30,7 @@ final class AchieveDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        getAchievementThemesAPI()
         setUI()
         setDelegate()
     }
@@ -99,6 +100,36 @@ extension AchieveDetailViewController: UICollectionViewDataSource {
             return cell
         default:
             return UICollectionViewCell()
+        }
+    }
+}
+
+extension AchieveDetailViewController {
+    
+    func getAchievementThemesAPI() {
+        AchieveService.shared.getAchievementThemesRoutineAPI(themeId: cellInfo.themeId) { networkResult in
+            switch networkResult {
+            case .success(let data):
+                if let data = data as? GenericResponse<AchieveThemeRoutineEntity> {
+                    if let achieveThemeRoutineData = data.data {
+                        print("😳😳😳😳😳")
+                        dump(achieveThemeRoutineData)
+                        print("😳😳😳😳😳")
+                    }
+                }
+            case .reissue:
+                ReissueService.shared.postReissueAPI(refreshToken: UserManager.shared.getRefreshToken) { success in
+                    if success {
+                        self.getAchievementThemesAPI()
+                    } else {
+                        self.makeSessionExpiredAlert()
+                    }
+                }
+            case .requestErr, .serverErr:
+                self.makeServerErrorAlert()
+            default:
+                break
+            }
         }
     }
 }

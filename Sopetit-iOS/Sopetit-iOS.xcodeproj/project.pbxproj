@@ -67,6 +67,7 @@
 		A40C7A6B2D34915900427BAA /* AchieveDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40C7A6A2D34914000427BAA /* AchieveDetailViewController.swift */; };
 		A40C7A6D2D3491A200427BAA /* AchieveStatsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40C7A6C2D34919D00427BAA /* AchieveStatsDetailView.swift */; };
 		A40C7A6F2D3494AA00427BAA /* StatsDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40C7A6E2D3494A200427BAA /* StatsDetailCell.swift */; };
+		A40C7A712D34AE4500427BAA /* AchieveThemeRoutineEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40C7A702D34AE3D00427BAA /* AchieveThemeRoutineEntity.swift */; };
 		A40F9EFD2C6798A5004DD1A1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A40F9EFC2C6798A5004DD1A1 /* GoogleService-Info.plist */; };
 		A40F9F082C69A06E004DD1A1 /* TotalRoutineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F9F072C69A06E004DD1A1 /* TotalRoutineCollectionViewCell.swift */; };
 		A40F9F102C69D08D004DD1A1 /* AddChallengeRoutineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F9F0F2C69D08D004DD1A1 /* AddChallengeRoutineCollectionViewCell.swift */; };
@@ -250,6 +251,7 @@
 		A40C7A6A2D34914000427BAA /* AchieveDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchieveDetailViewController.swift; sourceTree = "<group>"; };
 		A40C7A6C2D34919D00427BAA /* AchieveStatsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchieveStatsDetailView.swift; sourceTree = "<group>"; };
 		A40C7A6E2D3494A200427BAA /* StatsDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsDetailCell.swift; sourceTree = "<group>"; };
+		A40C7A702D34AE3D00427BAA /* AchieveThemeRoutineEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchieveThemeRoutineEntity.swift; sourceTree = "<group>"; };
 		A40F9EF92C679827004DD1A1 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		A40F9EFB2C67985C004DD1A1 /* ReleaseConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ReleaseConfig.xcconfig; sourceTree = "<group>"; };
 		A40F9EFC2C6798A5004DD1A1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -1292,6 +1294,7 @@
 		A49E0AEB2CFEC61C00588087 /* Achieve */ = {
 			isa = PBXGroup;
 			children = (
+				A40C7A702D34AE3D00427BAA /* AchieveThemeRoutineEntity.swift */,
 				A40C7A682D30D9F200427BAA /* AchieveRankEntity.swift */,
 				A40C7A642D30B81900427BAA /* AchieveCharacterEntity.swift */,
 				A40C7A602D30A6A200427BAA /* AchieveThemeEntity.swift */,
@@ -1578,6 +1581,7 @@
 				A49E0AF72D01302900588087 /* CalendarRequestEntity.swift in Sources */,
 				09A9F91F2C804E3500FE5836 /* GetRainbowCottonViewController.swift in Sources */,
 				A49BFDF22B4DA53A00035EB6 /* ThemeSelectEntity.swift in Sources */,
+				A40C7A712D34AE4500427BAA /* AchieveThemeRoutineEntity.swift in Sources */,
 				A49BFDE92B4D873400035EB6 /* DollChoiceCollectionViewCell.swift in Sources */,
 				00CCDCC22B51B5AF007DD0E6 /* SplashOneView.swift in Sources */,
 				097E04872C6F24D700A350E8 /* PatchRoutineEntity.swift in Sources */,

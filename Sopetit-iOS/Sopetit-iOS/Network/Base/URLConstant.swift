@@ -70,4 +70,5 @@ enum URLConstant {
     static let delDailyHistoryURL = baseURL + "/api/v1/routines/daily/member/history/"
     static let delChallengeHistoryURL = baseURL + "/api/v2/members/challenges/history/"
     static let achievementThemesURL = baseURL + "/api/v3/achievement/themes"
+    static let achievementThemesRoutinesURL = baseURL + "/api/v3/achievement/themes/"
 }

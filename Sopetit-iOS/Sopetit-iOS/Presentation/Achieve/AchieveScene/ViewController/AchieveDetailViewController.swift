@@ -54,6 +54,17 @@ extension AchieveDetailViewController {
         detailDailyCV.delegate = self
         detailDailyCV.dataSource = self
     }
+    
+    func heightForContentView(texts: [ThemeChallenge]) -> Double {
+        var height = 20.0
+        
+        for k in texts {
+            let textHeight = heightForView(text: k.content.replacingOccurrences(of: "\n", with: " "), font: .fontGuide(.body2), width: SizeLiterals.Screen.screenWidth - 72) + 96
+            height += textHeight
+        }
+        height += Double(4 * (texts.count - 1))
+        return height
+    }
 }
 
 extension AchieveDetailViewController: BackButtonProtocol {
@@ -68,19 +79,25 @@ extension AchieveDetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch collectionView {
         case detailChallengeCV:
-            //            let label: UILabel = {
-            //                let label = UILabel()
-            //                let value = findValue(for: formatDateToString(selectedDate ?? Date()))
-            //                label.text = value.histories[indexPath.section].histories[indexPath.item].content.replacingOccurrences(of: "\n", with: " ")
-            //                label.font = .fontGuide(.body2)
-            //                return label
-            //            }()
-            //
-            //            let height = max(heightForView(text: label.text ?? "", font: label.font, width: SizeLiterals.Screen.screenWidth - 119), 24) + 32
-            //
-            return CGSize(width: SizeLiterals.Screen.screenWidth - 40, height: 100)
+            let label: UILabel = {
+                let label = UILabel()
+                label.text = challengeRoutines[indexPath.item].content.replacingOccurrences(of: "\n", with: " ")
+                label.font = .fontGuide(.body2)
+                return label
+            }()
+            
+            let height = max(heightForView(text: label.text ?? "", font: label.font, width: SizeLiterals.Screen.screenWidth - 72), 20) + 96
+            return CGSize(width: SizeLiterals.Screen.screenWidth - 40, height: height)
         case detailDailyCV:
-            return CGSize(width: SizeLiterals.Screen.screenWidth - 40, height: 79)
+            let label: UILabel = {
+                let label = UILabel()
+                label.text = dailyRoutines[indexPath.item].content.replacingOccurrences(of: "\n", with: " ")
+                label.font = .fontGuide(.body2)
+                return label
+            }()
+            
+            let height = max(heightForView(text: label.text ?? "", font: label.font, width: SizeLiterals.Screen.screenWidth - 72), 20) + 96
+            return CGSize(width: SizeLiterals.Screen.screenWidth - 40, height: height)
         default:
             return CGSize()
         }
@@ -130,8 +147,8 @@ extension AchieveDetailViewController {
                     if let achieveThemeRoutineData = data.data {
                         self.dailyRoutines = achieveThemeRoutineData.routines
                         self.challengeRoutines = achieveThemeRoutineData.challenges
-                        self.achieveDetailView.bindTotalDetail(total: self.dailyRoutines.count, isChallenge: false)
-                        self.achieveDetailView.bindTotalDetail(total: self.challengeRoutines.count, isChallenge: true)
+                        self.achieveDetailView.bindTotalDetail(total: self.dailyRoutines.count, height: self.heightForContentView(texts: self.dailyRoutines), isChallenge: false)
+                        self.achieveDetailView.bindTotalDetail(total: self.challengeRoutines.count, height: self.heightForContentView(texts: self.challengeRoutines), isChallenge: true)
                         self.detailDailyCV.reloadData()
                         self.detailChallengeCV.reloadData()
                     }

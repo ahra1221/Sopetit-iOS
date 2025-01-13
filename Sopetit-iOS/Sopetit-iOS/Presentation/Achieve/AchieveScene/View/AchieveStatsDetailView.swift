@@ -171,7 +171,7 @@ private extension AchieveStatsDetailView {
         }
         
         themeImageView.snp.makeConstraints {
-            $0.top.equalTo(navigationBar.snp.bottom).offset(20)
+            $0.top.equalToSuperview().inset(20)
             $0.centerX.equalToSuperview()
             $0.size.equalTo(40)
         }
@@ -199,6 +199,7 @@ private extension AchieveStatsDetailView {
         challengeCollectionView.snp.makeConstraints {
             $0.top.equalTo(challengeTitleLabel.snp.bottom).offset(4)
             $0.leading.trailing.equalToSuperview().inset(20)
+            $0.height.equalTo(100)
         }
         
         dailyTitleLabel.snp.makeConstraints {
@@ -215,6 +216,7 @@ private extension AchieveStatsDetailView {
             $0.top.equalTo(dailyTitleLabel.snp.bottom).offset(4)
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.bottom.equalToSuperview().inset(16)
+            $0.height.equalTo(100)
         }
         
     }
@@ -237,13 +239,20 @@ extension AchieveStatsDetailView {
     }
     
     func bindTotalDetail(total: Int,
+                         height: Double,
                          isChallenge: Bool) {
         if isChallenge {
             challengeCountLabel.text = "\(total)번"
             challengeCountLabel.asLineHeight(.body2)
+            challengeCollectionView.snp.updateConstraints {
+                $0.height.equalTo(height)
+            }
         } else {
             dailyCountLabel.text = "\(total)번"
             dailyCountLabel.asLineHeight(.body2)
+            dailyCollectionView.snp.updateConstraints {
+                $0.height.equalTo(height)
+            }
         }
     }
 }

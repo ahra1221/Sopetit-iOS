@@ -24,6 +24,7 @@ final class StatsDetailCell: UICollectionViewCell,
         label.text = "대중교통 이용 시 기사님께 감사 인사하기"
         label.textColor = .Gray700
         label.font = .fontGuide(.body2)
+        label.numberOfLines = 0
         return label
     }()
     
@@ -49,7 +50,6 @@ final class StatsDetailCell: UICollectionViewCell,
         let label = UILabel()
         label.text = "2024년 1월 13일 마지막 달성"
         label.textColor = .Gray500
-        label.numberOfLines = 0
         label.font = .fontGuide(.body2)
         return label
     }()
@@ -129,6 +129,8 @@ extension StatsDetailCell {
                          isChallenge: Bool) {
         themeTitleLabel.text = entity.content.replacingOccurrences(of: "\n", with: " ")
         themeCountLabel.text = "\(entity.achievedCount)번 달성"
+        themeTitleLabel.asLineHeight(.body2)
+        themeCountLabel.asLineHeight(.body2)
         
         let inputFormatter = DateFormatter()
         inputFormatter.dateFormat = "yyyy-MM-dd"
